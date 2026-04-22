@@ -7,30 +7,28 @@
     "smallImageKey": "big"
   },
   "servers": [
-{
-  "id": "Luxia-1.20.1",
-  "name": "Luxia (Minecraft 1.20.1)",
-  "description": "Luxia Running Minecraft 1.20.1 (Forge v47.2.0)",
-  "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/logo.png",
-  "version": "1.0.0",
-  "address": "217.182.205.4:2782",
-  "minecraftVersion": "1.20.1",
-  "discord": {
-    "shortId": "Luxia 1.20.1",
-    "largeImageKey": "big",
-    "largeImageText": "Forge 47.2.0"
-  },
-  "mainServer": true,
-  "autoconnect": false,
-  "modules": [
+    {
+      "id": "Luxia-1.20.1",
+      "name": "Luxia (Minecraft 1.20.1)",
+      "description": "Luxia Running Minecraft 1.20.1 (Forge v47.2.0)",
+      "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/logo.png",
+      "version": "1.0.0",
+      "address": "217.182.205.4:2782",
+      "minecraftVersion": "1.20.1",
+      "discord": {
+        "shortId": "Luxia 1.20.1",
+        "largeImageKey": "big",
+        "largeImageText": "Forge 47.2.0"
+      },
+      "mainServer": true,
+      "autoconnect": false,
+      "modules": [
         {
           "id": "net.minecraftforge:lowcodelanguage:1.20.1-47.2.0",
           "name": "Minecraft Forge (lowcodelanguage)",
           "type": "ForgeHosted",
           "classpath": true,
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://maven.minecraftforge.net/net/minecraftforge/lowcodelanguage/1.20.1-47.2.0/lowcodelanguage-1.20.1-47.2.0.jar"
           },
           "subModules": [
@@ -39,8 +37,6 @@
               "name": "Minecraft Forge (version.json)",
               "type": "VersionManifest",
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0.json"
               }
             },
@@ -50,8 +46,6 @@
               "type": "Library",
               "classpath": true,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlcore/1.20.1-47.2.0/fmlcore-1.20.1-47.2.0.jar"
               },
               "subModules": []
@@ -62,8 +56,6 @@
               "type": "Library",
               "classpath": true,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/javafmllanguage/1.20.1-47.2.0/javafmllanguage-1.20.1-47.2.0.jar"
               },
               "subModules": []
@@ -74,8 +66,6 @@
               "type": "Library",
               "classpath": true,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/mclanguage/1.20.1-47.2.0/mclanguage-1.20.1-47.2.0.jar"
               },
               "subModules": []
@@ -86,8 +76,6 @@
               "type": "Library",
               "classpath": false,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0-universal.jar"
               },
               "subModules": []
@@ -98,8 +86,6 @@
               "type": "Library",
               "classpath": false,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0-client.jar"
               },
               "subModules": []
@@ -110,8 +96,6 @@
               "type": "Library",
               "classpath": false,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-srg.jar"
               },
               "subModules": []
@@ -122,8 +106,6 @@
               "type": "Library",
               "classpath": false,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-slim.jar"
               },
               "subModules": []
@@ -134,8 +116,6 @@
               "type": "Library",
               "classpath": false,
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-extra.jar"
               },
               "subModules": []
@@ -145,8 +125,6 @@
               "name": "Minecraft Forge (securejarhandler)",
               "type": "Library",
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar"
               }
             },
@@ -225,8 +203,6 @@
               "name": "Minecraft Forge (eventbus)",
               "type": "Library",
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/eventbus/6.0.5/eventbus-6.0.5.jar"
               }
             },
@@ -255,8 +231,6 @@
               "name": "Minecraft Forge (modlauncher)",
               "type": "Library",
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/cpw/mods/modlauncher/10.1.3/modlauncher-10.1.3.jar"
               }
             },
@@ -325,8 +299,6 @@
               "name": "Minecraft Forge (terminalconsoleappender)",
               "type": "Library",
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecrell/terminalconsoleappender/1.3.0/terminalconsoleappender-1.3.0.jar"
               }
             },
@@ -415,8 +387,6 @@
               "name": "Minecraft Forge (fmlloader)",
               "type": "Library",
               "artifact": {
-                "size": 0,
-                "MD5": "",
                 "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlloader/1.20.1-47.2.0/fmlloader-1.20.1-47.2.0.jar"
               }
             }
@@ -427,8 +397,6 @@
           "name": "alexsmobs 1.22.9",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/alexsmobs-1.22.9.jar"
           }
         },
@@ -437,8 +405,6 @@
           "name": "appleskin forge mc1.20.1 2.5.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/appleskin-forge-mc1.20.1-2.5.1.jar"
           }
         },
@@ -447,8 +413,6 @@
           "name": "architectury 9.2.14 forge",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/architectury-9.2.14-forge.jar"
           }
         },
@@ -457,8 +421,6 @@
           "name": "astikorcarts 1.20.1 1.1.8",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/astikorcarts-1.20.1-1.1.8.jar"
           }
         },
@@ -467,8 +429,6 @@
           "name": "balm forge 1.20.1 7.3.38 all",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/balm-forge-1.20.1-7.3.38-all.jar"
           }
         },
@@ -477,8 +437,6 @@
           "name": "betterarcheology 1.2.1 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/betterarcheology-1.2.1-1.20.1.jar"
           }
         },
@@ -487,8 +445,6 @@
           "name": "BetterF3 7.0.2 Forge 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/BetterF3-7.0.2-Forge-1.20.1.jar"
           }
         },
@@ -497,8 +453,6 @@
           "name": "blockui 1.20.1 1.0.194 snapshot",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/blockui-1.20.1-1.0.194-snapshot.jar"
           }
         },
@@ -507,8 +461,6 @@
           "name": "Bookshelf Forge 1.20.1 20.2.15",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Bookshelf-Forge-1.20.1-20.2.15.jar"
           }
         },
@@ -517,8 +469,6 @@
           "name": "cfm forge 1.20.1 7.0.0 pre36",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cfm-forge-1.20.1-7.0.0-pre36.jar"
           }
         },
@@ -527,19 +477,7 @@
           "name": "citadel 2.6.3 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/citadel-2.6.3-1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:citresewn-1.2.2+1.20.1.jar@jar",
-          "name": "citresewn 1.2.2 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 0,
-            "MD5": "",
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/citresewn-1.2.2+1.20.1.jar"
           }
         },
         {
@@ -547,8 +485,6 @@
           "name": "clientsort forge 2.2.1 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/clientsort-forge-2.2.1+1.20.1.jar"
           }
         },
@@ -557,8 +493,6 @@
           "name": "cloth config 11.1.136 forge",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cloth-config-11.1.136-forge.jar"
           }
         },
@@ -567,8 +501,6 @@
           "name": "Coins Forge 1.20.1 13.0.4",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Coins-Forge-1.20.1-13.0.4.jar"
           }
         },
@@ -577,8 +509,6 @@
           "name": "collective 1.20.1 8.13",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/collective-1.20.1-8.13.jar"
           }
         },
@@ -587,8 +517,6 @@
           "name": "Controlling forge 1.20.1 12.0.2",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Controlling-forge-1.20.1-12.0.2.jar"
           }
         },
@@ -597,8 +525,6 @@
           "name": "cosmic 1.0.0 forge 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cosmic-1.0.0-forge-1.20.1.jar"
           }
         },
@@ -607,8 +533,6 @@
           "name": "creeperoverhaul 3.0.2 forge",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/creeperoverhaul-3.0.2-forge.jar"
           }
         },
@@ -617,8 +541,6 @@
           "name": "curios forge 5.14.1 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/curios-forge-5.14.1+1.20.1.jar"
           }
         },
@@ -627,8 +549,6 @@
           "name": "DimensionTeleport 1.20.1 2.0.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/DimensionTeleport-1.20.1-2.0.1.jar"
           }
         },
@@ -637,8 +557,6 @@
           "name": "domum ornamentum 1.20.1 1.0.300 snapshot universal",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/domum_ornamentum-1.20.1-1.0.300-snapshot-universal.jar"
           }
         },
@@ -647,8 +565,6 @@
           "name": "dragonmounts 1.20.1 1.2.3 beta",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/dragonmounts-1.20.1-1.2.3-beta.jar"
           }
         },
@@ -657,8 +573,6 @@
           "name": "dynamic fps 3.11.4 minecraft 1.20.0 forge",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/dynamic-fps-3.11.4+minecraft-1.20.0-forge.jar"
           }
         },
@@ -667,8 +581,6 @@
           "name": "elenaidodge2 1.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/elenaidodge2-1.1.jar"
           }
         },
@@ -677,8 +589,6 @@
           "name": "embeddium 0.3.31 mc1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/embeddium-0.3.31+mc1.20.1.jar"
           }
         },
@@ -687,8 +597,6 @@
           "name": "endermanoverhaul forge 1.20.1 1.0.4",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/endermanoverhaul-forge-1.20.1-1.0.4.jar"
           }
         },
@@ -697,19 +605,7 @@
           "name": "epic knights 1.20.1 forge 10.11",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/epic-knights-1.20.1-forge-10.11.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:fabric-api-0.92.7+1.20.1.jar@jar",
-          "name": "fabric api 0.92.7 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 0,
-            "MD5": "",
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/fabric-api-0.92.7+1.20.1.jar"
           }
         },
         {
@@ -717,8 +613,6 @@
           "name": "FarmersDelight 1.20.1 1.2.11",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/FarmersDelight-1.20.1-1.2.11.jar"
           }
         },
@@ -727,19 +621,7 @@
           "name": "feathers 1.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/feathers-1.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:ForgeConfigAPIPort-v8.0.3-1.20.1-Fabric.jar@jar",
-          "name": "ForgeConfigAPIPort v8.0.3 1.20.1 Fabric",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 0,
-            "MD5": "",
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/ForgeConfigAPIPort-v8.0.3-1.20.1-Fabric.jar"
           }
         },
         {
@@ -747,8 +629,6 @@
           "name": "geckolib forge 1.20.1 4.8.3",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/geckolib-forge-1.20.1-4.8.3.jar"
           }
         },
@@ -757,8 +637,6 @@
           "name": "gravestone forge 1.20.1 1.0.35",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/gravestone-forge-1.20.1-1.0.35.jar"
           }
         },
@@ -767,8 +645,6 @@
           "name": "guardvillagers 1.20.1 1.6.17",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/guardvillagers-1.20.1-1.6.17.jar"
           }
         },
@@ -777,8 +653,6 @@
           "name": "horsecombatcontrols 1.20.1 1.0.3",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/horsecombatcontrols-1.20.1-1.0.3.jar"
           }
         },
@@ -787,8 +661,6 @@
           "name": "immersive melodies 0.6.0 1.20.1 forge",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/immersive_melodies-0.6.0+1.20.1-forge.jar"
           }
         },
@@ -797,8 +669,6 @@
           "name": "Jade 1.20.1 Forge 11.13.2",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Jade-1.20.1-Forge-11.13.2.jar"
           }
         },
@@ -807,8 +677,6 @@
           "name": "jei 1.20.1 forge 15.20.0.129",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/jei-1.20.1-forge-15.20.0.129.jar"
           }
         },
@@ -817,8 +685,6 @@
           "name": "JustEnoughResources 1.20.1 1.4.0.247",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/JustEnoughResources-1.20.1-1.4.0.247.jar"
           }
         },
@@ -827,19 +693,7 @@
           "name": "lootr forge 1.20 0.7.35.94",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/lootr-forge-1.20-0.7.35.94.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:modmenu-7.2.2.jar@jar",
-          "name": "modmenu 7.2.2",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 0,
-            "MD5": "",
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/modmenu-7.2.2.jar"
           }
         },
         {
@@ -847,8 +701,6 @@
           "name": "MouseTweaks forge mc1.20.1 2.25.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/MouseTweaks-forge-mc1.20.1-2.25.1.jar"
           }
         },
@@ -857,8 +709,6 @@
           "name": "oculus mc1.20.1 1.8.0",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/oculus-mc1.20.1-1.8.0.jar"
           }
         },
@@ -867,8 +717,6 @@
           "name": "OverflowingBars v8.0.1 1.20.1 Forge",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/OverflowingBars-v8.0.1-1.20.1-Forge.jar"
           }
         },
@@ -877,8 +725,6 @@
           "name": "polymorph forge 0.49.10 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/polymorph-forge-0.49.10+1.20.1.jar"
           }
         },
@@ -887,8 +733,6 @@
           "name": "PuzzlesLib v8.1.33 1.20.1 Forge",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/PuzzlesLib-v8.1.33-1.20.1-Forge.jar"
           }
         },
@@ -897,8 +741,6 @@
           "name": "resourcefulconfig forge 1.20.1 2.1.3",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/resourcefulconfig-forge-1.20.1-2.1.3.jar"
           }
         },
@@ -907,8 +749,6 @@
           "name": "resourcefullib forge 1.20.1 2.1.29",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/resourcefullib-forge-1.20.1-2.1.29.jar"
           }
         },
@@ -917,8 +757,6 @@
           "name": "Searchables forge 1.20.1 1.0.3",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Searchables-forge-1.20.1-1.0.3.jar"
           }
         },
@@ -927,8 +765,6 @@
           "name": "sophisticatedbackpacks 1.20.1 3.24.30.1614",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar"
           }
         },
@@ -937,8 +773,6 @@
           "name": "sophisticatedcore 1.20.1 1.3.12.1578",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/sophisticatedcore-1.20.1-1.3.12.1578.jar"
           }
         },
@@ -947,8 +781,6 @@
           "name": "spudaciousshops 1.10.2 forge 1.20.1",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/spudaciousshops-1.10.2-forge-1.20.1.jar"
           }
         },
@@ -957,8 +789,6 @@
           "name": "structurize 1.20.1 1.0.809 snapshot",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/structurize-1.20.1-1.0.809-snapshot.jar"
           }
         },
@@ -967,8 +797,6 @@
           "name": "supermartijn642configlib 1.1.8 forge mc1.20",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/supermartijn642configlib-1.1.8-forge-mc1.20.jar"
           }
         },
@@ -977,8 +805,6 @@
           "name": "villagernames 1.20.1 8.2",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/villagernames-1.20.1-8.2.jar"
           }
         },
@@ -987,8 +813,6 @@
           "name": "voicechat forge 1.20.1 2.6.14",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/voicechat-forge-1.20.1-2.6.14.jar"
           }
         },
@@ -997,8 +821,6 @@
           "name": "waystones forge 1.20.1 14.1.20",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/waystones-forge-1.20.1-14.1.20.jar"
           }
         },
@@ -1007,8 +829,6 @@
           "name": "worldedit mod 7.2.15",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/worldedit-mod-7.2.15.jar"
           }
         },
@@ -1017,8 +837,6 @@
           "name": "xaerominimap forge 1.20.1 25.3.10",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/xaerominimap-forge-1.20.1-25.3.10.jar"
           }
         },
@@ -1027,8 +845,6 @@
           "name": "xaeroworldmap forge 1.20.1 1.40.11",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/xaeroworldmap-forge-1.20.1-1.40.11.jar"
           }
         },
@@ -1037,8 +853,6 @@
           "name": "YungsApi 1.20 Forge 4.0.6",
           "type": "ForgeMod",
           "artifact": {
-            "size": 0,
-            "MD5": "",
             "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/YungsApi-1.20-Forge-4.0.6.jar"
           }
         }
