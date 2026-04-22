@@ -1,862 +1,352 @@
 {
-  "version": "1.0.0",
-  "rss": "https://helios-files.geekcorner.eu.org/rss.xml",
-  "discord": {
-    "clientId": "1086936373057040395",
-    "smallImageText": "Luxia",
-    "smallImageKey": "big"
+  "id": "net.minecraftforge:forge:1.20.1-47.2.0",
+  "name": "Minecraft Forge (1.20.1-47.2.0)",
+  "type": "ForgeHosted",
+  "artifact": {
+    "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0-universal.jar"
   },
-  "servers": [
+  "subModules": [
     {
-      "id": "Luxia-1.20.1",
-      "name": "Luxia (Minecraft 1.20.1)",
-      "description": "Luxia Running Minecraft 1.20.1 (Forge v47.2.0)",
-      "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/logo.png",
-      "version": "1.0.0",
-      "address": "217.182.205.4:2782",
-      "minecraftVersion": "1.20.1",
-      "discord": {
-        "shortId": "Luxia 1.20.1",
-        "largeImageKey": "big",
-        "largeImageText": "Forge 47.2.0"
-      },
-      "mainServer": true,
-      "autoconnect": false,
-      "modules": [
-        {
-          "id": "net.minecraftforge:lowcodelanguage:1.20.1-47.2.0",
-          "name": "Minecraft Forge (lowcodelanguage)",
-          "type": "ForgeHosted",
-          "classpath": true,
-          "artifact": {
-            "url": "https://maven.minecraftforge.net/net/minecraftforge/lowcodelanguage/1.20.1-47.2.0/lowcodelanguage-1.20.1-47.2.0.jar"
-          },
-          "subModules": [
-            {
-              "id": "1.20.1-47.2.0",
-              "name": "Minecraft Forge (version.json)",
-              "type": "VersionManifest",
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0.json"
-              }
-            },
-            {
-              "id": "net.minecraftforge:fmlcore:1.20.1-47.2.0",
-              "name": "Minecraft Forge (fmlcore)",
-              "type": "Library",
-              "classpath": true,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlcore/1.20.1-47.2.0/fmlcore-1.20.1-47.2.0.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "net.minecraftforge:javafmllanguage:1.20.1-47.2.0",
-              "name": "Minecraft Forge (javafmllanguage)",
-              "type": "Library",
-              "classpath": true,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/javafmllanguage/1.20.1-47.2.0/javafmllanguage-1.20.1-47.2.0.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "net.minecraftforge:mclanguage:1.20.1-47.2.0",
-              "name": "Minecraft Forge (mclanguage)",
-              "type": "Library",
-              "classpath": true,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/mclanguage/1.20.1-47.2.0/mclanguage-1.20.1-47.2.0.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "net.minecraftforge:forge:1.20.1-47.2.0:universal",
-              "name": "Minecraft Forge (universal jar)",
-              "type": "Library",
-              "classpath": false,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0-universal.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "net.minecraftforge:forge:1.20.1-47.2.0:client",
-              "name": "Minecraft Forge (client jar)",
-              "type": "Library",
-              "classpath": false,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0-client.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "net.minecraft:client:1.20.1-20230612.114412:srg",
-              "name": "Minecraft Forge (client srg)",
-              "type": "Library",
-              "classpath": false,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-srg.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "net.minecraft:client:1.20.1-20230612.114412:slim",
-              "name": "Minecraft Forge (client slim)",
-              "type": "Library",
-              "classpath": false,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-slim.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "net.minecraft:client:1.20.1-20230612.114412:extra",
-              "name": "Minecraft Forge (client extra)",
-              "type": "Library",
-              "classpath": false,
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-extra.jar"
-              },
-              "subModules": []
-            },
-            {
-              "id": "cpw.mods:securejarhandler:2.1.10",
-              "name": "Minecraft Forge (securejarhandler)",
-              "type": "Library",
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar"
-              }
-            },
-            {
-              "id": "org.ow2.asm:asm:9.5",
-              "name": "Minecraft Forge (asm)",
-              "type": "Library",
-              "artifact": {
-                "size": 121863,
-                "MD5": "29721ee4b5eacf0a34b204c345c8bc69",
-                "url": "https://maven.minecraftforge.net/org/ow2/asm/asm/9.5/asm-9.5.jar"
-              }
-            },
-            {
-              "id": "org.ow2.asm:asm-commons:9.5",
-              "name": "Minecraft Forge (asm-commons)",
-              "type": "Library",
-              "artifact": {
-                "size": 72209,
-                "MD5": "7d1fce986192f71722b19754e4cb9e61",
-                "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-commons/9.5/asm-commons-9.5.jar"
-              }
-            },
-            {
-              "id": "org.ow2.asm:asm-tree:9.5",
-              "name": "Minecraft Forge (asm-tree)",
-              "type": "Library",
-              "artifact": {
-                "size": 51944,
-                "MD5": "44755681b7d6fa7143afbb438e55c20c",
-                "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-tree/9.5/asm-tree-9.5.jar"
-              }
-            },
-            {
-              "id": "org.ow2.asm:asm-util:9.5",
-              "name": "Minecraft Forge (asm-util)",
-              "type": "Library",
-              "artifact": {
-                "size": 91076,
-                "MD5": "ad0016249fb68bb9196babefd47b80dc",
-                "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-util/9.5/asm-util-9.5.jar"
-              }
-            },
-            {
-              "id": "org.ow2.asm:asm-analysis:9.5",
-              "name": "Minecraft Forge (asm-analysis)",
-              "type": "Library",
-              "artifact": {
-                "size": 33978,
-                "MD5": "4df0adafc78ebba404d4037987d36b61",
-                "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-analysis/9.5/asm-analysis-9.5.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:accesstransformers:8.0.4",
-              "name": "Minecraft Forge (accesstransformers)",
-              "type": "Library",
-              "artifact": {
-                "size": 77756,
-                "MD5": "f0d3533f9437ba4428eaee9f28f7ecd9",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/accesstransformers/8.0.4/accesstransformers-8.0.4.jar"
-              }
-            },
-            {
-              "id": "org.antlr:antlr4-runtime:4.9.1",
-              "name": "Minecraft Forge (antlr4-runtime)",
-              "type": "Library",
-              "artifact": {
-                "size": 337868,
-                "MD5": "0dcc4b860d5d8d2852ab94d58c56ca2d",
-                "url": "https://maven.minecraftforge.net/org/antlr/antlr4-runtime/4.9.1/antlr4-runtime-4.9.1.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:eventbus:6.0.5",
-              "name": "Minecraft Forge (eventbus)",
-              "type": "Library",
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/eventbus/6.0.5/eventbus-6.0.5.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:forgespi:7.0.0",
-              "name": "Minecraft Forge (forgespi)",
-              "type": "Library",
-              "artifact": {
-                "size": 30602,
-                "MD5": "b1bf9c45a33a749ed58b15d679925243",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/forgespi/7.0.0/forgespi-7.0.0.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:coremods:5.0.1",
-              "name": "Minecraft Forge (coremods)",
-              "type": "Library",
-              "artifact": {
-                "size": 24199,
-                "MD5": "8c590051c5d65e098ca7c2e3ddf803a8",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/coremods/5.0.1/coremods-5.0.1.jar"
-              }
-            },
-            {
-              "id": "cpw.mods:modlauncher:10.1.3",
-              "name": "Minecraft Forge (modlauncher)",
-              "type": "Library",
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/cpw/mods/modlauncher/10.1.3/modlauncher-10.1.3.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:unsafe:0.2.0",
-              "name": "Minecraft Forge (unsafe)",
-              "type": "Library",
-              "artifact": {
-                "size": 2834,
-                "MD5": "2d1016ebe4c1a63dd50a59d26bd12db1",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/unsafe/0.2.0/unsafe-0.2.0.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:mergetool:1.1.5:api",
-              "name": "Minecraft Forge (mergetool)",
-              "type": "Library",
-              "artifact": {
-                "size": 2572,
-                "MD5": "8df9c5bf87d004ddb884eca99bc2a4b1",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/mergetool/1.1.5/mergetool-1.1.5-api.jar"
-              }
-            },
-            {
-              "id": "com.electronwill.night-config:core:3.6.4",
-              "name": "Minecraft Forge (core)",
-              "type": "Library",
-              "artifact": {
-                "size": 199834,
-                "MD5": "d83ab07267e402131fb93d899a57f5cd",
-                "url": "https://maven.minecraftforge.net/com/electronwill/night-config/core/3.6.4/core-3.6.4.jar"
-              }
-            },
-            {
-              "id": "com.electronwill.night-config:toml:3.6.4",
-              "name": "Minecraft Forge (toml)",
-              "type": "Library",
-              "artifact": {
-                "size": 31816,
-                "MD5": "bc95d0709fff2164b01fd09fbc988be8",
-                "url": "https://maven.minecraftforge.net/com/electronwill/night-config/toml/3.6.4/toml-3.6.4.jar"
-              }
-            },
-            {
-              "id": "org.apache.maven:maven-artifact:3.8.5",
-              "name": "Minecraft Forge (maven-artifact)",
-              "type": "Library",
-              "artifact": {
-                "size": 58077,
-                "MD5": "ce473b0d9fbfd10fe147f03fe8707d67",
-                "url": "https://maven.minecraftforge.net/org/apache/maven/maven-artifact/3.8.5/maven-artifact-3.8.5.jar"
-              }
-            },
-            {
-              "id": "net.jodah:typetools:0.8.3",
-              "name": "Minecraft Forge (typetools)",
-              "type": "Library",
-              "artifact": {
-                "size": 15425,
-                "MD5": "ee4596e1413cc1a5e080c971d6064753",
-                "url": "https://maven.minecraftforge.net/net/jodah/typetools/0.8.3/typetools-0.8.3.jar"
-              }
-            },
-            {
-              "id": "net.minecrell:terminalconsoleappender:1.3.0",
-              "name": "Minecraft Forge (terminalconsoleappender)",
-              "type": "Library",
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecrell/terminalconsoleappender/1.3.0/terminalconsoleappender-1.3.0.jar"
-              }
-            },
-            {
-              "id": "org.jline:jline-reader:3.12.1",
-              "name": "Minecraft Forge (jline-reader)",
-              "type": "Library",
-              "artifact": {
-                "size": 150765,
-                "MD5": "a2e7b012cd9802f83321187409174a94",
-                "url": "https://maven.minecraftforge.net/org/jline/jline-reader/3.12.1/jline-reader-3.12.1.jar"
-              }
-            },
-            {
-              "id": "org.jline:jline-terminal:3.12.1",
-              "name": "Minecraft Forge (jline-terminal)",
-              "type": "Library",
-              "artifact": {
-                "size": 211712,
-                "MD5": "3c52be5ab5e3847be6e62269de924cb0",
-                "url": "https://maven.minecraftforge.net/org/jline/jline-terminal/3.12.1/jline-terminal-3.12.1.jar"
-              }
-            },
-            {
-              "id": "org.spongepowered:mixin:0.8.5",
-              "name": "Minecraft Forge (mixin)",
-              "type": "Library",
-              "artifact": {
-                "size": 1089277,
-                "MD5": "19b3a2ae9e445a6e626fd7d1648cfcb8",
-                "url": "https://maven.minecraftforge.net/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar"
-              }
-            },
-            {
-              "id": "org.openjdk.nashorn:nashorn-core:15.3",
-              "name": "Minecraft Forge (nashorn-core)",
-              "type": "Library",
-              "artifact": {
-                "size": 2167288,
-                "MD5": "91e98c20afa1090c344229ce28b4c53f",
-                "url": "https://maven.minecraftforge.net/org/openjdk/nashorn/nashorn-core/15.3/nashorn-core-15.3.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:JarJarSelector:0.3.19",
-              "name": "Minecraft Forge (JarJarSelector)",
-              "type": "Library",
-              "artifact": {
-                "size": 17374,
-                "MD5": "2bb6cbe0e6c6fbcd8f92d2e6b1ea678e",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/JarJarSelector/0.3.19/JarJarSelector-0.3.19.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:JarJarMetadata:0.3.19",
-              "name": "Minecraft Forge (JarJarMetadata)",
-              "type": "Library",
-              "artifact": {
-                "size": 15895,
-                "MD5": "9633546d299d4282ca68d10582be1c8f",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/JarJarMetadata/0.3.19/JarJarMetadata-0.3.19.jar"
-              }
-            },
-            {
-              "id": "cpw.mods:bootstraplauncher:1.1.2",
-              "name": "Minecraft Forge (bootstraplauncher)",
-              "type": "Library",
-              "artifact": {
-                "size": 8284,
-                "MD5": "48f5255aa337344c467c0150d347813d",
-                "url": "https://maven.minecraftforge.net/cpw/mods/bootstraplauncher/1.1.2/bootstraplauncher-1.1.2.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:JarJarFileSystems:0.3.19",
-              "name": "Minecraft Forge (JarJarFileSystems)",
-              "type": "Library",
-              "artifact": {
-                "size": 32195,
-                "MD5": "c2be1a88b63eb1b58b00ab6e498cd97d",
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/JarJarFileSystems/0.3.19/JarJarFileSystems-0.3.19.jar"
-              }
-            },
-            {
-              "id": "net.minecraftforge:fmlloader:1.20.1-47.2.0",
-              "name": "Minecraft Forge (fmlloader)",
-              "type": "Library",
-              "artifact": {
-                "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlloader/1.20.1-47.2.0/fmlloader-1.20.1-47.2.0.jar"
-              }
-            }
-          ]
-        },
-        {
-          "id": "generated.forgemod:alexsmobs-1.22.9.jar@jar",
-          "name": "alexsmobs 1.22.9",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/alexsmobs-1.22.9.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:appleskin-forge-mc1.20.1-2.5.1.jar@jar",
-          "name": "appleskin forge mc1.20.1 2.5.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/appleskin-forge-mc1.20.1-2.5.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:architectury-9.2.14-forge.jar@jar",
-          "name": "architectury 9.2.14 forge",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/architectury-9.2.14-forge.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:astikorcarts-1.20.1-1.1.8.jar@jar",
-          "name": "astikorcarts 1.20.1 1.1.8",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/astikorcarts-1.20.1-1.1.8.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:balm-forge-1.20.1-7.3.38-all.jar@jar",
-          "name": "balm forge 1.20.1 7.3.38 all",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/balm-forge-1.20.1-7.3.38-all.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:betterarcheology-1.2.1-1.20.1.jar@jar",
-          "name": "betterarcheology 1.2.1 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/betterarcheology-1.2.1-1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:BetterF3-7.0.2-Forge-1.20.1.jar@jar",
-          "name": "BetterF3 7.0.2 Forge 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/BetterF3-7.0.2-Forge-1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:blockui-1.20.1-1.0.194-snapshot.jar@jar",
-          "name": "blockui 1.20.1 1.0.194 snapshot",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/blockui-1.20.1-1.0.194-snapshot.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:Bookshelf-Forge-1.20.1-20.2.15.jar@jar",
-          "name": "Bookshelf Forge 1.20.1 20.2.15",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Bookshelf-Forge-1.20.1-20.2.15.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:cfm-forge-1.20.1-7.0.0-pre36.jar@jar",
-          "name": "cfm forge 1.20.1 7.0.0 pre36",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cfm-forge-1.20.1-7.0.0-pre36.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:citadel-2.6.3-1.20.1.jar@jar",
-          "name": "citadel 2.6.3 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/citadel-2.6.3-1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:clientsort-forge-2.2.1+1.20.1.jar@jar",
-          "name": "clientsort forge 2.2.1 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/clientsort-forge-2.2.1+1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:cloth-config-11.1.136-forge.jar@jar",
-          "name": "cloth config 11.1.136 forge",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cloth-config-11.1.136-forge.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:Coins-Forge-1.20.1-13.0.4.jar@jar",
-          "name": "Coins Forge 1.20.1 13.0.4",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Coins-Forge-1.20.1-13.0.4.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:collective-1.20.1-8.13.jar@jar",
-          "name": "collective 1.20.1 8.13",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/collective-1.20.1-8.13.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:Controlling-forge-1.20.1-12.0.2.jar@jar",
-          "name": "Controlling forge 1.20.1 12.0.2",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Controlling-forge-1.20.1-12.0.2.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:cosmic-1.0.0-forge-1.20.1.jar@jar",
-          "name": "cosmic 1.0.0 forge 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cosmic-1.0.0-forge-1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:creeperoverhaul-3.0.2-forge.jar@jar",
-          "name": "creeperoverhaul 3.0.2 forge",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/creeperoverhaul-3.0.2-forge.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:curios-forge-5.14.1+1.20.1.jar@jar",
-          "name": "curios forge 5.14.1 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/curios-forge-5.14.1+1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:DimensionTeleport-1.20.1-2.0.1.jar@jar",
-          "name": "DimensionTeleport 1.20.1 2.0.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/DimensionTeleport-1.20.1-2.0.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:domum_ornamentum-1.20.1-1.0.300-snapshot-universal.jar@jar",
-          "name": "domum ornamentum 1.20.1 1.0.300 snapshot universal",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/domum_ornamentum-1.20.1-1.0.300-snapshot-universal.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:dragonmounts-1.20.1-1.2.3-beta.jar@jar",
-          "name": "dragonmounts 1.20.1 1.2.3 beta",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/dragonmounts-1.20.1-1.2.3-beta.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:dynamic-fps-3.11.4+minecraft-1.20.0-forge.jar@jar",
-          "name": "dynamic fps 3.11.4 minecraft 1.20.0 forge",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/dynamic-fps-3.11.4+minecraft-1.20.0-forge.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:elenaidodge2-1.1.jar@jar",
-          "name": "elenaidodge2 1.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/elenaidodge2-1.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:embeddium-0.3.31+mc1.20.1.jar@jar",
-          "name": "embeddium 0.3.31 mc1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/embeddium-0.3.31+mc1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:endermanoverhaul-forge-1.20.1-1.0.4.jar@jar",
-          "name": "endermanoverhaul forge 1.20.1 1.0.4",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/endermanoverhaul-forge-1.20.1-1.0.4.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:epic-knights-1.20.1-forge-10.11.jar@jar",
-          "name": "epic knights 1.20.1 forge 10.11",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/epic-knights-1.20.1-forge-10.11.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:FarmersDelight-1.20.1-1.2.11.jar@jar",
-          "name": "FarmersDelight 1.20.1 1.2.11",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/FarmersDelight-1.20.1-1.2.11.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:feathers-1.1.jar@jar",
-          "name": "feathers 1.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/feathers-1.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:geckolib-forge-1.20.1-4.8.3.jar@jar",
-          "name": "geckolib forge 1.20.1 4.8.3",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/geckolib-forge-1.20.1-4.8.3.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:gravestone-forge-1.20.1-1.0.35.jar@jar",
-          "name": "gravestone forge 1.20.1 1.0.35",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/gravestone-forge-1.20.1-1.0.35.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:guardvillagers-1.20.1-1.6.17.jar@jar",
-          "name": "guardvillagers 1.20.1 1.6.17",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/guardvillagers-1.20.1-1.6.17.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:horsecombatcontrols-1.20.1-1.0.3.jar@jar",
-          "name": "horsecombatcontrols 1.20.1 1.0.3",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/horsecombatcontrols-1.20.1-1.0.3.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:immersive_melodies-0.6.0+1.20.1-forge.jar@jar",
-          "name": "immersive melodies 0.6.0 1.20.1 forge",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/immersive_melodies-0.6.0+1.20.1-forge.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:Jade-1.20.1-Forge-11.13.2.jar@jar",
-          "name": "Jade 1.20.1 Forge 11.13.2",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Jade-1.20.1-Forge-11.13.2.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:jei-1.20.1-forge-15.20.0.129.jar@jar",
-          "name": "jei 1.20.1 forge 15.20.0.129",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/jei-1.20.1-forge-15.20.0.129.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:JustEnoughResources-1.20.1-1.4.0.247.jar@jar",
-          "name": "JustEnoughResources 1.20.1 1.4.0.247",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/JustEnoughResources-1.20.1-1.4.0.247.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:lootr-forge-1.20-0.7.35.94.jar@jar",
-          "name": "lootr forge 1.20 0.7.35.94",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/lootr-forge-1.20-0.7.35.94.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:MouseTweaks-forge-mc1.20.1-2.25.1.jar@jar",
-          "name": "MouseTweaks forge mc1.20.1 2.25.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/MouseTweaks-forge-mc1.20.1-2.25.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:oculus-mc1.20.1-1.8.0.jar@jar",
-          "name": "oculus mc1.20.1 1.8.0",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/oculus-mc1.20.1-1.8.0.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:OverflowingBars-v8.0.1-1.20.1-Forge.jar@jar",
-          "name": "OverflowingBars v8.0.1 1.20.1 Forge",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/OverflowingBars-v8.0.1-1.20.1-Forge.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:polymorph-forge-0.49.10+1.20.1.jar@jar",
-          "name": "polymorph forge 0.49.10 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/polymorph-forge-0.49.10+1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:PuzzlesLib-v8.1.33-1.20.1-Forge.jar@jar",
-          "name": "PuzzlesLib v8.1.33 1.20.1 Forge",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/PuzzlesLib-v8.1.33-1.20.1-Forge.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:resourcefulconfig-forge-1.20.1-2.1.3.jar@jar",
-          "name": "resourcefulconfig forge 1.20.1 2.1.3",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/resourcefulconfig-forge-1.20.1-2.1.3.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:resourcefullib-forge-1.20.1-2.1.29.jar@jar",
-          "name": "resourcefullib forge 1.20.1 2.1.29",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/resourcefullib-forge-1.20.1-2.1.29.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:Searchables-forge-1.20.1-1.0.3.jar@jar",
-          "name": "Searchables forge 1.20.1 1.0.3",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Searchables-forge-1.20.1-1.0.3.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:sophisticatedbackpacks-1.20.1-3.24.30.1614.jar@jar",
-          "name": "sophisticatedbackpacks 1.20.1 3.24.30.1614",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:sophisticatedcore-1.20.1-1.3.12.1578.jar@jar",
-          "name": "sophisticatedcore 1.20.1 1.3.12.1578",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/sophisticatedcore-1.20.1-1.3.12.1578.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:spudaciousshops-1.10.2-forge-1.20.1.jar@jar",
-          "name": "spudaciousshops 1.10.2 forge 1.20.1",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/spudaciousshops-1.10.2-forge-1.20.1.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:structurize-1.20.1-1.0.809-snapshot.jar@jar",
-          "name": "structurize 1.20.1 1.0.809 snapshot",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/structurize-1.20.1-1.0.809-snapshot.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:supermartijn642configlib-1.1.8-forge-mc1.20.jar@jar",
-          "name": "supermartijn642configlib 1.1.8 forge mc1.20",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/supermartijn642configlib-1.1.8-forge-mc1.20.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:villagernames-1.20.1-8.2.jar@jar",
-          "name": "villagernames 1.20.1 8.2",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/villagernames-1.20.1-8.2.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:voicechat-forge-1.20.1-2.6.14.jar@jar",
-          "name": "voicechat forge 1.20.1 2.6.14",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/voicechat-forge-1.20.1-2.6.14.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:waystones-forge-1.20.1-14.1.20.jar@jar",
-          "name": "waystones forge 1.20.1 14.1.20",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/waystones-forge-1.20.1-14.1.20.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:worldedit-mod-7.2.15.jar@jar",
-          "name": "worldedit mod 7.2.15",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/worldedit-mod-7.2.15.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:xaerominimap-forge-1.20.1-25.3.10.jar@jar",
-          "name": "xaerominimap forge 1.20.1 25.3.10",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/xaerominimap-forge-1.20.1-25.3.10.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:xaeroworldmap-forge-1.20.1-1.40.11.jar@jar",
-          "name": "xaeroworldmap forge 1.20.1 1.40.11",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/xaeroworldmap-forge-1.20.1-1.40.11.jar"
-          }
-        },
-        {
-          "id": "generated.forgemod:YungsApi-1.20-Forge-4.0.6.jar@jar",
-          "name": "YungsApi 1.20 Forge 4.0.6",
-          "type": "ForgeMod",
-          "artifact": {
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/YungsApi-1.20-Forge-4.0.6.jar"
-          }
-        }
-      ]
+      "id": "net.minecraftforge:lowcodelanguage:1.20.1-47.2.0",
+      "name": "Minecraft Forge (lowcodelanguage)",
+      "type": "Library",
+      "classpath": true,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/lowcodelanguage/1.20.1-47.2.0/lowcodelanguage-1.20.1-47.2.0.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:fmlcore:1.20.1-47.2.0",
+      "name": "Minecraft Forge (fmlcore)",
+      "type": "Library",
+      "classpath": true,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlcore/1.20.1-47.2.0/fmlcore-1.20.1-47.2.0.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:javafmllanguage:1.20.1-47.2.0",
+      "name": "Minecraft Forge (javafmllanguage)",
+      "type": "Library",
+      "classpath": true,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/javafmllanguage/1.20.1-47.2.0/javafmllanguage-1.20.1-47.2.0.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:mclanguage:1.20.1-47.2.0",
+      "name": "Minecraft Forge (mclanguage)",
+      "type": "Library",
+      "classpath": true,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/mclanguage/1.20.1-47.2.0/mclanguage-1.20.1-47.2.0.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:forge:1.20.1-47.2.0:client",
+      "name": "Minecraft Forge (client jar)",
+      "type": "Library",
+      "classpath": false,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0-client.jar"
+      }
+    },
+    {
+      "id": "net.minecraft:client:1.20.1-20230612.114412:srg",
+      "name": "Minecraft Forge (client srg)",
+      "type": "Library",
+      "classpath": false,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-srg.jar"
+      }
+    },
+    {
+      "id": "net.minecraft:client:1.20.1-20230612.114412:slim",
+      "name": "Minecraft Forge (client slim)",
+      "type": "Library",
+      "classpath": false,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-slim.jar"
+      }
+    },
+    {
+      "id": "net.minecraft:client:1.20.1-20230612.114412:extra",
+      "name": "Minecraft Forge (client extra)",
+      "type": "Library",
+      "classpath": false,
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-extra.jar"
+      }
+    },
+    {
+      "id": "cpw.mods:securejarhandler:2.1.10",
+      "name": "Minecraft Forge (securejarhandler)",
+      "type": "Library",
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar"
+      }
+    },
+    {
+      "id": "org.ow2.asm:asm:9.5",
+      "name": "Minecraft Forge (asm)",
+      "type": "Library",
+      "artifact": {
+        "size": 121863,
+        "MD5": "29721ee4b5eacf0a34b204c345c8bc69",
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm/9.5/asm-9.5.jar"
+      }
+    },
+    {
+      "id": "org.ow2.asm:asm-commons:9.5",
+      "name": "Minecraft Forge (asm-commons)",
+      "type": "Library",
+      "artifact": {
+        "size": 72209,
+        "MD5": "7d1fce986192f71722b19754e4cb9e61",
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-commons/9.5/asm-commons-9.5.jar"
+      }
+    },
+    {
+      "id": "org.ow2.asm:asm-tree:9.5",
+      "name": "Minecraft Forge (asm-tree)",
+      "type": "Library",
+      "artifact": {
+        "size": 51944,
+        "MD5": "44755681b7d6fa7143afbb438e55c20c",
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-tree/9.5/asm-tree-9.5.jar"
+      }
+    },
+    {
+      "id": "org.ow2.asm:asm-util:9.5",
+      "name": "Minecraft Forge (asm-util)",
+      "type": "Library",
+      "artifact": {
+        "size": 91076,
+        "MD5": "ad0016249fb68bb9196babefd47b80dc",
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-util/9.5/asm-util-9.5.jar"
+      }
+    },
+    {
+      "id": "org.ow2.asm:asm-analysis:9.5",
+      "name": "Minecraft Forge (asm-analysis)",
+      "type": "Library",
+      "artifact": {
+        "size": 33978,
+        "MD5": "4df0adafc78ebba404d4037987d36b61",
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-analysis/9.5/asm-analysis-9.5.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:accesstransformers:8.0.4",
+      "name": "Minecraft Forge (accesstransformers)",
+      "type": "Library",
+      "artifact": {
+        "size": 77756,
+        "MD5": "f0d3533f9437ba4428eaee9f28f7ecd9",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/accesstransformers/8.0.4/accesstransformers-8.0.4.jar"
+      }
+    },
+    {
+      "id": "org.antlr:antlr4-runtime:4.9.1",
+      "name": "Minecraft Forge (antlr4-runtime)",
+      "type": "Library",
+      "artifact": {
+        "size": 337868,
+        "MD5": "0dcc4b860d5d8d2852ab94d58c56ca2d",
+        "url": "https://maven.minecraftforge.net/org/antlr/antlr4-runtime/4.9.1/antlr4-runtime-4.9.1.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:eventbus:6.0.5",
+      "name": "Minecraft Forge (eventbus)",
+      "type": "Library",
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/eventbus/6.0.5/eventbus-6.0.5.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:forgespi:7.0.0",
+      "name": "Minecraft Forge (forgespi)",
+      "type": "Library",
+      "artifact": {
+        "size": 30602,
+        "MD5": "b1bf9c45a33a749ed58b15d679925243",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/forgespi/7.0.0/forgespi-7.0.0.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:coremods:5.0.1",
+      "name": "Minecraft Forge (coremods)",
+      "type": "Library",
+      "artifact": {
+        "size": 24199,
+        "MD5": "8c590051c5d65e098ca7c2e3ddf803a8",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/coremods/5.0.1/coremods-5.0.1.jar"
+      }
+    },
+    {
+      "id": "cpw.mods:modlauncher:10.1.3",
+      "name": "Minecraft Forge (modlauncher)",
+      "type": "Library",
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/cpw/mods/modlauncher/10.1.3/modlauncher-10.1.3.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:unsafe:0.2.0",
+      "name": "Minecraft Forge (unsafe)",
+      "type": "Library",
+      "artifact": {
+        "size": 2834,
+        "MD5": "2d1016ebe4c1a63dd50a59d26bd12db1",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/unsafe/0.2.0/unsafe-0.2.0.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:mergetool:1.1.5:api",
+      "name": "Minecraft Forge (mergetool)",
+      "type": "Library",
+      "artifact": {
+        "size": 2572,
+        "MD5": "8df9c5bf87d004ddb884eca99bc2a4b1",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/mergetool/1.1.5/mergetool-1.1.5-api.jar"
+      }
+    },
+    {
+      "id": "com.electronwill.night-config:core:3.6.4",
+      "name": "Minecraft Forge (core)",
+      "type": "Library",
+      "artifact": {
+        "size": 199834,
+        "MD5": "d83ab07267e402131fb93d899a57f5cd",
+        "url": "https://maven.minecraftforge.net/com/electronwill/night-config/core/3.6.4/core-3.6.4.jar"
+      }
+    },
+    {
+      "id": "com.electronwill.night-config:toml:3.6.4",
+      "name": "Minecraft Forge (toml)",
+      "type": "Library",
+      "artifact": {
+        "size": 31816,
+        "MD5": "bc95d0709fff2164b01fd09fbc988be8",
+        "url": "https://maven.minecraftforge.net/com/electronwill/night-config/toml/3.6.4/toml-3.6.4.jar"
+      }
+    },
+    {
+      "id": "org.apache.maven:maven-artifact:3.8.5",
+      "name": "Minecraft Forge (maven-artifact)",
+      "type": "Library",
+      "artifact": {
+        "size": 58077,
+        "MD5": "ce473b0d9fbfd10fe147f03fe8707d67",
+        "url": "https://maven.minecraftforge.net/org/apache/maven/maven-artifact/3.8.5/maven-artifact-3.8.5.jar"
+      }
+    },
+    {
+      "id": "net.jodah:typetools:0.8.3",
+      "name": "Minecraft Forge (typetools)",
+      "type": "Library",
+      "artifact": {
+        "size": 15425,
+        "MD5": "ee4596e1413cc1a5e080c971d6064753",
+        "url": "https://maven.minecraftforge.net/net/jodah/typetools/0.8.3/typetools-0.8.3.jar"
+      }
+    },
+    {
+      "id": "net.minecrell:terminalconsoleappender:1.3.0",
+      "name": "Minecraft Forge (terminalconsoleappender)",
+      "type": "Library",
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecrell/terminalconsoleappender/1.3.0/terminalconsoleappender-1.3.0.jar"
+      }
+    },
+    {
+      "id": "org.jline:jline-reader:3.12.1",
+      "name": "Minecraft Forge (jline-reader)",
+      "type": "Library",
+      "artifact": {
+        "size": 150765,
+        "MD5": "a2e7b012cd9802f83321187409174a94",
+        "url": "https://maven.minecraftforge.net/org/jline/jline-reader/3.12.1/jline-reader-3.12.1.jar"
+      }
+    },
+    {
+      "id": "org.jline:jline-terminal:3.12.1",
+      "name": "Minecraft Forge (jline-terminal)",
+      "type": "Library",
+      "artifact": {
+        "size": 211712,
+        "MD5": "3c52be5ab5e3847be6e62269de924cb0",
+        "url": "https://maven.minecraftforge.net/org/jline/jline-terminal/3.12.1/jline-terminal-3.12.1.jar"
+      }
+    },
+    {
+      "id": "org.spongepowered:mixin:0.8.5",
+      "name": "Minecraft Forge (mixin)",
+      "type": "Library",
+      "artifact": {
+        "size": 1089277,
+        "MD5": "19b3a2ae9e445a6e626fd7d1648cfcb8",
+        "url": "https://maven.minecraftforge.net/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar"
+      }
+    },
+    {
+      "id": "org.openjdk.nashorn:nashorn-core:15.3",
+      "name": "Minecraft Forge (nashorn-core)",
+      "type": "Library",
+      "artifact": {
+        "size": 2167288,
+        "MD5": "91e98c20afa1090c344229ce28b4c53f",
+        "url": "https://maven.minecraftforge.net/org/openjdk/nashorn/nashorn-core/15.3/nashorn-core-15.3.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:JarJarSelector:0.3.19",
+      "name": "Minecraft Forge (JarJarSelector)",
+      "type": "Library",
+      "artifact": {
+        "size": 17374,
+        "MD5": "2bb6cbe0e6c6fbcd8f92d2e6b1ea678e",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/JarJarSelector/0.3.19/JarJarSelector-0.3.19.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:JarJarMetadata:0.3.19",
+      "name": "Minecraft Forge (JarJarMetadata)",
+      "type": "Library",
+      "artifact": {
+        "size": 15895,
+        "MD5": "9633546d299d4282ca68d10582be1c8f",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/JarJarMetadata/0.3.19/JarJarMetadata-0.3.19.jar"
+      }
+    },
+    {
+      "id": "cpw.mods:bootstraplauncher:1.1.2",
+      "name": "Minecraft Forge (bootstraplauncher)",
+      "type": "Library",
+      "artifact": {
+        "size": 8284,
+        "MD5": "48f5255aa337344c467c0150d347813d",
+        "url": "https://maven.minecraftforge.net/cpw/mods/bootstraplauncher/1.1.2/bootstraplauncher-1.1.2.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:JarJarFileSystems:0.3.19",
+      "name": "Minecraft Forge (JarJarFileSystems)",
+      "type": "Library",
+      "artifact": {
+        "size": 32195,
+        "MD5": "c2be1a88b63eb1b58b00ab6e498cd97d",
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/JarJarFileSystems/0.3.19/JarJarFileSystems-0.3.19.jar"
+      }
+    },
+    {
+      "id": "net.minecraftforge:fmlloader:1.20.1-47.2.0",
+      "name": "Minecraft Forge (fmlloader)",
+      "type": "Library",
+      "artifact": {
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlloader/1.20.1-47.2.0/fmlloader-1.20.1-47.2.0.jar"
+      }
     }
   ]
 }
