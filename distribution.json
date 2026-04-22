@@ -7,22 +7,22 @@
     "smallImageKey": "big"
   },
   "servers": [
-    {
-      "id": "Luxia-1.20.1",
-      "name": "Luxia (Minecraft 1.20.1)",
-      "description": "Luxia Running Minecraft 1.20.1 (Forge v47.2.0)",
-      "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/logo.png",
-      "version": "1.0.0",
-      "address": "localhost:25565",
-      "minecraftVersion": "1.20.1",
-      "discord": {
-        "shortId": "Luxia 1.20.1",
-        "largeImageKey": "big",
-        "largeImageText": "Forge 47.2.0"
-      },
-      "mainServer": true,
-      "autoconnect": false,
-      "modules": [
+{
+  "id": "Luxia-1.20.1",
+  "name": "Luxia (Minecraft 1.20.1)",
+  "description": "Luxia Running Minecraft 1.20.1 (Forge v47.2.0)",
+  "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/logo.png",
+  "version": "1.0.0",
+  "address": "217.182.205.4:2782",
+  "minecraftVersion": "1.20.1",
+  "discord": {
+    "shortId": "Luxia 1.20.1",
+    "largeImageKey": "big",
+    "largeImageText": "Forge 47.2.0"
+  },
+  "mainServer": true,
+  "autoconnect": false,
+  "modules": [
         {
           "id": "net.minecraftforge:lowcodelanguage:1.20.1-47.2.0",
           "name": "Minecraft Forge (lowcodelanguage)",
