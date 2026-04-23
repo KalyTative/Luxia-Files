@@ -1,6 +1,5 @@
 {
   "version": "1.0.0",
-  "rss": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/rss.xml",
   "discord": {
     "clientId": "1086936373057040395",
     "smallImageText": "Luxia",
