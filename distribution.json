@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-
+  "rss": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/rss.xml",
   "discord": {
     "clientId": "1086936373057040395",
     "smallImageText": "Luxia",
@@ -37,7 +37,7 @@
               "name": "Minecraft Forge (version.json)",
               "type": "VersionManifest",
               "artifact": {
-                "url": "https://files.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0.json"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/1.20.1-forge-47.2.0.json"
               }
             },
             {
@@ -347,7 +347,7 @@
           ]
         },
         {
-          "id": "generated.forgemod:BetterF3-7.0.2-Forge-1.20.1@jar",
+          "id": "betterf3.7.0.2.forge.1.20.1:BetterF3-7.0.2-Forge-1.20.1:1.0@jar",
           "name": "BetterF3",
           "type": "ForgeMod",
           "artifact": {
@@ -357,7 +357,7 @@
           }
         },
         {
-          "id": "generated.forgemod:Bookshelf-Forge-1.20.1-20.2.15@jar",
+          "id": "bookshelf.forge.1.20.1.20.2.15:Bookshelf-Forge-1.20.1-20.2.15:1.0@jar",
           "name": "Bookshelf",
           "type": "ForgeMod",
           "artifact": {
@@ -367,7 +367,7 @@
           }
         },
         {
-          "id": "generated.forgemod:Coins-Forge-1.20.1-13.0.4@jar",
+          "id": "coins.forge.1.20.1.13.0.4:Coins-Forge-1.20.1-13.0.4:1.0@jar",
           "name": "Coins",
           "type": "ForgeMod",
           "artifact": {
@@ -377,7 +377,7 @@
           }
         },
         {
-          "id": "generated.forgemod:Controlling-forge-1.20.1-12.0.2@jar",
+          "id": "controlling.forge.1.20.1.12.0.2:Controlling-forge-1.20.1-12.0.2:1.0@jar",
           "name": "Controlling",
           "type": "ForgeMod",
           "artifact": {
@@ -387,7 +387,7 @@
           }
         },
         {
-          "id": "generated.forgemod:DimensionTeleport-1.20.1-2.0.1@jar",
+          "id": "dimensionteleport.1.20.1.2.0.1:DimensionTeleport-1.20.1-2.0.1:1.0@jar",
           "name": "Dimension Teleport",
           "type": "ForgeMod",
           "artifact": {
@@ -397,7 +397,7 @@
           }
         },
         {
-          "id": "generated.forgemod:FarmersDelight-1.20.1-1.2.11@jar",
+          "id": "farmersdelight.1.20.1.1.2.11:FarmersDelight-1.20.1-1.2.11:1.0@jar",
           "name": "Farmer's Delight",
           "type": "ForgeMod",
           "artifact": {
@@ -407,7 +407,7 @@
           }
         },
         {
-          "id": "generated.forgemod:Jade-1.20.1-Forge-11.13.2@jar",
+          "id": "jade.1.20.1.forge.11.13.2:Jade-1.20.1-Forge-11.13.2:1.0@jar",
           "name": "Jade",
           "type": "ForgeMod",
           "artifact": {
@@ -417,7 +417,7 @@
           }
         },
         {
-          "id": "generated.forgemod:JustEnoughResources-1.20.1-1.4.0.247@jar",
+          "id": "justenoughresources.1.20.1.1.4.0.247:JustEnoughResources-1.20.1-1.4.0.247:1.0@jar",
           "name": "Just Enough Resources",
           "type": "ForgeMod",
           "artifact": {
@@ -427,7 +427,7 @@
           }
         },
         {
-          "id": "generated.forgemod:MouseTweaks-forge-mc1.20.1-2.25.1@jar",
+          "id": "mousetweaks.forge.mc1.20.1.2.25.1:MouseTweaks-forge-mc1.20.1-2.25.1:1.0@jar",
           "name": "Mouse Tweaks",
           "type": "ForgeMod",
           "artifact": {
@@ -437,7 +437,7 @@
           }
         },
         {
-          "id": "generated.forgemod:OverflowingBars-v8.0.1-1.20.1-Forge@jar",
+          "id": "overflowingbars.v8.0.1.1.20.1.forge:OverflowingBars-v8.0.1-1.20.1-Forge:1.0@jar",
           "name": "Overflowing Bars",
           "type": "ForgeMod",
           "artifact": {
@@ -447,7 +447,7 @@
           }
         },
         {
-          "id": "generated.forgemod:PuzzlesLib-v8.1.33-1.20.1-Forge@jar",
+          "id": "puzzleslib.v8.1.33.1.20.1.forge:PuzzlesLib-v8.1.33-1.20.1-Forge:1.0@jar",
           "name": "Puzzles Lib",
           "type": "ForgeMod",
           "artifact": {
@@ -457,7 +457,7 @@
           }
         },
         {
-          "id": "generated.forgemod:Searchables-forge-1.20.1-1.0.3@jar",
+          "id": "searchables.forge.1.20.1.1.0.3:Searchables-forge-1.20.1-1.0.3:1.0@jar",
           "name": "Searchables",
           "type": "ForgeMod",
           "artifact": {
@@ -467,7 +467,7 @@
           }
         },
         {
-          "id": "generated.forgemod:YungsApi-1.20-Forge-4.0.6@jar",
+          "id": "yungsapi.1.20.forge.4.0.6:YungsApi-1.20-Forge-4.0.6:1.0@jar",
           "name": "YUNG's API",
           "type": "ForgeMod",
           "artifact": {
@@ -477,7 +477,7 @@
           }
         },
         {
-          "id": "generated.forgemod:alexsmobs-1.22.9@jar",
+          "id": "alexsmobs.1.22.9:alexsmobs-1.22.9:1.0@jar",
           "name": "Alex's Mobs",
           "type": "ForgeMod",
           "artifact": {
@@ -487,7 +487,7 @@
           }
         },
         {
-          "id": "generated.forgemod:appleskin-forge-mc1.20.1-2.5.1@jar",
+          "id": "appleskin.forge.mc1.20.1.2.5.1:appleskin-forge-mc1.20.1-2.5.1:1.0@jar",
           "name": "AppleSkin",
           "type": "ForgeMod",
           "artifact": {
@@ -497,7 +497,7 @@
           }
         },
         {
-          "id": "generated.forgemod:architectury-9.2.14-forge@jar",
+          "id": "architectury.9.2.14.forge:architectury-9.2.14-forge:1.0@jar",
           "name": "Architectury API",
           "type": "ForgeMod",
           "artifact": {
@@ -507,7 +507,7 @@
           }
         },
         {
-          "id": "generated.forgemod:astikorcarts-1.20.1-1.1.8@jar",
+          "id": "astikorcarts.1.20.1.1.1.8:astikorcarts-1.20.1-1.1.8:1.0@jar",
           "name": "Astikor Carts",
           "type": "ForgeMod",
           "artifact": {
@@ -517,7 +517,7 @@
           }
         },
         {
-          "id": "generated.forgemod:balm-forge-1.20.1-7.3.38-all@jar",
+          "id": "balm.forge.1.20.1.7.3.38.all:balm-forge-1.20.1-7.3.38-all:1.0@jar",
           "name": "Balm",
           "type": "ForgeMod",
           "artifact": {
@@ -527,7 +527,7 @@
           }
         },
         {
-          "id": "generated.forgemod:betterarcheology-1.2.1-1.20.1@jar",
+          "id": "betterarcheology.1.2.1.1.20.1:betterarcheology-1.2.1-1.20.1:1.0@jar",
           "name": "Better Archeology",
           "type": "ForgeMod",
           "artifact": {
@@ -537,7 +537,7 @@
           }
         },
         {
-          "id": "generated.forgemod:blockui-1.20.1-1.0.194-snapshot@jar",
+          "id": "blockui.1.20.1.1.0.194.snapshot:blockui-1.20.1-1.0.194-snapshot:1.0@jar",
           "name": "BlockUI",
           "type": "ForgeMod",
           "artifact": {
@@ -547,7 +547,7 @@
           }
         },
         {
-          "id": "generated.forgemod:cfm-forge-1.20.1-7.0.0-pre36@jar",
+          "id": "cfm.forge.1.20.1.7.0.0.pre36:cfm-forge-1.20.1-7.0.0-pre36:1.0@jar",
           "name": "MrCrayfish's Furniture Mod",
           "type": "ForgeMod",
           "artifact": {
@@ -557,7 +557,7 @@
           }
         },
         {
-          "id": "generated.forgemod:citadel-2.6.3-1.20.1@jar",
+          "id": "citadel.2.6.3.1.20.1:citadel-2.6.3-1.20.1:1.0@jar",
           "name": "Citadel",
           "type": "ForgeMod",
           "artifact": {
@@ -567,7 +567,7 @@
           }
         },
         {
-          "id": "generated.forgemod:clientsort-forge-2.2.1.1.20.1@jar",
+          "id": "clientsort.forge.2.2.1+1.20.1:clientsort-forge-2.2.1+1.20.1:1.0@jar",
           "name": "Client Sort",
           "type": "ForgeMod",
           "artifact": {
@@ -577,7 +577,7 @@
           }
         },
         {
-          "id": "generated.forgemod:cloth-config-11.1.136-forge@jar",
+          "id": "cloth.config.11.1.136.forge:cloth-config-11.1.136-forge:1.0@jar",
           "name": "Cloth Config API",
           "type": "ForgeMod",
           "artifact": {
@@ -587,7 +587,7 @@
           }
         },
         {
-          "id": "generated.forgemod:collective-1.20.1-8.13@jar",
+          "id": "collective.1.20.1.8.13:collective-1.20.1-8.13:1.0@jar",
           "name": "Collective",
           "type": "ForgeMod",
           "artifact": {
@@ -597,7 +597,7 @@
           }
         },
         {
-          "id": "generated.forgemod:cosmic-1.0.0-forge-1.20.1@jar",
+          "id": "cosmic.1.0.0.forge.1.20.1:cosmic-1.0.0-forge-1.20.1:1.0@jar",
           "name": "Cosmic",
           "type": "ForgeMod",
           "artifact": {
@@ -607,7 +607,7 @@
           }
         },
         {
-          "id": "generated.forgemod:creeperoverhaul-3.0.2-forge@jar",
+          "id": "creeperoverhaul.3.0.2.forge:creeperoverhaul-3.0.2-forge:1.0@jar",
           "name": "Creeper Overhaul",
           "type": "ForgeMod",
           "artifact": {
@@ -617,7 +617,7 @@
           }
         },
         {
-          "id": "generated.forgemod:curios-forge-5.14.1.1.20.1@jar",
+          "id": "curios.forge.5.14.1+1.20.1:curios-forge-5.14.1+1.20.1:1.0@jar",
           "name": "Curios API",
           "type": "ForgeMod",
           "artifact": {
@@ -627,7 +627,7 @@
           }
         },
         {
-          "id": "generated.forgemod:domum_ornamentum-1.20.1-1.0.300-snapshot-universal@jar",
+          "id": "domum_ornamentum.1.20.1.1.0.300.snapshot.universal:domum_ornamentum-1.20.1-1.0.300-snapshot-universal:1.0@jar",
           "name": "Domum Ornamentum",
           "type": "ForgeMod",
           "artifact": {
@@ -637,7 +637,7 @@
           }
         },
         {
-          "id": "generated.forgemod:dragonmounts-1.20.1-1.2.3-beta@jar",
+          "id": "dragonmounts.1.20.1.1.2.3.beta:dragonmounts-1.20.1-1.2.3-beta:1.0@jar",
           "name": "Dragon Mounts: Legacy",
           "type": "ForgeMod",
           "artifact": {
@@ -647,7 +647,7 @@
           }
         },
         {
-          "id": "generated.forgemod:dynamic-fps-3.11.4.minecraft-1.20.0-forge@jar",
+          "id": "dynamic.fps.3.11.4+minecraft.1.20.0.forge:dynamic-fps-3.11.4+minecraft-1.20.0-forge:1.0@jar",
           "name": "Dynamic FPS",
           "type": "ForgeMod",
           "artifact": {
@@ -657,7 +657,7 @@
           }
         },
         {
-          "id": "generated.forgemod:elenaidodge2-1.1@jar",
+          "id": "elenaidodge2.1.1:elenaidodge2-1.1:1.0@jar",
           "name": "Elenai Dodge 2",
           "type": "ForgeMod",
           "artifact": {
@@ -667,7 +667,7 @@
           }
         },
         {
-          "id": "generated.forgemod:embeddium-0.3.31.mc1.20.1@jar",
+          "id": "embeddium.0.3.31+mc1.20.1:embeddium-0.3.31+mc1.20.1:1.0@jar",
           "name": "Embeddium",
           "type": "ForgeMod",
           "artifact": {
@@ -677,7 +677,7 @@
           }
         },
         {
-          "id": "generated.forgemod:endermanoverhaul-forge-1.20.1-1.0.4@jar",
+          "id": "endermanoverhaul.forge.1.20.1.1.0.4:endermanoverhaul-forge-1.20.1-1.0.4:1.0@jar",
           "name": "Enderman Overhaul",
           "type": "ForgeMod",
           "artifact": {
@@ -687,7 +687,7 @@
           }
         },
         {
-          "id": "generated.forgemod:epic-knights-1.20.1-forge-10.11@jar",
+          "id": "epic.knights.1.20.1.forge.10.11:epic-knights-1.20.1-forge-10.11:1.0@jar",
           "name": "Epic Knights",
           "type": "ForgeMod",
           "artifact": {
@@ -697,7 +697,7 @@
           }
         },
         {
-          "id": "generated.forgemod:feathers-1.1@jar",
+          "id": "feathers.1.1:feathers-1.1:1.0@jar",
           "name": "Feathers",
           "type": "ForgeMod",
           "artifact": {
@@ -707,7 +707,7 @@
           }
         },
         {
-          "id": "generated.forgemod:geckolib-forge-1.20.1-4.8.3@jar",
+          "id": "geckolib.forge.1.20.1.4.8.3:geckolib-forge-1.20.1-4.8.3:1.0@jar",
           "name": "GeckoLib",
           "type": "ForgeMod",
           "artifact": {
@@ -717,7 +717,7 @@
           }
         },
         {
-          "id": "generated.forgemod:gravestone-forge-1.20.1-1.0.35@jar",
+          "id": "gravestone.forge.1.20.1.1.0.35:gravestone-forge-1.20.1-1.0.35:1.0@jar",
           "name": "Gravestone Mod",
           "type": "ForgeMod",
           "artifact": {
@@ -727,7 +727,7 @@
           }
         },
         {
-          "id": "generated.forgemod:guardvillagers-1.20.1-1.6.17@jar",
+          "id": "guardvillagers.1.20.1.1.6.17:guardvillagers-1.20.1-1.6.17:1.0@jar",
           "name": "Guard Villagers",
           "type": "ForgeMod",
           "artifact": {
@@ -737,7 +737,7 @@
           }
         },
         {
-          "id": "generated.forgemod:horsecombatcontrols-1.20.1-1.0.3@jar",
+          "id": "horsecombatcontrols.1.20.1.1.0.3:horsecombatcontrols-1.20.1-1.0.3:1.0@jar",
           "name": "Horse Combat Controls",
           "type": "ForgeMod",
           "artifact": {
@@ -747,7 +747,7 @@
           }
         },
         {
-          "id": "generated.forgemod:immersive_melodies-0.6.0.1.20.1-forge@jar",
+          "id": "immersive_melodies.0.6.0+1.20.1.forge:immersive_melodies-0.6.0+1.20.1-forge:1.0@jar",
           "name": "Immersive Melodies",
           "type": "ForgeMod",
           "artifact": {
@@ -757,7 +757,7 @@
           }
         },
         {
-          "id": "generated.forgemod:jei-1.20.1-forge-15.20.0.129@jar",
+          "id": "jei.1.20.1.forge.15.20.0.129:jei-1.20.1-forge-15.20.0.129:1.0@jar",
           "name": "Just Enough Items",
           "type": "ForgeMod",
           "artifact": {
@@ -767,7 +767,7 @@
           }
         },
         {
-          "id": "generated.forgemod:lootr-forge-1.20-0.7.35.94@jar",
+          "id": "lootr.forge.1.20.0.7.35.94:lootr-forge-1.20-0.7.35.94:1.0@jar",
           "name": "Lootr",
           "type": "ForgeMod",
           "artifact": {
@@ -777,7 +777,7 @@
           }
         },
         {
-          "id": "generated.forgemod:oculus-mc1.20.1-1.8.0@jar",
+          "id": "oculus.mc1.20.1.1.8.0:oculus-mc1.20.1-1.8.0:1.0@jar",
           "name": "Oculus",
           "type": "ForgeMod",
           "artifact": {
@@ -787,7 +787,7 @@
           }
         },
         {
-          "id": "generated.forgemod:polymorph-forge-0.49.10.1.20.1@jar",
+          "id": "polymorph.forge.0.49.10+1.20.1:polymorph-forge-0.49.10+1.20.1:1.0@jar",
           "name": "Polymorph",
           "type": "ForgeMod",
           "artifact": {
@@ -797,7 +797,7 @@
           }
         },
         {
-          "id": "generated.forgemod:resourcefulconfig-forge-1.20.1-2.1.3@jar",
+          "id": "resourcefulconfig.forge.1.20.1.2.1.3:resourcefulconfig-forge-1.20.1-2.1.3:1.0@jar",
           "name": "Resourceful Config",
           "type": "ForgeMod",
           "artifact": {
@@ -807,7 +807,7 @@
           }
         },
         {
-          "id": "generated.forgemod:resourcefullib-forge-1.20.1-2.1.29@jar",
+          "id": "resourcefullib.forge.1.20.1.2.1.29:resourcefullib-forge-1.20.1-2.1.29:1.0@jar",
           "name": "Resourceful Lib",
           "type": "ForgeMod",
           "artifact": {
@@ -817,7 +817,7 @@
           }
         },
         {
-          "id": "generated.forgemod:sophisticatedbackpacks-1.20.1-3.24.30.1614@jar",
+          "id": "sophisticatedbackpacks.1.20.1.3.24.30.1614:sophisticatedbackpacks-1.20.1-3.24.30.1614:1.0@jar",
           "name": "Sophisticated Backpacks",
           "type": "ForgeMod",
           "artifact": {
@@ -827,7 +827,7 @@
           }
         },
         {
-          "id": "generated.forgemod:sophisticatedcore-1.20.1-1.3.12.1578@jar",
+          "id": "sophisticatedcore.1.20.1.1.3.12.1578:sophisticatedcore-1.20.1-1.3.12.1578:1.0@jar",
           "name": "Sophisticated Core",
           "type": "ForgeMod",
           "artifact": {
@@ -837,7 +837,7 @@
           }
         },
         {
-          "id": "generated.forgemod:spudaciousshops-1.10.2-forge-1.20.1@jar",
+          "id": "spudaciousshops.1.10.2.forge.1.20.1:spudaciousshops-1.10.2-forge-1.20.1:1.0@jar",
           "name": "Spudacious Shops",
           "type": "ForgeMod",
           "artifact": {
@@ -847,7 +847,7 @@
           }
         },
         {
-          "id": "generated.forgemod:structurize-1.20.1-1.0.809-snapshot@jar",
+          "id": "structurize.1.20.1.1.0.809.snapshot:structurize-1.20.1-1.0.809-snapshot:1.0@jar",
           "name": "Structurize",
           "type": "ForgeMod",
           "artifact": {
@@ -857,7 +857,7 @@
           }
         },
         {
-          "id": "generated.forgemod:supermartijn642configlib-1.1.8-forge-mc1.20@jar",
+          "id": "supermartijn642configlib.1.1.8.forge.mc1.20:supermartijn642configlib-1.1.8-forge-mc1.20:1.0@jar",
           "name": "SuperMartijn642's Config Lib",
           "type": "ForgeMod",
           "artifact": {
@@ -867,7 +867,7 @@
           }
         },
         {
-          "id": "generated.forgemod:villagernames-1.20.1-8.2@jar",
+          "id": "villagernames.1.20.1.8.2:villagernames-1.20.1-8.2:1.0@jar",
           "name": "Villager Names",
           "type": "ForgeMod",
           "artifact": {
@@ -877,7 +877,7 @@
           }
         },
         {
-          "id": "generated.forgemod:voicechat-forge-1.20.1-2.6.14@jar",
+          "id": "voicechat.forge.1.20.1.2.6.14:voicechat-forge-1.20.1-2.6.14:1.0@jar",
           "name": "Simple Voice Chat",
           "type": "ForgeMod",
           "artifact": {
@@ -887,7 +887,7 @@
           }
         },
         {
-          "id": "generated.forgemod:waystones-forge-1.20.1-14.1.20@jar",
+          "id": "waystones.forge.1.20.1.14.1.20:waystones-forge-1.20.1-14.1.20:1.0@jar",
           "name": "Waystones",
           "type": "ForgeMod",
           "artifact": {
@@ -897,7 +897,7 @@
           }
         },
         {
-          "id": "generated.forgemod:worldedit-mod-7.2.15@jar",
+          "id": "worldedit.mod.7.2.15:worldedit-mod-7.2.15:1.0@jar",
           "name": "WorldEdit",
           "type": "ForgeMod",
           "artifact": {
@@ -907,7 +907,7 @@
           }
         },
         {
-          "id": "generated.forgemod:xaerominimap-forge-1.20.1-25.3.10@jar",
+          "id": "xaerominimap.forge.1.20.1.25.3.10:xaerominimap-forge-1.20.1-25.3.10:1.0@jar",
           "name": "Xaero's Minimap",
           "type": "ForgeMod",
           "artifact": {
@@ -917,7 +917,7 @@
           }
         },
         {
-          "id": "generated.forgemod:xaeroworldmap-forge-1.20.1-1.40.11@jar",
+          "id": "xaeroworldmap.forge.1.20.1.1.40.11:xaeroworldmap-forge-1.20.1-1.40.11:1.0@jar",
           "name": "Xaero's World Map",
           "type": "ForgeMod",
           "artifact": {
