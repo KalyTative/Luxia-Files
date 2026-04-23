@@ -1,7 +1,11 @@
 {
   "version": "1.0.0",
 
-
+  "discord": {
+    "clientId": "1086936373057040395",
+    "smallImageText": "Luxia",
+    "smallImageKey": "big"
+  },
   "servers": [
     {
       "id": "Orion-1.20.1",
