@@ -1,17 +1,13 @@
 {
   "version": "1.0.0",
 
-  "discord": {
-    "clientId": "<FILL IN OR REMOVE DISCORD OBJECT>",
-    "smallImageText": "<FILL IN OR REMOVE DISCORD OBJECT>",
-    "smallImageKey": "<FILL IN OR REMOVE DISCORD OBJECT>"
-  },
+
   "servers": [
     {
       "id": "Orion-1.20.1",
       "name": "Orion (Minecraft 1.20.1)",
       "description": "Orion Running Minecraft 1.20.1 (Forge v47.4.10)",
-      "icon": "https://github.com/KalyTative/Luxia-Files/blob/main/logo.png?raw=true",
+      "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/logo.png",
       "version": "1.0.0",
       "address": "217.182.205.4:2782",
       "minecraftVersion": "1.20.1",
@@ -31,7 +27,7 @@
           "artifact": {
             "size": 7398,
             "MD5": "39c68f8be018557068512f16cf3f97fa",
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/lowcodelanguage/1.20.1-47.4.10/lowcodelanguage-1.20.1-47.4.10.jar"
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/lowcodelanguage/1.20.1-47.4.10/lowcodelanguage-1.20.1-47.4.10.jar"
           },
           "subModules": [
             {
@@ -41,7 +37,7 @@
               "artifact": {
                 "size": 16554,
                 "MD5": "eede38b0c090f69c7789cd35e753853d",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/versions/1.20.1-forge-47.4.10/1.20.1-forge-47.4.10.json"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/versions/1.20.1-forge-47.4.10/1.20.1-forge-47.4.10.json"
               }
             },
             {
@@ -52,7 +48,7 @@
               "artifact": {
                 "size": 118913,
                 "MD5": "340eb6124a32dab3bfaea8f1b2f3dd02",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/fmlcore/1.20.1-47.4.10/fmlcore-1.20.1-47.4.10.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/fmlcore/1.20.1-47.4.10/fmlcore-1.20.1-47.4.10.jar"
               },
               "subModules": []
             },
@@ -64,7 +60,7 @@
               "artifact": {
                 "size": 16854,
                 "MD5": "1193446859d078e83d9fcc4d8a39f44d",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/javafmllanguage/1.20.1-47.4.10/javafmllanguage-1.20.1-47.4.10.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/javafmllanguage/1.20.1-47.4.10/javafmllanguage-1.20.1-47.4.10.jar"
               },
               "subModules": []
             },
@@ -76,7 +72,7 @@
               "artifact": {
                 "size": 4999,
                 "MD5": "13e469f44fc6fff975688c6b18f8e9a1",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/mclanguage/1.20.1-47.4.10/mclanguage-1.20.1-47.4.10.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/mclanguage/1.20.1-47.4.10/mclanguage-1.20.1-47.4.10.jar"
               },
               "subModules": []
             },
@@ -88,7 +84,7 @@
               "artifact": {
                 "size": 2777708,
                 "MD5": "f202df135ad32fef7e7c42e957c142af",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/forge/1.20.1-47.4.10/forge-1.20.1-47.4.10-universal.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/forge/1.20.1-47.4.10/forge-1.20.1-47.4.10-universal.jar"
               },
               "subModules": []
             },
@@ -100,7 +96,7 @@
               "artifact": {
                 "size": 4848366,
                 "MD5": "5c4d8867f3152f9c397859436a06321c",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/forge/1.20.1-47.4.10/forge-1.20.1-47.4.10-client.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/forge/1.20.1-47.4.10/forge-1.20.1-47.4.10-client.jar"
               },
               "subModules": []
             },
@@ -112,7 +108,7 @@
               "artifact": {
                 "size": 18842082,
                 "MD5": "8bfacfba4f54cda741019756165c5ecf",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-srg.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-srg.jar"
               },
               "subModules": []
             },
@@ -124,7 +120,7 @@
               "artifact": {
                 "size": 12592249,
                 "MD5": "28edebec7b5a007bc9961ee9bab4d764",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-slim.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-slim.jar"
               },
               "subModules": []
             },
@@ -136,7 +132,7 @@
               "artifact": {
                 "size": 10436626,
                 "MD5": "da6bb1a2c23108392fd6c103da40867c",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-extra.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-extra.jar"
               },
               "subModules": []
             },
@@ -147,7 +143,7 @@
               "artifact": {
                 "size": 88749,
                 "MD5": "d9ff48d1c68388270388b803fa42611e",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar"
               }
             },
             {
@@ -157,7 +153,7 @@
               "artifact": {
                 "size": 126113,
                 "MD5": "f5adf3bfc54fb3d2cd8e3a1f275084bc",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/ow2/asm/asm/9.8/asm-9.8.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/ow2/asm/asm/9.8/asm-9.8.jar"
               }
             },
             {
@@ -167,7 +163,7 @@
               "artifact": {
                 "size": 73498,
                 "MD5": "c8c3d9ccf240144e74d94ff658b024c9",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/ow2/asm/asm-commons/9.8/asm-commons-9.8.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/ow2/asm/asm-commons/9.8/asm-commons-9.8.jar"
               }
             },
             {
@@ -177,7 +173,7 @@
               "artifact": {
                 "size": 51934,
                 "MD5": "4ab1aaec43c77a2d9b56e6d6d496f705",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/ow2/asm/asm-tree/9.8/asm-tree-9.8.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/ow2/asm/asm-tree/9.8/asm-tree-9.8.jar"
               }
             },
             {
@@ -187,7 +183,7 @@
               "artifact": {
                 "size": 94559,
                 "MD5": "62498ef324bdab15f407d703f7d78d19",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/ow2/asm/asm-util/9.8/asm-util-9.8.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/ow2/asm/asm-util/9.8/asm-util-9.8.jar"
               }
             },
             {
@@ -197,7 +193,7 @@
               "artifact": {
                 "size": 35151,
                 "MD5": "3d63508405f5610fc2ea673ff5471553",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/ow2/asm/asm-analysis/9.8/asm-analysis-9.8.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/ow2/asm/asm-analysis/9.8/asm-analysis-9.8.jar"
               }
             },
             {
@@ -207,7 +203,7 @@
               "artifact": {
                 "size": 77756,
                 "MD5": "f0d3533f9437ba4428eaee9f28f7ecd9",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/accesstransformers/8.0.4/accesstransformers-8.0.4.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/accesstransformers/8.0.4/accesstransformers-8.0.4.jar"
               }
             },
             {
@@ -217,7 +213,7 @@
               "artifact": {
                 "size": 337868,
                 "MD5": "0dcc4b860d5d8d2852ab94d58c56ca2d",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/antlr/antlr4-runtime/4.9.1/antlr4-runtime-4.9.1.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/antlr/antlr4-runtime/4.9.1/antlr4-runtime-4.9.1.jar"
               }
             },
             {
@@ -227,7 +223,7 @@
               "artifact": {
                 "size": 53985,
                 "MD5": "2a6245210b446b2144071e71ca13432b",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/eventbus/6.0.5/eventbus-6.0.5.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/eventbus/6.0.5/eventbus-6.0.5.jar"
               }
             },
             {
@@ -237,7 +233,7 @@
               "artifact": {
                 "size": 29831,
                 "MD5": "bd34d20287dc95201fe9475a8bbc2540",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/forgespi/7.0.1/forgespi-7.0.1.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/forgespi/7.0.1/forgespi-7.0.1.jar"
               }
             },
             {
@@ -247,7 +243,7 @@
               "artifact": {
                 "size": 31872,
                 "MD5": "5295505357ba9b98450c5e3121f82191",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/coremods/5.2.4/coremods-5.2.4.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/coremods/5.2.4/coremods-5.2.4.jar"
               }
             },
             {
@@ -257,7 +253,7 @@
               "artifact": {
                 "size": 130343,
                 "MD5": "07507d18d72661f8ae6a5da75bbf35be",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/cpw/mods/modlauncher/10.0.9/modlauncher-10.0.9.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/cpw/mods/modlauncher/10.0.9/modlauncher-10.0.9.jar"
               }
             },
             {
@@ -267,7 +263,7 @@
               "artifact": {
                 "size": 2834,
                 "MD5": "2d1016ebe4c1a63dd50a59d26bd12db1",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/unsafe/0.2.0/unsafe-0.2.0.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/unsafe/0.2.0/unsafe-0.2.0.jar"
               }
             },
             {
@@ -277,7 +273,7 @@
               "artifact": {
                 "size": 2572,
                 "MD5": "8df9c5bf87d004ddb884eca99bc2a4b1",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/mergetool/1.1.5/mergetool-1.1.5-api.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/mergetool/1.1.5/mergetool-1.1.5-api.jar"
               }
             },
             {
@@ -287,7 +283,7 @@
               "artifact": {
                 "size": 199834,
                 "MD5": "d83ab07267e402131fb93d899a57f5cd",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/com/electronwill/night-config/core/3.6.4/core-3.6.4.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/com/electronwill/night-config/core/3.6.4/core-3.6.4.jar"
               }
             },
             {
@@ -297,7 +293,7 @@
               "artifact": {
                 "size": 31816,
                 "MD5": "bc95d0709fff2164b01fd09fbc988be8",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/com/electronwill/night-config/toml/3.6.4/toml-3.6.4.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/com/electronwill/night-config/toml/3.6.4/toml-3.6.4.jar"
               }
             },
             {
@@ -307,7 +303,7 @@
               "artifact": {
                 "size": 58077,
                 "MD5": "ce473b0d9fbfd10fe147f03fe8707d67",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/apache/maven/maven-artifact/3.8.5/maven-artifact-3.8.5.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/apache/maven/maven-artifact/3.8.5/maven-artifact-3.8.5.jar"
               }
             },
             {
@@ -317,7 +313,7 @@
               "artifact": {
                 "size": 18281,
                 "MD5": "d4a375bf382f726cf1a650ccb38a736c",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/jodah/typetools/0.6.3/typetools-0.6.3.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/jodah/typetools/0.6.3/typetools-0.6.3.jar"
               }
             },
             {
@@ -327,7 +323,7 @@
               "artifact": {
                 "size": 15977,
                 "MD5": "679363fa893293791e55a21f81342f87",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecrell/terminalconsoleappender/1.2.0/terminalconsoleappender-1.2.0.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecrell/terminalconsoleappender/1.2.0/terminalconsoleappender-1.2.0.jar"
               }
             },
             {
@@ -337,7 +333,7 @@
               "artifact": {
                 "size": 150765,
                 "MD5": "a2e7b012cd9802f83321187409174a94",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/jline/jline-reader/3.12.1/jline-reader-3.12.1.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/jline/jline-reader/3.12.1/jline-reader-3.12.1.jar"
               }
             },
             {
@@ -347,7 +343,7 @@
               "artifact": {
                 "size": 211712,
                 "MD5": "3c52be5ab5e3847be6e62269de924cb0",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/jline/jline-terminal/3.12.1/jline-terminal-3.12.1.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/jline/jline-terminal/3.12.1/jline-terminal-3.12.1.jar"
               }
             },
             {
@@ -357,7 +353,7 @@
               "artifact": {
                 "size": 1089277,
                 "MD5": "19b3a2ae9e445a6e626fd7d1648cfcb8",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar"
               }
             },
             {
@@ -367,7 +363,7 @@
               "artifact": {
                 "size": 2167292,
                 "MD5": "a9b3360e6a486cf62c1952c7816b7d97",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/org/openjdk/nashorn/nashorn-core/15.4/nashorn-core-15.4.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/org/openjdk/nashorn/nashorn-core/15.4/nashorn-core-15.4.jar"
               }
             },
             {
@@ -377,7 +373,7 @@
               "artifact": {
                 "size": 17374,
                 "MD5": "2bb6cbe0e6c6fbcd8f92d2e6b1ea678e",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/JarJarSelector/0.3.19/JarJarSelector-0.3.19.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/JarJarSelector/0.3.19/JarJarSelector-0.3.19.jar"
               }
             },
             {
@@ -387,7 +383,7 @@
               "artifact": {
                 "size": 15895,
                 "MD5": "9633546d299d4282ca68d10582be1c8f",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/JarJarMetadata/0.3.19/JarJarMetadata-0.3.19.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/JarJarMetadata/0.3.19/JarJarMetadata-0.3.19.jar"
               }
             },
             {
@@ -397,7 +393,7 @@
               "artifact": {
                 "size": 8284,
                 "MD5": "48f5255aa337344c467c0150d347813d",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/cpw/mods/bootstraplauncher/1.1.2/bootstraplauncher-1.1.2.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/cpw/mods/bootstraplauncher/1.1.2/bootstraplauncher-1.1.2.jar"
               }
             },
             {
@@ -407,7 +403,7 @@
               "artifact": {
                 "size": 32195,
                 "MD5": "c2be1a88b63eb1b58b00ab6e498cd97d",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/JarJarFileSystems/0.3.19/JarJarFileSystems-0.3.19.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/JarJarFileSystems/0.3.19/JarJarFileSystems-0.3.19.jar"
               }
             },
             {
@@ -417,7 +413,7 @@
               "artifact": {
                 "size": 267079,
                 "MD5": "9446521da84ab53aa7a81af82d4e854a",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/fmlloader/1.20.1-47.4.10/fmlloader-1.20.1-47.4.10.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/fmlloader/1.20.1-47.4.10/fmlloader-1.20.1-47.4.10.jar"
               }
             },
             {
@@ -427,7 +423,7 @@
               "artifact": {
                 "size": 170518,
                 "MD5": "828cdcc361baffcdd38d7b7d05c62e35",
-                "url": "https://github.com/KalyTative/Luxia-Files/tree/main/repo/lib/net/minecraftforge/fmlearlydisplay/1.20.1-47.4.10/fmlearlydisplay-1.20.1-47.4.10.jar"
+                "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/repo/lib/net/minecraftforge/fmlearlydisplay/1.20.1-47.4.10/fmlearlydisplay-1.20.1-47.4.10.jar"
               }
             }
           ]
@@ -438,7 +434,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 26350793,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/alexsmobs-1.22.9.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/alexsmobs-1.22.9.jar",
             "MD5": "504050d1f2e2c3019b6f53377ca354c6"
           },
           "required": {
@@ -451,7 +447,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 47428,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/appleskin-forge-mc1.20.1-2.5.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/appleskin-forge-mc1.20.1-2.5.1.jar",
             "MD5": "dae63cea9c951dda542a4005ceef3953"
           },
           "required": {
@@ -464,7 +460,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 580602,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/architectury-9.2.14-forge.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/architectury-9.2.14-forge.jar",
             "MD5": "76b40d407b6bf0257dd1dab6d3d395d5"
           },
           "required": {
@@ -477,7 +473,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 231706,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/astikorcarts-1.20.1-1.1.8.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/astikorcarts-1.20.1-1.1.8.jar",
             "MD5": "0165d0921a96ee41880446af6182fffe"
           },
           "required": {
@@ -490,7 +486,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 591398,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/balm-forge-1.20.1-7.3.38-all.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/balm-forge-1.20.1-7.3.38-all.jar",
             "MD5": "2ff18975f2b4d0570f8eeeae85b66e42"
           },
           "required": {
@@ -503,7 +499,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 982838,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/betterarcheology-1.2.1-1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/betterarcheology-1.2.1-1.20.1.jar",
             "MD5": "44d12515764cd4202481b73b82626aae"
           },
           "required": {
@@ -516,7 +512,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 468517,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/BetterF3-7.0.2-Forge-1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/BetterF3-7.0.2-Forge-1.20.1.jar",
             "MD5": "7411ae023390cf6b148f05a6b685279f"
           },
           "required": {
@@ -529,7 +525,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 391051,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/blockui-1.20.1-1.0.194-snapshot.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/blockui-1.20.1-1.0.194-snapshot.jar",
             "MD5": "e57b48456f8e95127d91e41cf9a9c481"
           },
           "required": {
@@ -542,7 +538,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 343925,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/Bookshelf-Forge-1.20.1-20.2.15.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Bookshelf-Forge-1.20.1-20.2.15.jar",
             "MD5": "984cc53b314436f57e3bf72b8a1ba62b"
           },
           "required": {
@@ -555,7 +551,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2613393,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/cfm-forge-1.20.1-7.0.0-pre36.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/cfm-forge-1.20.1-7.0.0-pre36.jar",
             "MD5": "faf78627dad9c9c04e7a4fa8992c54dc"
           },
           "required": {
@@ -568,7 +564,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 3185275,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/citadel-2.6.3-1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/citadel-2.6.3-1.20.1.jar",
             "MD5": "da80c09b998d829b6d580e5be76dcc7b"
           },
           "required": {
@@ -581,7 +577,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 395586,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/citresewn-1.2.2+1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/citresewn-1.2.2+1.20.1.jar",
             "MD5": "e7cd058b8f1866b8b599abdcc830b109"
           },
           "required": {
@@ -594,7 +590,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 944710,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/clientsort-forge-2.2.1+1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/clientsort-forge-2.2.1+1.20.1.jar",
             "MD5": "70a352b2d9e18847fb914e7c44e46c43"
           },
           "required": {
@@ -607,7 +603,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1181413,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/cloth-config-11.1.136-forge.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/cloth-config-11.1.136-forge.jar",
             "MD5": "ca5de5acbcb4a30c010aa6953bd7ef53"
           },
           "required": {
@@ -620,7 +616,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 45105,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/Coins-Forge-1.20.1-13.0.4.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Coins-Forge-1.20.1-13.0.4.jar",
             "MD5": "9426ef5924c6d9423908fa05a10b5e14"
           },
           "required": {
@@ -633,7 +629,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 665169,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/collective-1.20.1-8.13.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/collective-1.20.1-8.13.jar",
             "MD5": "abe112af460bf8befe26605a5e4c4248"
           },
           "required": {
@@ -646,7 +642,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 115280,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/Controlling-forge-1.20.1-12.0.2.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Controlling-forge-1.20.1-12.0.2.jar",
             "MD5": "dc94fc03e516d96aad393b26910c81ad"
           },
           "required": {
@@ -659,7 +655,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 18227,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/cosmic-1.0.0-forge-1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/cosmic-1.0.0-forge-1.20.1.jar",
             "MD5": "893d3a104f7ced1563e3242fa4227f0c"
           },
           "required": {
@@ -672,7 +668,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1456860,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/creeperoverhaul-3.0.2-forge.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/creeperoverhaul-3.0.2-forge.jar",
             "MD5": "a8fb93fffba5a25b8444f4a2d5da2601"
           },
           "required": {
@@ -685,7 +681,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 398066,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/curios-forge-5.14.1+1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/curios-forge-5.14.1+1.20.1.jar",
             "MD5": "2fdcc97cbc66c4b2492b407c792e7159"
           },
           "required": {
@@ -698,7 +694,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 163183,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/DimensionTeleport-1.20.1-2.0.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/DimensionTeleport-1.20.1-2.0.1.jar",
             "MD5": "7d1ef51eb2326a0189232e5e2f421c23"
           },
           "required": {
@@ -711,7 +707,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1172058,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/domum_ornamentum-1.20.1-1.0.300-snapshot-universal.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/domum_ornamentum-1.20.1-1.0.300-snapshot-universal.jar",
             "MD5": "7735c7df2f1631fac6f491a236c2fa36"
           },
           "required": {
@@ -724,7 +720,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 575353,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/dragonmounts-1.20.1-1.2.3-beta.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dragonmounts-1.20.1-1.2.3-beta.jar",
             "MD5": "aac585764d7566831dda81b05b2a35e7"
           },
           "required": {
@@ -737,7 +733,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 402345,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/dynamic-fps-3.11.4+minecraft-1.20.0-forge.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dynamic-fps-3.11.4+minecraft-1.20.0-forge.jar",
             "MD5": "f8df69d0af455b6f47acb88ab747d1a3"
           },
           "required": {
@@ -750,7 +746,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 302493,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/elenaidodge2-1.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/elenaidodge2-1.1.jar",
             "MD5": "abbf0ebf4a2707bc20c1ffa12f27516c"
           },
           "required": {
@@ -763,7 +759,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1320675,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/embeddium-0.3.31+mc1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/embeddium-0.3.31+mc1.20.1.jar",
             "MD5": "1dfb2ee49ce9ad5d484ff3eea0d628b7"
           },
           "required": {
@@ -776,7 +772,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1208062,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/endermanoverhaul-forge-1.20.1-1.0.4.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/endermanoverhaul-forge-1.20.1-1.0.4.jar",
             "MD5": "992f4f6fad129c6ff47b33b0365d485a"
           },
           "required": {
@@ -789,7 +785,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2913733,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/epic-knights-1.20.1-forge-10.11.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/epic-knights-1.20.1-forge-10.11.jar",
             "MD5": "3d52d9849bbfd1fa8f721995bc696c92"
           },
           "required": {
@@ -802,7 +798,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2107977,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/fabric-api-0.92.7+1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/fabric-api-0.92.7+1.20.1.jar",
             "MD5": "789c66d62c1ef077c457a10191d7df23"
           },
           "required": {
@@ -815,7 +811,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2963127,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/FarmersDelight-1.20.1-1.2.11.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/FarmersDelight-1.20.1-1.2.11.jar",
             "MD5": "50a4531d1ec39a9d314d48ac79f15271"
           },
           "required": {
@@ -828,7 +824,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 124984,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/feathers-1.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/feathers-1.1.jar",
             "MD5": "5e796b140b9fd8d7daaf19a7872e22bd"
           },
           "required": {
@@ -841,7 +837,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 396628,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/ForgeConfigAPIPort-v8.0.3-1.20.1-Fabric.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/ForgeConfigAPIPort-v8.0.3-1.20.1-Fabric.jar",
             "MD5": "17d4d761778f33c006551cf9ecc78798"
           },
           "required": {
@@ -854,7 +850,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1039047,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/geckolib-forge-1.20.1-4.8.3.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/geckolib-forge-1.20.1-4.8.3.jar",
             "MD5": "60b7bce466abc60377785bf3dc84974c"
           },
           "required": {
@@ -867,7 +863,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 317181,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/gravestone-forge-1.20.1-1.0.35.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/gravestone-forge-1.20.1-1.0.35.jar",
             "MD5": "c9a1a01c302368ed43270ceebb2c2251"
           },
           "required": {
@@ -880,7 +876,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 204742,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/guardvillagers-1.20.1-1.6.17.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/guardvillagers-1.20.1-1.6.17.jar",
             "MD5": "cf7fd3b5e768f2c2f557430f954775ac"
           },
           "required": {
@@ -893,7 +889,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 24107,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/horsecombatcontrols-1.20.1-1.0.3.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/horsecombatcontrols-1.20.1-1.0.3.jar",
             "MD5": "e04e672256bdf3e3531397af15c39569"
           },
           "required": {
@@ -906,7 +902,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 5517578,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/immersive_melodies-0.6.0+1.20.1-forge.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/immersive_melodies-0.6.0+1.20.1-forge.jar",
             "MD5": "9b2903b86fbc565a3996b2d1fd78eb0d"
           },
           "required": {
@@ -919,7 +915,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 552486,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/Jade-1.20.1-Forge-11.13.2.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Jade-1.20.1-Forge-11.13.2.jar",
             "MD5": "7c349670f77fd64b9e9854c4a8d82fcc"
           },
           "required": {
@@ -932,7 +928,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1409642,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/jei-1.20.1-forge-15.20.0.129.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/jei-1.20.1-forge-15.20.0.129.jar",
             "MD5": "a5192227a15e0fe0e367828b32c1f472"
           },
           "required": {
@@ -945,7 +941,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 276231,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/JustEnoughResources-1.20.1-1.4.0.247.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/JustEnoughResources-1.20.1-1.4.0.247.jar",
             "MD5": "413f7d427a16254ec8e08f78094a206d"
           },
           "required": {
@@ -958,7 +954,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 463485,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/lootr-forge-1.20-0.7.35.94.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/lootr-forge-1.20-0.7.35.94.jar",
             "MD5": "56dd6966de4ba641cf00ef5b9ce8d2d7"
           },
           "required": {
@@ -971,7 +967,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 721366,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/modmenu-7.2.2.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/modmenu-7.2.2.jar",
             "MD5": "2629511a2d3b141d9f2a24dc9685637e"
           },
           "required": {
@@ -984,7 +980,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 76237,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/MouseTweaks-forge-mc1.20.1-2.25.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/MouseTweaks-forge-mc1.20.1-2.25.1.jar",
             "MD5": "ce4b5bbb9ef6a7905c458ab599ef4cb2"
           },
           "required": {
@@ -997,7 +993,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2851119,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/oculus-mc1.20.1-1.8.0.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/oculus-mc1.20.1-1.8.0.jar",
             "MD5": "1dd891634ac21591b5a692471f112572"
           },
           "required": {
@@ -1010,7 +1006,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 73689,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/OverflowingBars-v8.0.1-1.20.1-Forge.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/OverflowingBars-v8.0.1-1.20.1-Forge.jar",
             "MD5": "6152710c2ddbd371b91eb7c44aee6167"
           },
           "required": {
@@ -1023,7 +1019,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 299601,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/polymorph-forge-0.49.10+1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/polymorph-forge-0.49.10+1.20.1.jar",
             "MD5": "8e93675b33a89243d27f272f84e88338"
           },
           "required": {
@@ -1036,7 +1032,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1342987,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/PuzzlesLib-v8.1.33-1.20.1-Forge.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/PuzzlesLib-v8.1.33-1.20.1-Forge.jar",
             "MD5": "19f23e3040eaadc7c30ae38f5a3dec68"
           },
           "required": {
@@ -1049,7 +1045,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 136923,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/resourcefulconfig-forge-1.20.1-2.1.3.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/resourcefulconfig-forge-1.20.1-2.1.3.jar",
             "MD5": "947463b04c043937cd24506842f737a3"
           },
           "required": {
@@ -1062,7 +1058,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 432753,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/resourcefullib-forge-1.20.1-2.1.29.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/resourcefullib-forge-1.20.1-2.1.29.jar",
             "MD5": "a040c6cc86f653fddf280ff3af9068f0"
           },
           "required": {
@@ -1075,7 +1071,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 77732,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/Searchables-forge-1.20.1-1.0.3.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Searchables-forge-1.20.1-1.0.3.jar",
             "MD5": "68fb3fa702de7e10194c5b8a3d25b5b0"
           },
           "required": {
@@ -1088,7 +1084,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1013858,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar",
             "MD5": "cd0b94ac7afdc7d2332c9fe520feb131"
           },
           "required": {
@@ -1101,7 +1097,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1423513,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedcore-1.20.1-1.3.12.1578.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedcore-1.20.1-1.3.12.1578.jar",
             "MD5": "cea978593d8a1b3f8d18bf843e3ac862"
           },
           "required": {
@@ -1114,7 +1110,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 943555,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/spudaciousshops-1.10.2-forge-1.20.1.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/spudaciousshops-1.10.2-forge-1.20.1.jar",
             "MD5": "a64b10de40b82e3e812abcb313751d15"
           },
           "required": {
@@ -1127,7 +1123,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1124544,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/structurize-1.20.1-1.0.809-snapshot.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/structurize-1.20.1-1.0.809-snapshot.jar",
             "MD5": "7b88d909a17882628b1f679de6888326"
           },
           "required": {
@@ -1140,7 +1136,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 206584,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/supermartijn642configlib-1.1.8-forge-mc1.20.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/supermartijn642configlib-1.1.8-forge-mc1.20.jar",
             "MD5": "cbece61946d4e059e90806c19dd66082"
           },
           "required": {
@@ -1153,7 +1149,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 55867,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/villagernames-1.20.1-8.2.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/villagernames-1.20.1-8.2.jar",
             "MD5": "116bdb24c9615bd4fa63aac066257496"
           },
           "required": {
@@ -1166,7 +1162,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 4895899,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/voicechat-forge-1.20.1-2.6.14.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/voicechat-forge-1.20.1-2.6.14.jar",
             "MD5": "b666d0e41401eb860db28363f67b7f7f"
           },
           "required": {
@@ -1179,7 +1175,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 533739,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/waystones-forge-1.20.1-14.1.20.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/waystones-forge-1.20.1-14.1.20.jar",
             "MD5": "d093567eb50c8e8af0958c66ed17968b"
           },
           "required": {
@@ -1192,7 +1188,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 5825402,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/worldedit-mod-7.2.15.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/worldedit-mod-7.2.15.jar",
             "MD5": "bd0e7cff7896348faab92e43300d0639"
           },
           "required": {
@@ -1205,7 +1201,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2146522,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/xaerominimap-forge-1.20.1-25.3.10.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/xaerominimap-forge-1.20.1-25.3.10.jar",
             "MD5": "2847dc482588772ec551a5b5112dc686"
           },
           "required": {
@@ -1218,7 +1214,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1388342,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/xaeroworldmap-forge-1.20.1-1.40.11.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/xaeroworldmap-forge-1.20.1-1.40.11.jar",
             "MD5": "d8624a1b587fbcd28d8f5dc5b13399d4"
           },
           "required": {
@@ -1231,7 +1227,7 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 370524,
-            "url": "https://github.com/KalyTative/Luxia-Files/tree/main/servers/Orion-1.20.1/forgemods/optionalon/YungsApi-1.20-Forge-4.0.6.jar",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/YungsApi-1.20-Forge-4.0.6.jar",
             "MD5": "fe79f43dba8edbb8ede99f4e358e5b0c"
           },
           "required": {
