@@ -193,11 +193,11 @@
               }
             },
             {
-              "id": "net.minecraftforge:forgespi:7.0.0",
+              "id": "net.minecraftforge:forgespi:7.0.1",
               "name": "Minecraft Forge (forgespi)",
               "type": "Library",
               "artifact": {
-                "url": "https://files.minecraftforge.net/net/minecraftforge/forgespi/7.0.0/forgespi-7.0.0.jar"
+                "url": "https://files.minecraftforge.net/net/minecraftforge/forgespi/7.0.1/forgespi-7.0.1.jar"
               }
             },
             {
@@ -209,11 +209,11 @@
               }
             },
             {
-              "id": "cpw.mods:modlauncher:10.1.3",
+              "id": "cpw.mods:modlauncher:10.0.9",
               "name": "Minecraft Forge (modlauncher)",
               "type": "Library",
               "artifact": {
-                "url": "https://files.minecraftforge.net/cpw/mods/modlauncher/10.1.3/modlauncher-10.1.3.jar"
+                "url": "https://files.minecraftforge.net/cpw/mods/modlauncher/10.0.9/modlauncher-10.0.9.jar"
               }
             },
             {
@@ -257,19 +257,19 @@
               }
             },
             {
-              "id": "net.jodah:typetools:0.8.3",
+              "id": "net.jodah:typetools:0.6.3",
               "name": "Minecraft Forge (typetools)",
               "type": "Library",
               "artifact": {
-                "url": "https://files.minecraftforge.net/net/jodah/typetools/0.8.3/typetools-0.8.3.jar"
+                "url": "https://files.minecraftforge.net/net/jodah/typetools/0.6.3/typetools-0.6.3.jar"
               }
             },
             {
-              "id": "net.minecrell:terminalconsoleappender:1.3.0",
+              "id": "net.minecrell:terminalconsoleappender:1.2.0",
               "name": "Minecraft Forge (terminalconsoleappender)",
               "type": "Library",
               "artifact": {
-                "url": "https://files.minecraftforge.net/net/minecrell/terminalconsoleappender/1.3.0/terminalconsoleappender-1.3.0.jar"
+                "url": "https://files.minecraftforge.net/net/minecrell/terminalconsoleappender/1.2.0/terminalconsoleappender-1.2.0.jar"
               }
             },
             {
@@ -342,6 +342,14 @@
               "type": "Library",
               "artifact": {
                 "url": "https://files.minecraftforge.net/net/minecraftforge/fmlloader/1.20.1-47.2.0/fmlloader-1.20.1-47.2.0.jar"
+              }
+            },
+            {
+              "id": "net.minecraftforge:fmlearlydisplay:1.20.1-47.2.0",
+              "name": "Minecraft Forge (fmlearlydisplay)",
+              "type": "Library",
+              "artifact": {
+                "url": "https://files.minecraftforge.net/net/minecraftforge/fmlearlydisplay/1.20.1-47.2.0/fmlearlydisplay-1.20.1-47.2.0.jar"
               }
             }
           ]
