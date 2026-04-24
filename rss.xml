@@ -11,13 +11,14 @@
       <title>🎉 Ouverture du serveur Orion !</title>
       <description>
         <![CDATA[
+          <img src="https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/news/orion-banner.png" width="500">
           <p>Le serveur <strong>Orion</strong> est officiellement ouvert ! 🚀</p>
           <p>Rejoignez-nous sur Minecraft <strong>1.20.1</strong> (Forge v47.4.10) à l'adresse :</p>
-          <p><code>217.182.205.4:2782</code></p>
+          <p><code>orion.luxia-corp.fr</code></p>
           <p>Plus de <strong>60 mods optionnels</strong> sont disponibles directement depuis le launcher — activez ceux que vous voulez avant de vous connecter.</p>
         ]]>
       </description>
-      <pubDate>Fri, 25 Apr 2025 12:00:00 +0000</pubDate>
+      <pubDate>Fri, 25 Apr 2025 21:00:00 +0000</pubDate>
       <guid>https://github.com/KalyTative/Luxia-Files/news/ouverture-orion</guid>
     </item>
 
