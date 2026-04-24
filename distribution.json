@@ -4,7 +4,7 @@
   "discord": {
     "clientId": "1496615032207839494",
     "smallImageText": "Luxia",
-    "smallImageKey": "orion_logo"
+    "smallImageKey": "luxia_logo"
   },
   "servers": [
     {
@@ -17,8 +17,8 @@
       "minecraftVersion": "1.20.1",
       "discord": {
         "shortId": "orion.luxia-serveur.fr",
-        "largeImageText": "<Orion — Minecraft 1.20.1>",
-        "largeImageKey": "<orion_logo>"
+        "largeImageText": "Orion — Minecraft 1.20.1",
+        "largeImageKey": "orion_logo"
       },
       "mainServer": true,
       "autoconnect": true,
