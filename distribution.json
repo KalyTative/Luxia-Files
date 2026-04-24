@@ -13,10 +13,10 @@
       "description": "Orion Running Minecraft 1.20.1 (Forge v47.4.10)",
       "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/orion_logo.png",
       "version": "1.0.0",
-      "address": "orion.luxia-serveur.fr",
+      "address": "orion.luxia-corp.fr",
       "minecraftVersion": "1.20.1",
       "discord": {
-        "shortId": "orion.luxia-serveur.fr",
+        "shortId": "orion.luxia-corp.fr",
         "largeImageText": "Orion — Minecraft 1.20.1",
         "largeImageKey": "orion_logo"
       },
