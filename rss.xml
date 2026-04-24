@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Luxia News</title>
+    <link>https://github.com/KalyTative/Luxia-Files</link>
+    <description>Actualités du launcher Luxia</description>
+    <language>fr-FR</language>
+    <atom:link href="https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>🎉 Ouverture du serveur Orion !</title>
+      <description>
+        <![CDATA[
+          <p>Le serveur <strong>Orion</strong> est officiellement ouvert ! 🚀</p>
+          <p>Rejoignez-nous sur Minecraft <strong>1.20.1</strong> (Forge v47.4.10) à l'adresse :</p>
+          <p><code>217.182.205.4:2782</code></p>
+          <p>Plus de <strong>60 mods optionnels</strong> sont disponibles directement depuis le launcher — activez ceux que vous voulez avant de vous connecter.</p>
+        ]]>
+      </description>
+      <pubDate>Fri, 25 Apr 2025 12:00:00 +0000</pubDate>
+      <guid>https://github.com/KalyTative/Luxia-Files/news/ouverture-orion</guid>
+    </item>
+
+    <item>
+      <title>🗺️ Xaero's Minimap &amp; World Map disponibles</title>
+      <description>
+        <![CDATA[
+          <p>Deux mods de cartographie sont désormais disponibles dans le launcher :</p>
+          <ul>
+            <li><strong>Xaero's Minimap</strong> — une minimap en coin d'écran avec marqueurs personnalisables</li>
+            <li><strong>Xaero's World Map</strong> — une carte du monde complète accessible via <code>M</code></li>
+          </ul>
+          <p>Activez-les depuis la liste des mods optionnels dans le launcher !</p>
+        ]]>
+      </description>
+      <pubDate>Fri, 25 Apr 2025 10:00:00 +0000</pubDate>
+      <guid>https://github.com/KalyTative/Luxia-Files/news/xaero-maps</guid>
+    </item>
+
+    <item>
+      <title>🎙️ Simple Voice Chat activé sur Orion</title>
+      <description>
+        <![CDATA[
+          <p>Le mod <strong>Simple Voice Chat</strong> est disponible pour jouer avec vos amis en vocal directement dans le jeu !</p>
+          <p>Installez le mod depuis le launcher, puis appuyez sur <code>V</code> pour ouvrir les paramètres vocaux une fois connecté.</p>
+          <p>Aucune application externe nécessaire. 🎧</p>
+        ]]>
+      </description>
+      <pubDate>Thu, 24 Apr 2025 18:00:00 +0000</pubDate>
+      <guid>https://github.com/KalyTative/Luxia-Files/news/voice-chat</guid>
+    </item>
+
+  </channel>
+</rss>

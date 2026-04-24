@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
-
+  "rss": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/rss.xml",
   "discord": {
-    "clientId": "1086936373057040395",
-    "smallImageText": "Luxia",
-    "smallImageKey": "big"
+    "clientId": "1496615032207839494",
+    "smallImageText": "luxia_logo",
+    "smallImageKey": ""
   },
   "servers": [
     {
@@ -13,12 +13,12 @@
       "description": "Orion Running Minecraft 1.20.1 (Forge v47.4.10)",
       "icon": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/logo.png",
       "version": "1.0.0",
-      "address": "217.182.205.4:2782",
+      "address": "orion.luxia-serveur.fr",
       "minecraftVersion": "1.20.1",
       "discord": {
-        "shortId": "<FILL IN OR REMOVE DISCORD OBJECT>",
-        "largeImageText": "<FILL IN OR REMOVE DISCORD OBJECT>",
-        "largeImageKey": "<FILL IN OR REMOVE DISCORD OBJECT>"
+        "shortId": "<orion.luxia-serveur.fr>",
+        "largeImageText": "<luxia_logo>",
+        "largeImageKey": "<orion_logo>"
       },
       "mainServer": true,
       "autoconnect": true,
