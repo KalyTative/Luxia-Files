@@ -3,8 +3,8 @@
   "rss": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/rss.xml",
   "discord": {
     "clientId": "1496615032207839494",
-    "smallImageText": "luxia_logo",
-    "smallImageKey": ""
+    "smallImageText": "Luxia",
+    "smallImageKey": "luxia_logo"
   },
   "servers": [
     {
@@ -17,7 +17,7 @@
       "minecraftVersion": "1.20.1",
       "discord": {
         "shortId": "<orion.luxia-serveur.fr>",
-        "largeImageText": "<luxia_logo>",
+        "largeImageText": "<Orion — Minecraft 1.20.1>",
         "largeImageKey": "<orion_logo>"
       },
       "mainServer": true,
