@@ -407,6 +407,16 @@
           }
         },
         {
+         "id": "nopechant:Nopechant-1.0:1.0@jar",
+         "name": "Nopechant",
+         "type": "ForgeMod",
+         "artifact": {
+           "size": 6150,
+           "MD5": "df5ac5fc4df70c8aaacc5769456e3cdc",
+           "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Nopechant-1.0.jar"
+          }
+        },
+        {
           "id": "jade.1.20.1.forge.11.13.2:Jade-1.20.1-Forge-11.13.2:1.0@jar",
           "name": "Jade",
           "type": "ForgeMod",
