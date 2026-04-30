@@ -1200,13 +1200,13 @@
           }
         },
         {
-          "id": "xaero.minimap:xaerominimapfair:24.2.0@jar",
+          "id": "xaero.minimap:xaerominimap:25.3.10@jar",
           "name": "Xaero's Minimap",
           "type": "ForgeMod",
           "artifact": {
-            "size": 1470125,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Xaeros_Minimap_FP24.2.0_Forge_1.20.jar",
-            "MD5": "154a3a691171d8abdb313937d572a2bf"
+            "size": 2146522,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/xaerominimap-forge-1.20.1-25.3.10.jar",
+            "MD5": "2847dc482588772ec551a5b5112dc686"
           },
           "required": {
             "value": false
