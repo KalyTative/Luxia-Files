@@ -117,12 +117,37 @@
   }
 }
 /* ============================================================
-   Fluxer Theme: Hide desktop download nagbar
+   Fluxer Theme: Hide desktop download nagbar - brutal fixed
    Objectif :
-   - supprimer le bandeau violet "Télécharge l'app de bureau Fluxer..."
-   - cibler uniquement la Nagbar desktop
+   - supprimer le bandeau violet de téléchargement
+   - cibler les classes Nagbar même si le nom CSS module varie
    ============================================================ */
 
-[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] {
+/* Cible directe du bandeau */
+html body div[class*="Nagbar" i],
+html body div[class*="nagbar" i],
+html body div[class*="nagbarDesktop" i],
+html body div[class*="NagbarDesktop" i] {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Si le layout garde un espace de 36px en haut */
+html,
+body,
+#root,
+#__next,
+[class*="app" i],
+[class*="layout" i],
+[class*="container" i] {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
