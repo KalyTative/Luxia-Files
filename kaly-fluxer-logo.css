@@ -1,30 +1,918 @@
 /* ============================================================
-   Fluxer Theme: Logo SVG Only
+   Fluxer Theme: Embed Forge Purple V4.3.7 Clean + Custom Logo
    Objectif :
-   - remplacer uniquement le logo Fluxer natif
-   - logo SVG custom en blanc
-   - cercle violet autour du logo
-   - aucun glow
-   - aucune modification globale de l'interface
+   - interface V4.3.4 conservée
+   - mêmes couleurs, cadres, boutons, scrollbars
+   - mêmes ombres sur les vraies fenêtres
+   - suppression de la fausse fenêtre derrière
+   - photos de profil / avatars corrigés
+   - mentions et messages mentionnés rose violet glowing
+   - logo Fluxer remplacé par un logo SVG custom blanc
+   - cercle violet autour du logo, sans glow
    ============================================================ */
 
 :root {
-  --kaly-logo-circle: #8956e8;
-  --kaly-logo-circle-hover: #f0bdff;
-  --kaly-logo-bg: rgba(73, 36, 128, 0.18);
-  --kaly-logo-bg-hover: rgba(111, 63, 193, 0.28);
+  /* =========================
+     Palette Forge V4.3.7
+     ========================= */
+
+  --forge-bg-left: #07040d;
+  --forge-bg-left-soft: #0d0717;
+
+  --forge-bg-main: #120d1b;
+  --forge-bg-main-soft: #181025;
+
+  --forge-sidebar: rgba(19, 14, 29, 0.9);
+  --forge-sidebar-soft: rgba(25, 17, 38, 0.92);
+
+  --forge-panel: rgba(27, 18, 40, 0.84);
+  --forge-panel-soft: rgba(33, 22, 48, 0.88);
+  --forge-panel-hover: rgba(47, 29, 72, 0.9);
+  --forge-panel-active: rgba(63, 38, 94, 0.96);
+
+  --forge-modal: rgba(23, 16, 33, 0.96);
+  --forge-modal-side: rgba(16, 11, 25, 0.96);
+
+  --forge-input: rgba(12, 7, 19, 0.94);
+  --forge-input-soft: rgba(18, 11, 29, 0.98);
+
+  --forge-border: rgba(227, 133, 255, 0.16);
+  --forge-border-soft: rgba(255, 255, 255, 0.08);
+  --forge-border-strong: rgba(227, 133, 255, 0.34);
+
+  --forge-text: #f7f1ff;
+  --forge-text-soft: #e4d8f6;
+  --forge-muted: #bfafd8;
+  --forge-muted-dark: #8d7ba4;
+
+  --forge-purple: #492480;
+  --forge-purple-2: #6f3fc1;
+  --forge-purple-3: #8956e8;
+  --forge-purple-soft: #a678ff;
+
+  --forge-pink: #e385ff;
+  --forge-pink-soft: #f0bdff;
+
+  --forge-cyan: #8be9ff;
+  --forge-green: #7ef0bc;
+  --forge-red: #ff7d96;
+  --forge-yellow: #ffd36b;
+
+  --forge-glow-purple: 0 0 24px rgba(125, 74, 217, 0.22);
+  --forge-glow-pink: 0 0 28px rgba(227, 133, 255, 0.16);
+  --forge-shadow-deep: 0 18px 50px rgba(0, 0, 0, 0.34);
+  --forge-shadow-panel: 0 10px 32px rgba(0, 0, 0, 0.22);
+
+  --forge-radius-sm: 10px;
+  --forge-radius-md: 14px;
+  --forge-radius-lg: 18px;
+
+  /* =========================
+     Logo custom Kaly
+     ========================= */
 
   --kaly-fluxer-logo: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMTAwIDEwODMiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iTG9nbyIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iYmxhY2siIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSIgTSAzNTQgMjUgTCAzNDggMjkgTCAyNDcgMTUxIEwgMTg0IDIzNiBMIDE1OSAyNzUgTCAxMzcgMzEzIEwgMTEwIDM2NiBMIDkxIDQwOSBMIDcyIDQ1OSBMIDU1IDUxNSBMIDQyIDU2OSBMIDM1IDYwOSBMIDI5IDY1MyBMIDI0IDcxOCBMIDI0IDc2MyBMIDI5IDgzNiBMIDMyIDg0MCBMIDY2IDgzOSBMIDk2IDgzNSBMIDEyMyA4MjkgTCAxNjcgODEzIEwgMTk0IDgwMCBMIDI0NyA3NzEgTCAyNzggNzU4IEwgMzExIDc1MCBMIDMzMSA3NDkgTCAzNDcgNzUxIEwgMzU4IDc1NCBMIDM2OCA3NTkgTCAzNzkgNzY4IEwgMzc5IDc3MSBMIDM2NCA3ODYgTCAzNTcgNzk2IEwgMzQ4IDgxNSBMIDM0NCA4MjkgTCAzNDAgODY0IEwgMzQwIDkyMyBMIDMzNiA5NTAgTCAzMzEgOTY3IEwgMzIyIDk4NyBMIDMxNCA5OTkgTCAyOTQgMTAyMCBMIDI4MyAxMDI4IEwgMjkzIDEwMzMgTCAzMTEgMTAzNyBMIDM0OSAxMDM2IEwgMzczIDEwMzAgTCAzODkgMTAyNCBMIDQwNCAxMDE2IEwgNDIwIDEwMDQgTCA0MzcgOTg1IEwgNDQ4IDk2NiBMIDQ1MyA5NTMgTCA0NTkgOTI5IEwgNDYyIDkwMSBMIDQ2NyA4NzggTCA0ODAgODUwIEwgNDg0IDg0OCBMIDQ4NiA4OTYgTCA0OTUgOTM2IEwgNTAyIDk1NyBMIDUyMyAxMDA4IEwgNTM5IDEwMzkgTCA1NTEgMTA1OCBMIDU2OSAxMDI3IEwgNTgxIDEwMDIgTCA1OTQgOTcxIEwgNjA1IDkzOSBMIDYxNCA4OTcgTCA2MTYgODcyIEwgNjE1IDg0OCBMIDYxOCA4NDcgTCA2MjIgODUyIEwgNjMzIDg3NyBMIDYzNyA4OTMgTCA2NDIgOTMxIEwgNjQ5IDk1NyBMIDY1OCA5NzYgTCA2NjYgOTg4IEwgNjg0IDEwMDYgTCA3MDAgMTAxNyBMIDcxOCAxMDI2IEwgNzUyIDEwMzYgTCA3OTAgMTAzNyBMIDgxMyAxMDMxIEwgODE4IDEwMjcgTCA4MDUgMTAxOCBMIDc4NCA5OTUgTCA3NzMgOTc1IEwgNzY3IDk1OCBMIDc2MSA5MjIgTCA3NjAgODQ5IEwgNzU3IDgzMCBMIDc1MSA4MTAgTCA3NDQgNzk2IEwgNzM2IDc4NSBMIDcyMSA3NzEgTCA3MjEgNzY5IEwgNzI3IDc2MyBMIDc0NiA3NTMgTCA3NjAgNzUwIEwgNzc5IDc0OSBMIDgwNiA3NTMgTCA4MjYgNzU5IEwgODUyIDc3MCBMIDkyOSA4MTAgTCA5ODAgODI5IEwgMTAwNyA4MzUgTCAxMDM1IDgzOSBMIDEwNjggODQwIEwgMTA3MCA4MzggTCAxMDc1IDc4MyBMIDEwNzUgNzAwIEwgMTA3MSA2NDkgTCAxMDY1IDYwNSBMIDEwNTMgNTQyIEwgMTAzOCA0ODUgTCAxMDE4IDQyNiBMIDk5MyAzNjYgTCA5NzMgMzI1IEwgOTUzIDI4OSBMIDkwNyAyMTcgTCA4NDIgMTMyIEwgNzUxIDI2IEwgNzQ1IDI0IEwgNzM0IDI0IEwgNzI4IDI2IEwgNjkxIDY5IEwgNjY2IDEwMiBMIDY0NCAxMzUgTCA2MjMgMTcxIEwgNjA2IDIwNiBMIDU5MSAyNDQgTCA1ODUgMjQ0IEwgNTYxIDIzOCBMIDUzOSAyMzggTCA1MTIgMjQ0IEwgNTEwIDI0MiBMIDQ5OCAyMDggTCA0ODIgMTczIEwgNDU5IDEzMyBMIDQ0MCAxMDQgTCA0MTUgNzEgTCAzNzUgMjYgTCAzNjkgMjQgWiBNIDcxOSA0NTEgTCA3MzcgNDUxIEwgNzU1IDQ1NCBMIDc2OSA0NTkgTCA3OTMgNDczIEwgODA3IDQ4NiBMIDgyMCA1MDQgTCA4MzEgNTMwIEwgODM1IDU1MiBMIDgzNCA1NzkgTCA4MzAgNTk1IEwgODIxIDYxNSBMIDgxMCA2MzEgTCA3OTQgNjQ3IEwgNzc4IDY1OCBMIDc1NiA2NjcgTCA3MzIgNjcxIEwgNzEzIDY3MCBMIDY5MyA2NjUgTCA2NzkgNjU5IEwgNjU5IDY0NiBMIDY0NSA2MzIgTCA2MzMgNjE1IEwgNjIzIDU5MiBMIDYxOSA1NzEgTCA2MTkgNTUyIEwgNjIyIDUzNCBMIDYyNiA1MjIgTCA2MzQgNTA2IEwgNjQ0IDQ5MiBMIDY2MSA0NzUgTCA2NzQgNDY2IEwgNjkzIDQ1NyBaIE0gMzY2IDQ1MSBMIDM4NCA0NTEgTCA0MDEgNDU0IEwgNDI3IDQ2NSBMIDQ0MCA0NzQgTCA0NTMgNDg2IEwgNDY0IDUwMCBMIDQ3MSA1MTIgTCA0NzggNTMwIEwgNDgyIDU1MCBMIDQ4MiA1NzIgTCA0NzcgNTk1IEwgNDcwIDYxMSBMIDQ1NSA2MzMgTCA0MzQgNjUyIEwgNDE2IDY2MiBMIDM5OCA2NjggTCAzNzYgNjcxIEwgMzU0IDY2OSBMIDMzNyA2NjQgTCAzMjQgNjU4IEwgMzA1IDY0NSBMIDI5MyA2MzMgTCAyODAgNjE0IEwgMjcxIDU5MyBMIDI2NyA1NzEgTCAyNjcgNTUxIEwgMjcxIDUzMCBMIDI4MSA1MDcgTCAyOTMgNDkwIEwgMzA3IDQ3NiBMIDMyMSA0NjYgTCAzNDAgNDU3IFogIi8+PC9zdmc+");
+
+  /* =========================
+     Variables Fluxer
+     ========================= */
+
+  --background-tertiary: var(--forge-bg-left);
+
+  --background-secondary: var(--forge-sidebar);
+  --background-secondary-alt: var(--forge-sidebar-soft);
+  --background-secondary-lighter: var(--forge-panel-soft);
+
+  --background-primary: var(--forge-bg-main);
+  --background-textarea: var(--forge-input);
+
+  --background-header-primary: rgba(17, 11, 26, 0.92);
+  --background-header-primary-hover: var(--forge-panel);
+  --background-header-secondary: var(--forge-bg-left-soft);
+
+  --background-modifier-hover: rgba(227, 133, 255, 0.055);
+  --background-modifier-selected: var(--forge-panel-active);
+  --background-modifier-accent: rgba(255, 255, 255, 0.08);
+  --background-modifier-accent-focus: rgba(227, 133, 255, 0.28);
+
+  --brand-primary: var(--forge-purple-2);
+  --brand-secondary: var(--forge-purple);
+  --brand-primary-light: var(--forge-purple-3);
+
+  --accent-primary: var(--forge-purple-3);
+  --focus-primary: var(--forge-pink);
+
+  --text-primary: var(--forge-text);
+  --text-secondary: var(--forge-text-soft);
+  --text-tertiary: var(--forge-muted);
+  --text-primary-muted: var(--forge-muted);
+  --text-tertiary-muted: var(--forge-muted-dark);
+  --text-tertiary-secondary: var(--forge-muted-dark);
+
+  --text-chat: var(--forge-text);
+  --text-chat-muted: var(--forge-muted);
+  --text-link: #dcc0ff;
+
+  --guild_list-foreground: var(--forge-bg-left);
+
+  /* =========================
+     Apparence / Markdown
+     ========================= */
+
+  --bg-primary: var(--forge-bg-main);
+  --bg-secondary: var(--forge-panel);
+  --bg-tertiary: var(--forge-bg-left);
+  --bg-hover: var(--forge-panel-hover);
+  --bg-active: var(--forge-panel-active);
+
+  --bg-code: #09050e;
+  --bg-code-block: #09050e;
+  --bg-blockquote: rgba(25, 17, 38, 0.82);
+  --bg-table-header: rgba(9, 6, 15, 0.95);
+  --bg-table-row-odd: rgba(15, 10, 23, 0.88);
+  --bg-table-row-even: rgba(23, 16, 35, 0.88);
+
+  --markup-mention-text: #f0bdff;
+  --markup-interactive-hover-text: var(--forge-pink);
+
+  --button-outline-border: rgba(227, 133, 255, 0.2);
+  --border-color: var(--forge-border-soft);
+
+  --form-surface-background: var(--forge-panel);
+  --surface-interactive-hover-bg: var(--forge-panel-hover);
+  --surface-interactive-selected-bg: var(--forge-panel-active);
+  --surface-interactive-selected-color: var(--forge-text);
+
+  --scrollbar-thumb-bg: #3a2456;
+  --scrollbar-thumb-bg-hover: var(--forge-purple-3);
+  --scrollbar-track-bg: #08050d;
+
+  color-scheme: dark;
 }
 
-/* Support du logo custom */
-[class*="fluxerButtonIcon"]:has(svg[class*="fluxerSymbolIcon"]) {
-  position: relative !important;
-  overflow: visible !important;
+/* =========================
+   Animations
+   ========================= */
+
+@keyframes forge-bg-drift {
+  0% {
+    background-position: 0% 0%, 100% 0%, 50% 50%;
+  }
+
+  50% {
+    background-position: 12% 4%, 88% 8%, 50% 50%;
+  }
+
+  100% {
+    background-position: 0% 0%, 100% 0%, 50% 50%;
+  }
+}
+
+@keyframes forge-button-shine {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* =========================
+   Base
+   ========================= */
+
+html,
+body,
+#root {
+  background-color: var(--forge-bg-main) !important;
+  color: var(--forge-text) !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(137, 86, 232, 0.18), transparent 32rem),
+    radial-gradient(circle at 86% 4%, rgba(227, 133, 255, 0.1), transparent 30rem),
+    linear-gradient(135deg, #07040d 0%, #120d1b 48%, #090611 100%) !important;
+  background-attachment: fixed !important;
+  animation: forge-bg-drift 18s ease-in-out infinite;
+}
+
+/* Grid de fond retirée */
+body::before {
+  content: none !important;
+  display: none !important;
+}
+
+main {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(73, 36, 128, 0.12), transparent 32rem),
+    linear-gradient(180deg, rgba(18, 13, 27, 0.96), rgba(11, 7, 17, 0.98)) !important;
+}
+
+/* =========================
+   Colonnes latérales
+   ========================= */
+
+aside {
+  background-color: var(--forge-sidebar) !important;
+  border-right: 1px solid rgba(227, 133, 255, 0.08) !important;
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+}
+
+aside:first-child {
+  background:
+    linear-gradient(180deg, rgba(7, 4, 13, 0.96), rgba(13, 7, 23, 0.96)) !important;
+  box-shadow: inset -1px 0 0 rgba(227, 133, 255, 0.08);
+}
+
+/* =========================
+   Panneaux ciblés
+   Pas de [class*="container"], sinon ça repeint la moitié de l'app.
+   ========================= */
+
+section,
+article,
+nav {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+[class*="card"],
+[class*="Card"],
+[class*="panel"],
+[class*="Panel"],
+[class*="surface"],
+[class*="Surface"] {
+  border-color: rgba(227, 133, 255, 0.1) !important;
+}
+
+/* =========================
+   Modales / paramètres / profils
+   Correction ciblée :
+   - role="dialog" est le focusLock Fluxer, pas la vraie fenêtre
+   - la vraie fenêtre est Modal_root
+   - on garde toutes les finitions ailleurs
+   ========================= */
+
+/* Dialog natif éventuel */
+dialog {
+  background:
+    linear-gradient(180deg, rgba(31, 20, 46, 0.96), rgba(18, 12, 28, 0.96)) !important;
+  color: var(--forge-text) !important;
+  border: 1px solid var(--forge-border) !important;
+  border-radius: var(--forge-radius-lg) !important;
+  box-shadow:
+    var(--forge-shadow-deep),
+    var(--forge-glow-pink) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease !important;
+}
+
+/* Wrapper technique Fluxer : surtout aucune fausse fenêtre ici */
+.modal-backdrop [role="dialog"] {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* FocusLock et surface Modal uniquement : transparent, sans casser les autres surfaces de l'app */
+.modal-backdrop [class*="Modal_focusLock"],
+.modal-backdrop [class*="Modal_surface"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Vraie fenêtre animée Fluxer : look V4.3.4 conservé */
+.modal-backdrop [class*="Modal_root"] {
+  background:
+    linear-gradient(180deg, rgba(31, 20, 46, 0.96), rgba(18, 12, 28, 0.96)) !important;
+  color: var(--forge-text) !important;
+  border: 1px solid var(--forge-border) !important;
+  border-radius: var(--forge-radius-lg) !important;
+  box-shadow:
+    var(--forge-shadow-deep),
+    var(--forge-glow-pink) !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: hidden !important;
+  pointer-events: all !important;
+}
+
+/* Fenêtres fermées / cachées */
+dialog:not([open]),
+.modal-backdrop [role="dialog"][hidden],
+.modal-backdrop [role="dialog"][aria-hidden="true"],
+.modal-backdrop [role="dialog"][data-state="closed"],
+.modal-backdrop [role="dialog"][data-closing="true"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+/* Backdrop Fluxer : voile simple, zéro fausse fenêtre, zéro glow séparé */
+[class*="Modal_modalBackdrop"],
+[class*="modalBackdrop"],
+[class*="ModalBackdrop"] {
+  background: rgba(0, 0, 0, 0.42) !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Backdrop centered : c'est lui qui peut faire le vieux rectangle flou */
+[class*="Modal_backdropCentered"],
+[class*="backdropCentered"],
+[class*="BackdropCentered"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* FloatingOverlay : couche de clic uniquement, ne dessine rien */
+.modal-backdrop {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* FloatingOverlay fermé */
+.modal-backdrop[aria-hidden="true"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+/* Layer caché par Fluxer */
+[class*="Modal_layer"][style*="visibility: hidden"],
+[class*="Modal_layer"][style*="visibility:hidden"],
+[class*="Modal_layer"][style*="opacity: 0"],
+[class*="Modal_layer"][style*="opacity:0"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+/* Popouts : états explicitement fermés/inactifs seulement */
+[class*="Popout"][aria-hidden="true"],
+[class*="popout"][aria-hidden="true"],
+[class*="Popout"][data-state="closed"],
+[class*="popout"][data-state="closed"],
+[class*="Popout"][data-closing="true"],
+[class*="popout"][data-closing="true"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* IMPORTANT :
+   Pas de règle générique [aria-hidden][class*="overlay"].
+   Fluxer utilise aussi "overlay" pour les SVG d'avatars.
+*/
+
+/* =========================
+   Champs texte
+   ========================= */
+
+input,
+textarea,
+select {
+  background:
+    linear-gradient(180deg, rgba(14, 8, 22, 0.96), rgba(8, 5, 13, 0.96)) !important;
+  color: var(--forge-text) !important;
+  border: 1px solid rgba(227, 133, 255, 0.15) !important;
+  border-radius: var(--forge-radius-md) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 8px 24px rgba(0, 0, 0, 0.16) !important;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+textarea {
+  min-height: 46px !important;
+  line-height: 20px !important;
+  padding: 13px 14px !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: rgba(227, 133, 255, 0.26) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--forge-muted-dark) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: var(--forge-input-soft) !important;
+  border-color: var(--forge-purple-3) !important;
+  outline: none !important;
+  box-shadow:
+    0 0 0 2px rgba(137, 86, 232, 0.22),
+    0 0 26px rgba(137, 86, 232, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+/* =========================
+   Liens
+   ========================= */
+
+a {
+  color: #dcc0ff !important;
+  text-decoration-color: rgba(227, 133, 255, 0.32) !important;
+  text-underline-offset: 3px;
+  transition:
+    color 140ms ease,
+    text-decoration-color 140ms ease,
+    text-shadow 140ms ease;
+}
+
+a:hover {
+  color: var(--forge-pink-soft) !important;
+  text-decoration-color: rgba(240, 189, 255, 0.72) !important;
+  text-shadow: 0 0 14px rgba(227, 133, 255, 0.24);
+}
+
+/* =========================
+   Boutons
+   ========================= */
+
+button {
+  color: var(--forge-text) !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: var(--forge-radius-md) !important;
+  border-color: rgba(227, 133, 255, 0.16) !important;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    background-color 140ms ease,
+    filter 140ms ease;
+}
+
+button:hover {
+  border-color: rgba(227, 133, 255, 0.3) !important;
+  transform: translateY(-1px);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.2),
+    var(--forge-glow-purple) !important;
+}
+
+button:active {
+  transform: translateY(0);
+  filter: brightness(0.96);
+}
+
+button:disabled {
+  opacity: 0.52;
+  transform: none;
+  box-shadow: none !important;
+}
+
+button[type="submit"],
+button[data-primary="true"] {
+  background:
+    linear-gradient(135deg, var(--forge-purple), var(--forge-purple-2), var(--forge-purple-3)) !important;
+  background-size: 180% 180% !important;
+  color: #ffffff !important;
+  border-color: rgba(227, 133, 255, 0.34) !important;
+  box-shadow:
+    0 10px 30px rgba(111, 63, 193, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+button[type="submit"]:hover,
+button[data-primary="true"]:hover {
+  animation: forge-button-shine 900ms ease forwards;
+  box-shadow:
+    0 14px 34px rgba(111, 63, 193, 0.34),
+    0 0 0 2px rgba(227, 133, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+/* =========================
+   Avatars / photos de profil
+   Fluxer rend les avatars en SVG avec role img/button.
+   ========================= */
+
+[role="img"][aria-label],
+[role="button"][aria-label] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[role="img"][aria-label] svg,
+[role="button"][aria-label] svg,
+svg[class*="overlay"],
+svg[class*="Overlay"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  background: transparent !important;
+  filter: none !important;
+}
+
+[role="img"][aria-label] image,
+[role="button"][aria-label] image,
+svg[class*="overlay"] image,
+svg[class*="Overlay"] image {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  filter: none !important;
+}
+
+/* Les overlays internes d'avatar ne doivent jamais être cachés */
+[aria-hidden="true"][role="presentation"],
+svg[aria-hidden="true"][class*="overlay"],
+svg[aria-hidden="true"][class*="Overlay"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+/* =========================
+   Messages
+   Correction importante :
+   on cible uniquement les vrais messages Fluxer avec data-message-id.
+   ========================= */
+
+/* Neutralise les anciens sélecteurs trop larges sans toucher aux SVG overlays */
+[class*="message"]:not([data-message-id]):not(svg):hover,
+[class*="Message"]:not([data-message-id]):not(svg):hover {
   background-color: transparent !important;
 }
 
-/* Masque uniquement le SVG Fluxer natif */
+/* Vrai message */
+[role="article"][data-message-id] {
+  border-radius: var(--forge-radius-md);
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+/* Hover propre sur UN message, pas toute la conversation */
+[role="article"][data-message-id]:hover {
+  background-color: rgba(227, 133, 255, 0.045) !important;
+  box-shadow:
+    inset 2px 0 0 rgba(227, 133, 255, 0.18),
+    0 0 0 1px rgba(227, 133, 255, 0.035) !important;
+}
+
+/* Messages mentionnés */
+[role="article"][data-message-id][class*="messageMentioned"],
+[role="article"][data-message-id][class*="MessageMentioned"] {
+  position: relative;
+  background-color: rgba(227, 133, 255, 0.09) !important;
+  box-shadow:
+    0 0 22px rgba(137, 86, 232, 0.14),
+    inset 0 0 0 1px rgba(227, 133, 255, 0.05) !important;
+  overflow: hidden !important;
+}
+
+[role="article"][data-message-id][class*="messageMentioned"]::before,
+[role="article"][data-message-id][class*="MessageMentioned"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(240, 189, 255, 0.98), rgba(227, 133, 255, 0.9), rgba(137, 86, 232, 0.92)) !important;
+  box-shadow:
+    0 0 12px rgba(240, 189, 255, 0.34),
+    0 0 20px rgba(227, 133, 255, 0.24) !important;
+  pointer-events: none;
+}
+
+[role="article"][data-message-id][class*="messageMentioned"]:hover,
+[role="article"][data-message-id][class*="MessageMentioned"]:hover {
+  background-color: rgba(227, 133, 255, 0.13) !important;
+  box-shadow:
+    0 0 28px rgba(227, 133, 255, 0.18),
+    inset 0 0 0 1px rgba(240, 189, 255, 0.07) !important;
+}
+
+[role="article"][data-message-id][class*="messageMentioned"]:hover::before,
+[role="article"][data-message-id][class*="MessageMentioned"]:hover::before {
+  background:
+    linear-gradient(180deg, rgba(255, 230, 255, 1), rgba(240, 189, 255, 0.96), rgba(137, 86, 232, 0.96)) !important;
+  box-shadow:
+    0 0 14px rgba(255, 230, 255, 0.34),
+    0 0 24px rgba(227, 133, 255, 0.3) !important;
+}
+
+/* Réponse / highlight */
+[role="article"][data-message-id][class*="messageReplying"],
+[role="article"][data-message-id][class*="messageHighlight"],
+[role="article"][data-message-id][class*="MessageReplying"],
+[role="article"][data-message-id][class*="MessageHighlight"] {
+  background-color: rgba(137, 86, 232, 0.1) !important;
+}
+
+[role="article"][data-message-id][class*="messageReplying"]:hover,
+[role="article"][data-message-id][class*="messageHighlight"]:hover,
+[role="article"][data-message-id][class*="MessageReplying"]:hover,
+[role="article"][data-message-id][class*="MessageHighlight"]:hover {
+  background-color: rgba(137, 86, 232, 0.14) !important;
+}
+
+/* Aperçus de messages, popouts, previews : pas de surbrillance parasite */
+[role="article"][data-message-id][class*="messagePreview"]:hover,
+[role="article"][data-message-id][class*="MessagePreview"]:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Mode mobile / tactile : évite les hovers collants */
+@media (pointer: coarse) {
+  [role="article"][data-message-id]:hover {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Mentions / badges */
+
+/* Badges / pills : aucun cadre, aucun halo, aucun fond parasite */
+[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]),
+[class*="pill" i] {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  color: #ead8ff !important;
+  border-radius: 999px !important;
+}
+
+/* Supprime les anneaux/fonds ajoutés par pseudo-éléments autour des badges */
+[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i])::before,
+[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i])::after,
+[class*="pill" i]::before,
+[class*="pill" i]::after {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Badges cliquables : neutralise le style global des boutons */
+button[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]),
+button[class*="pill" i],
+[role="button"][class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]),
+[role="button"][class*="pill" i] {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+button[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]):hover,
+button[class*="pill" i]:hover,
+[role="button"][class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]):hover,
+[role="button"][class*="pill" i]:hover {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Badge de guilde partenaire Fluxer : cercle rose derrière le SVG blanc */
+[class*="GuildBadge_module_partnerBadge"],
+[class*="guildbadge" i][class*="partnerbadge" i] {
+  background: #6e41bd !important;
+  background-color: #6e41bd !important;
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  border-radius: 50% !important;
+}
+
+/* Mentions uniquement : rose violet fancy glowing */
+:is(a, span, button)[class*="mention" i]:not([class*="messageMentioned" i]),
+:is(a, span, button)[data-mention],
+:is(a, span, button)[data-mention-id] {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: baseline;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(73, 36, 128, 0.72),
+      rgba(137, 86, 232, 0.62) 48%,
+      rgba(227, 133, 255, 0.52)
+    ) !important;
+
+  color: #fff1ff !important;
+  border: 1px solid rgba(240, 189, 255, 0.42) !important;
+  border-radius: 999px !important;
+  padding: 0.08em 0.46em !important;
+
+  font-weight: 800;
+  text-decoration: none !important;
+  text-shadow:
+    0 0 8px rgba(240, 189, 255, 0.52),
+    0 0 18px rgba(227, 133, 255, 0.28);
+
+  box-shadow:
+    0 0 0 1px rgba(137, 86, 232, 0.18),
+    0 0 16px rgba(227, 133, 255, 0.22),
+    0 0 28px rgba(137, 86, 232, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
+  transition:
+    color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    text-shadow 140ms ease,
+    filter 140ms ease;
+}
+
+/* Halo externe sans toucher au layout */
+:is(a, span, button)[class*="mention" i]:not([class*="messageMentioned" i])::before,
+:is(a, span, button)[data-mention]::before,
+:is(a, span, button)[data-mention-id]::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(227, 133, 255, 0.34), transparent 68%);
+  filter: blur(7px);
+  opacity: 0.72;
+}
+
+/* Hover des mentions uniquement */
+:is(a, span, button)[class*="mention" i]:not([class*="messageMentioned" i]):hover,
+:is(a, span, button)[data-mention]:hover,
+:is(a, span, button)[data-mention-id]:hover {
+  color: #ffffff !important;
+  border-color: rgba(240, 189, 255, 0.68) !important;
+  filter: brightness(1.08);
+
+  text-shadow:
+    0 0 10px rgba(255, 241, 255, 0.72),
+    0 0 22px rgba(227, 133, 255, 0.48);
+
+  box-shadow:
+    0 0 0 1px rgba(227, 133, 255, 0.3),
+    0 0 20px rgba(227, 133, 255, 0.34),
+    0 0 36px rgba(137, 86, 232, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+}
+
+/* =========================
+   Code / blocs
+   ========================= */
+
+code,
+pre {
+  background:
+    linear-gradient(180deg, rgba(9, 5, 14, 0.98), rgba(14, 8, 22, 0.98)) !important;
+  color: #f8efff !important;
+  border-color: rgba(227, 133, 255, 0.12) !important;
+  border-radius: var(--forge-radius-md) !important;
+}
+
+pre {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 12px 32px rgba(0, 0, 0, 0.24) !important;
+}
+
+/* =========================
+   Tableaux / citations
+   ========================= */
+
+blockquote {
+  background: rgba(25, 17, 38, 0.74) !important;
+  border-left: 3px solid rgba(227, 133, 255, 0.42) !important;
+  color: var(--forge-text-soft) !important;
+  border-radius: 0 var(--forge-radius-md) var(--forge-radius-md) 0 !important;
+}
+
+table {
+  border-color: rgba(227, 133, 255, 0.12) !important;
+}
+
+th {
+  background: rgba(9, 6, 15, 0.94) !important;
+  color: var(--forge-text) !important;
+}
+
+td {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* =========================
+   Sélection
+   ========================= */
+
+::selection {
+  background: rgba(137, 86, 232, 0.46);
+  color: #ffffff;
+}
+
+/* =========================
+   Scrollbars
+   ========================= */
+
+* {
+  scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-track-bg);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, #4b2d70, #2f1d48);
+  border-radius: 999px;
+  border: 2px solid var(--scrollbar-track-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, var(--forge-purple-3), #4b2d70);
+}
+
+/* =========================
+   Logo Fluxer remplacé
+   =========================
+
+   Correctif V3 :
+   on cible uniquement le bouton qui contient le vrai SVG Fluxer.
+   Ça évite de dessiner le logo custom sur l'étoile de favori.
+*/
+
+/* Le bouton Fluxer devient le support du logo custom */
+[class*="fluxerButtonIcon"]:has(svg[class*="fluxerSymbolIcon"]) {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* On masque uniquement le SVG Fluxer natif */
 [class*="fluxerButtonIcon"]:has(svg[class*="fluxerSymbolIcon"]) svg[class*="fluxerSymbolIcon"],
 svg[class*="fluxerSymbolIcon"] {
   opacity: 0 !important;
@@ -34,7 +922,7 @@ svg[class*="fluxerSymbolIcon"] {
   color: transparent !important;
 }
 
-/* Cercle violet autour du logo */
+/* Cercle violet autour du logo, sans glow */
 [class*="fluxerButtonIcon"]:has(svg[class*="fluxerSymbolIcon"])::after {
   content: "";
   position: absolute;
@@ -49,13 +937,13 @@ svg[class*="fluxerSymbolIcon"] {
   pointer-events: none;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 2px solid var(--kaly-logo-circle) !important;
-  background-color: var(--kaly-logo-bg) !important;
+  border: 2px solid var(--forge-purple-3) !important;
+  background-color: rgba(73, 36, 128, 0.18) !important;
   box-shadow: none !important;
   filter: none !important;
 }
 
-/* Logo SVG custom en blanc */
+/* Logo Luxia redessiné par-dessus */
 [class*="fluxerButtonIcon"]:has(svg[class*="fluxerSymbolIcon"])::before {
   content: "";
   position: absolute;
@@ -84,15 +972,16 @@ svg[class*="fluxerSymbolIcon"] {
   filter: none !important;
 }
 
-/* Hover et sélection */
+/* Hover / sélection : cercle violet un peu plus marqué, toujours sans glow */
 [class*="fluxerButtonIcon"]:has(svg[class*="fluxerSymbolIcon"]):hover::after,
 [class*="fluxerButtonIconSelected"]:has(svg[class*="fluxerSymbolIcon"])::after {
-  border-color: var(--kaly-logo-circle-hover) !important;
-  background-color: var(--kaly-logo-bg-hover) !important;
+  border-color: var(--forge-pink-soft) !important;
+  background-color: rgba(111, 63, 193, 0.28) !important;
   box-shadow: none !important;
   filter: none !important;
 }
 
+/* Hover / sélection : logo blanc, sans glow */
 [class*="fluxerButtonIcon"]:has(svg[class*="fluxerSymbolIcon"]):hover::before,
 [class*="fluxerButtonIconSelected"]:has(svg[class*="fluxerSymbolIcon"])::before {
   background-color: #ffffff !important;
@@ -100,7 +989,35 @@ svg[class*="fluxerSymbolIcon"] {
   filter: none !important;
 }
 
-/* Sécurité : évite qu'un état sélectionné repeigne le support */
+/* Sécurité : empêche une règle globale de repeindre le bouton sélectionné */
 [class*="fluxerButtonIconSelected"]:has(svg[class*="fluxerSymbolIcon"]) {
   background-color: transparent !important;
+}
+
+/* =========================
+   Focus accessible
+   ========================= */
+
+:focus-visible {
+  outline: 2px solid rgba(227, 133, 255, 0.5) !important;
+  outline-offset: 2px;
+}
+
+/* =========================
+   Réduction des animations
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  button[type="submit"]:hover,
+  button[data-primary="true"]:hover {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
