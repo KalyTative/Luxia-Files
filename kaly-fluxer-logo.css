@@ -7,7 +7,7 @@
    - aucun glow
    - recolorer le bandeau de téléchargement natif
    - remplacer visuellement son message
-   - masquer le bouton Télécharger
+   - masquer / supprimer le bouton Télécharger
    - garder / redessiner une seule croix de fermeture
    - aucune redirection JS
    ============================================================ */
@@ -117,6 +117,33 @@
     opacity: 0 !important;
     visibility: hidden !important;
   }
+}
+
+/* ============================================================
+   Download button removal
+   Objectif :
+   - supprimer le bouton Télécharger
+   - cible : DownloadButton.module__button___XzQwMj
+   ============================================================ */
+
+html body [class*="DownloadButton.module__button__"],
+html body [class*="DownloadButton"][class*="button"],
+html body button[class*="DownloadButton"],
+html body a[class*="DownloadButton"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
 }
 
 /* ============================================================
