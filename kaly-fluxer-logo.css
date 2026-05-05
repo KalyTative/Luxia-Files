@@ -124,11 +124,11 @@
    Nagbar custom visuel
    Objectif :
    - ne pas supprimer le bandeau
-   - le recolorer
+   - le recolorer en #481683
    - cacher le texte original
    - afficher ton message anglais
    - masquer le bouton Télécharger
-   - garder la croix de fermeture
+   - garder / refaire visuellement la croix de fermeture
    ============================================================ */
 
 html body div[class*="Nagbar.module__nagbar__"],
@@ -146,16 +146,16 @@ html body div[class*="Nagbar"] {
   padding: 4px 44px 4px 12px !important;
   margin: 0 !important;
 
-  background: var(--kaly-nagbar-bg) !important;
-  background-color: var(--kaly-nagbar-bg) !important;
-  border-bottom: 1px solid var(--kaly-nagbar-border) !important;
+  background: #481683 !important;
+  background-color: #481683 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
   box-shadow: none !important;
 
   color: transparent !important;
   overflow: hidden !important;
 }
 
-/* Cache le contenu natif sauf les boutons, pour garder la croix */
+/* Cache le contenu natif sauf les boutons */
 html body div[class*="Nagbar.module__nagbar__"] > *:not(button),
 html body div[class*="nagbar"] > *:not(button),
 html body div[class*="Nagbar"] > *:not(button) {
@@ -169,7 +169,7 @@ html body div[class*="Nagbar"] > *:not(button) {
 html body div[class*="Nagbar.module__nagbar__"]::before,
 html body div[class*="nagbar"]::before,
 html body div[class*="Nagbar"]::before {
-  content: "To download the desktop or Android app, go to HUB | Lycoria's Daycare. Find it in Discover, or go to Add a Community > Join a Community and search “HUB”";
+  content: "To download the desktop or Android app, go to HUB | Lycoria's Daycare. Find it in Discover, or go to Add a Community > Join a Community and search “HUB”.";
   position: absolute !important;
 
   left: 50% !important;
@@ -179,7 +179,7 @@ html body div[class*="Nagbar"]::before {
   width: calc(100% - 120px) !important;
   max-width: 1400px !important;
 
-  color: var(--kaly-nagbar-text) !important;
+  color: #ffffff !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   line-height: 1.25 !important;
@@ -193,20 +193,20 @@ html body div[class*="Nagbar"]::before {
   z-index: 5 !important;
 }
 
-/* Masque le bouton Télécharger */
-html body div[class*="Nagbar.module__nagbar__"] button:first-of-type,
-html body div[class*="nagbar"] button:first-of-type,
-html body div[class*="Nagbar"] button:first-of-type {
+/* Cache tous les boutons du bandeau par défaut */
+html body div[class*="Nagbar.module__nagbar__"] button,
+html body div[class*="nagbar"] button,
+html body div[class*="Nagbar"] button {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
 }
 
-/* Garde la croix si elle est un bouton */
-html body div[class*="Nagbar.module__nagbar__"] button:last-of-type:not(:first-of-type),
-html body div[class*="nagbar"] button:last-of-type:not(:first-of-type),
-html body div[class*="Nagbar"] button:last-of-type:not(:first-of-type) {
+/* Réaffiche uniquement le dernier bouton, normalement la croix */
+html body div[class*="Nagbar.module__nagbar__"] button:last-of-type,
+html body div[class*="nagbar"] button:last-of-type,
+html body div[class*="Nagbar"] button:last-of-type {
   position: absolute !important;
   right: 8px !important;
   top: 50% !important;
@@ -230,21 +230,40 @@ html body div[class*="Nagbar"] button:last-of-type:not(:first-of-type) {
   cursor: pointer !important;
   pointer-events: auto !important;
   z-index: 10 !important;
+
+  font-size: 0 !important;
+  line-height: 1 !important;
 }
 
-html body div[class*="Nagbar.module__nagbar__"] button:last-of-type:not(:first-of-type):hover,
-html body div[class*="nagbar"] button:last-of-type:not(:first-of-type):hover,
-html body div[class*="Nagbar"] button:last-of-type:not(:first-of-type):hover {
-  background: rgba(255, 255, 255, 0.12) !important;
-}
+/* Force une vraie croix visible */
+html body div[class*="Nagbar.module__nagbar__"] button:last-of-type::before,
+html body div[class*="nagbar"] button:last-of-type::before,
+html body div[class*="Nagbar"] button:last-of-type::before {
+  content: "×" !important;
+  display: block !important;
 
-/* Si la croix est un svg direct ou un bouton icon-only */
-html body div[class*="Nagbar.module__nagbar__"] svg,
-html body div[class*="nagbar"] svg,
-html body div[class*="Nagbar"] svg {
   color: #ffffff !important;
-  fill: currentColor !important;
-  stroke: currentColor !important;
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+/* Cache les icônes natives dans la croix, sinon doublon */
+html body div[class*="Nagbar.module__nagbar__"] button:last-of-type > *,
+html body div[class*="nagbar"] button:last-of-type > *,
+html body div[class*="Nagbar"] button:last-of-type > * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+html body div[class*="Nagbar.module__nagbar__"] button:last-of-type:hover,
+html body div[class*="nagbar"] button:last-of-type:hover,
+html body div[class*="Nagbar"] button:last-of-type:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
 }
 
 /* Mobile : message sur deux lignes si besoin */
