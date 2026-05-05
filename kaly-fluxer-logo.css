@@ -1,6 +1,4 @@
-from pathlib import Path
-
-css = r'''/* ============================================================
+/* ============================================================
    Fluxer Theme: Logo SVG Only - Kaly adapted
    Objectif :
    - remplacer uniquement le logo Fluxer natif
@@ -8,7 +6,7 @@ css = r'''/* ============================================================
    - cercle violet autour du logo
    - aucun glow
    - aucune modification globale de l'interface
-   - évite les carrés blancs en supprimant mask-image
+   - SVG inline lisible, sans base64 opaque
    ============================================================ */
 
 :root {
@@ -20,14 +18,10 @@ css = r'''/* ============================================================
   --kaly-logo-ring-size: 3.25rem;
   --kaly-logo-icon-size: 2.55rem;
 
-  --kaly-fluxer-logo: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMTAwIDEwODMiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iTG9nbyIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iYmxhY2siIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSIgTSAzNTQgMjUgTCAzNDggMjkgTCAyNDcgMTUxIEwgMTg0IDIzNiBMIDE1OSAyNzUgTCAxMzcgMzEzIEwgMTEwIDM2NiBMIDkxIDQwOSBMIDcyIDQ1OSBMIDU1IDUxNSBMIDQyIDU2OSBMIDM1IDYwOSBMIDI5IDY1MyBMIDI0IDcxOCBMIDI0IDc2MyBMIDI5IDgzNiBMIDMyIDg0MCBMIDY2IDgzOSBMIDk2IDgzNSBMIDEyMyA4MjkgTCAxNjcgODEzIEwgMTk0IDgwMCBMIDI0NyA3NzEgTCAyNzggNzU4IEwgMzExIDc1MCBMIDMzMSA3NDkgTCAzNDcgNzUxIEwgMzU4IDc1NCBMIDM2OCA3NTkgTCAzNzkgNzY4IEwgMzc5IDc3MSBMIDM2NCA3ODYgTCAzNTcgNzk2IEwgMzQ4IDgxNSBMIDM0NCA4MjkgTCAzNDAgODY0IEwgMzQwIDkyMyBMIDMzNiA5NTAgTCAzMzEgOTY3IEwgMzIyIDk4NyBMIDMxNCA5OTkgTCAyOTQgMTAyMCBMIDI4MyAxMDI4IEwgMjkzIDEwMzMgTCAzMTEgMTAzNyBMIDM0OSAxMDM2IEwgMzczIDEwMzAgTCAzODkgMTAyNCBMIDQwNCAxMDE2IEwgNDIwIDEwMDQgTCA0MzcgOTg1IEwgNDQ4IDk2NiBMIDQ1MyA5NTMgTCA0NTkgOTI5IEwgNDYyIDkwMSBMIDQ2NyA4NzggTCA0ODAgODUwIEwgNDg0IDg0OCBMIDQ4NiA4OTYgTCA0OTUgOTM2IEwgNTAyIDk1NyBMIDUyMyAxMDA4IEwgNTM5IDEwMzkgTCA1NTEgMTA1OCBMIDU2OSAxMDI3IEwgNTgxIDEwMDIgTCA1OTQgOTcxIEwgNjA1IDkzOSBMIDYxNCA4OTcgTCA2MTYgODcyIEwgNjE1IDg0OCBMIDYxOCA4NDcgTCA2MjIgODUyIEwgNjMzIDg3NyBMIDYzNyA4OTMgTCA2NDIgOTMxIEwgNjQ5IDk1NyBMIDY1OCA5NzYgTCA2NjYgOTg4IEwgNjg0IDEwMDYgTCA3MDAgMTAxNyBMIDcxOCAxMDI2IEwgNzUyIDEwMzYgTCA3OTAgMTAzNyBMIDgxMyAxMDMxIEwgODE4IDEwMjcgTCA4MDUgMTAxOCBMIDc4NCA5OTUgTCA3NzMgOTc1IEwgNzY3IDk1OCBMIDc2MSA5MjIgTCA3NjAgODQ5IEwgNzU3IDgzMCBMIDc1MSA4MTAgTCA3NDQgNzk2IEwgNzM2IDc4NSBMIDcyMSA3NzEgTCA3MjEgNzY5IEwgNzI3IDc2MyBMIDc0NiA3NTMgTCA3NjAgNzUwIEwgNzc5IDc0OSBMIDgwNiA3NTMgTCA4MjYgNzU5IEwgODUyIDc3MCBMIDkyOSA4MTAgTCA5ODAgODI5IEwgMTAwNyA4MzUgTCAxMDM1IDgzOSBMIDEwNjggODQwIEwgMTA3MCA4MzggTCAxMDc1IDc4MyBMIDEwNzUgNzAwIEwgMTA3MSA2NDkgTCAxMDY1IDYwNSBMIDEwNTMgNTQyIEwgMTAzOCA0ODUgTCAxMDE4IDQyNiBMIDk5MyAzNjYgTCA5NzMgMzI1IEwgOTUzIDI4OSBMIDkwNyAyMTcgTCA4NDIgMTMyIEwgNzUxIDI2IEwgNzQ1IDI0IEwgNzM0IDI0IEwgNzI4IDI2IEwgNjkxIDY5IEwgNjY2IDEwMiBMIDY0NCAxMzUgTCA2MjMgMTcxIEwgNjA2IDIwNiBMIDU5MSAyNDQgTCA1ODUgMjQ0IEwgNTYxIDIzOCBMIDUzOSAyMzggTCA1MTIgMjQ0IEwgNTEwIDI0MiBMIDQ5OCAyMDggTCA0ODIgMTczIEwgNDU5IDEzMyBMIDQ0MCAxMDQgTCA0MTUgNzEgTCAzNzUgMjYgTCAzNjkgMjQgWiBNIDcxOSA0NTEgTCA3MzcgNDUxIEwgNzU1IDQ1NCBMIDc2OSA0NTkgTCA3OTMgNDczIEwgODA3IDQ4NiBMIDgyMCA1MDQgTCA4MzEgNTMwIEwgODM1IDU1MiBMIDgzNCA1NzkgTCA4MzAgNTk1IEwgODIxIDYxNSBMIDgxMCA2MzEgTCA3OTQgNjQ3IEwgNzc4IDY1OCBMIDc1NiA2NjcgTCA3MzIgNjcxIEwgNzEzIDY3MCBMIDY5MyA2NjUgTCA2NzkgNjU5IEwgNjU5IDY0NiBMIDY0NSA2MzIgTCA2MzMgNjE1IEwgNjIzIDU5MiBMIDYxOSA1NzEgTCA2MTkgNTUyIEwgNjIyIDUzNCBMIDYyNiA1MjIgTCA2MzQgNTA2IEwgNjQ0IDQ5MiBMIDY2MSA0NzUgTCA2NzQgNDY2IEwgNjkzIDQ1NyBaIE0gMzY2IDQ1MSBMIDM4NCA0NTEgTCA0MDEgNDU0IEwgNDI3IDQ2NSBMIDQ0MCA0NzQgTCA0NTMgNDg2IEwgNDY0IDUwMCBMIDQ3MSA1MTIgTCA0NzggNTMwIEwgNDgyIDU1MCBMIDQ4MiA1NzIgTCA0NzcgNTk1IEwgNDcwIDYxMSBMIDQ1NSA2MzMgTCA0MzQgNjUyIEwgNDE2IDY2MiBMIDM5OCA2NjggTCAzNzYgNjcxIEwgMzU0IDY2OSBMIDMzNyA2NjQgTCAzMjQgNjU4IEwgMzA1IDY0NSBMIDI5MyA2MzMgTCAyODAgNjE0IEwgMjcxIDU5MyBMIDI2NyA1NzEgTCAyNjcgNTUxIEwgMjcxIDUzMCBMIDI4MSA1MDcgTCAyOTMgNDkwIEwgMzA3IDQ3NiBMIDMyMSA0NjYgTCAzNDAgNDU3IFogIi8+PC9zdmc+");
+  --kaly-fluxer-logo: url("data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1083" role="img" aria-label="Logo" fill="none"%3E%3Cpath fill="white" fill-rule="evenodd" clip-rule="evenodd" d=" M 354 25 L 348 29 L 247 151 L 184 236 L 159 275 L 137 313 L 110 366 L 91 409 L 72 459 L 55 515 L 42 569 L 35 609 L 29 653 L 24 718 L 24 763 L 29 836 L 32 840 L 66 839 L 96 835 L 123 829 L 167 813 L 194 800 L 247 771 L 278 758 L 311 750 L 331 749 L 347 751 L 358 754 L 368 759 L 379 768 L 379 771 L 364 786 L 357 796 L 348 815 L 344 829 L 340 864 L 340 923 L 336 950 L 331 967 L 322 987 L 314 999 L 294 1020 L 283 1028 L 293 1033 L 311 1037 L 349 1036 L 373 1030 L 389 1024 L 404 1016 L 420 1004 L 437 985 L 448 966 L 453 953 L 459 929 L 462 901 L 467 878 L 480 850 L 484 848 L 486 896 L 495 936 L 502 957 L 523 1008 L 539 1039 L 551 1058 L 569 1027 L 581 1002 L 594 971 L 605 939 L 614 897 L 616 872 L 615 848 L 618 847 L 622 852 L 633 877 L 637 893 L 642 931 L 649 957 L 658 976 L 666 988 L 684 1006 L 700 1017 L 718 1026 L 752 1036 L 790 1037 L 813 1031 L 818 1027 L 805 1018 L 784 995 L 773 975 L 767 958 L 761 922 L 760 849 L 757 830 L 751 810 L 744 796 L 736 785 L 721 771 L 721 769 L 727 763 L 746 753 L 760 750 L 779 749 L 806 753 L 826 759 L 852 770 L 929 810 L 980 829 L 1007 835 L 1035 839 L 1068 840 L 1070 838 L 1075 783 L 1075 700 L 1071 649 L 1065 605 L 1053 542 L 1038 485 L 1018 426 L 993 366 L 973 325 L 953 289 L 907 217 L 842 132 L 751 26 L 745 24 L 734 24 L 728 26 L 691 69 L 666 102 L 644 135 L 623 171 L 606 206 L 591 244 L 585 244 L 561 238 L 539 238 L 512 244 L 510 242 L 498 208 L 482 173 L 459 133 L 440 104 L 415 71 L 375 26 L 369 24 Z M 719 451 L 737 451 L 755 454 L 769 459 L 793 473 L 807 486 L 820 504 L 831 530 L 835 552 L 834 579 L 830 595 L 821 615 L 810 631 L 794 647 L 778 658 L 756 667 L 732 671 L 713 670 L 693 665 L 679 659 L 659 646 L 645 632 L 633 615 L 623 592 L 619 571 L 619 552 L 622 534 L 626 522 L 634 506 L 644 492 L 661 475 L 674 466 L 693 457 Z M 366 451 L 384 451 L 401 454 L 427 465 L 440 474 L 453 486 L 464 500 L 471 512 L 478 530 L 482 550 L 482 572 L 477 595 L 470 611 L 455 633 L 434 652 L 416 662 L 398 668 L 376 671 L 354 669 L 337 664 L 324 658 L 305 645 L 293 633 L 280 614 L 271 593 L 267 571 L 267 551 L 271 530 L 281 507 L 293 490 L 307 476 L 321 466 L 340 457 Z "/%3E%3C/svg%3E");
 }
 
-/* ------------------------------------------------------------
-   Ciblage strict du bouton Fluxer :
-   - direct child SVG pour éviter d'accrocher un parent par accident
-   - isolation pour garder les pseudo-éléments dans leur bac à sable
-   ------------------------------------------------------------ */
+/* Support du logo custom */
 [class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]) {
   position: relative !important;
   overflow: visible !important;
@@ -67,8 +61,7 @@ css = r'''/* ============================================================
   filter: none !important;
 }
 
-/* Logo SVG custom en blanc
-   Version sans mask-image : évite le carré blanc si le masque échoue. */
+/* Logo SVG custom en blanc */
 [class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"])::before {
   content: "";
   position: absolute;
@@ -87,12 +80,11 @@ css = r'''/* ============================================================
   background-position: center !important;
   background-size: contain !important;
 
-  /* Le SVG source est noir, donc on l'inverse en blanc. */
-  filter: invert(1) brightness(2) !important;
   box-shadow: none !important;
+  filter: none !important;
 }
 
-/* Hover et sélection : cercle uniquement, pas de glow */
+/* Hover et sélection */
 [class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]):hover::after,
 [class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"])::after {
   border-color: var(--kaly-logo-circle-hover) !important;
@@ -104,8 +96,8 @@ css = r'''/* ============================================================
 [class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]):hover::before,
 [class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"])::before {
   background-color: transparent !important;
-  filter: invert(1) brightness(2) !important;
   box-shadow: none !important;
+  filter: none !important;
 }
 
 /* Sécurité : évite qu'un état sélectionné repeigne le support */
@@ -123,8 +115,3 @@ css = r'''/* ============================================================
     visibility: hidden !important;
   }
 }
-'''
-
-path = Path("/mnt/data/kaly-fluxer-logo-adapte.css")
-path.write_text(css, encoding="utf-8")
-print(path)
