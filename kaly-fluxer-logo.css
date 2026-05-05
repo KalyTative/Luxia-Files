@@ -21,7 +21,7 @@
   --kaly-logo-ring-size: 3.25rem;
   --kaly-logo-icon-size: 2.55rem;
 
-  --kaly-nagbar-bg: #160e30;
+  --kaly-nagbar-bg: #6b40b9;
   --kaly-nagbar-text: #ffffff;
   --kaly-nagbar-muted: #d9ccff;
   --kaly-nagbar-border: rgba(255, 255, 255, 0.12);
@@ -124,7 +124,7 @@
    Nagbar custom visuel
    Objectif :
    - ne pas supprimer le bandeau
-   - le recolorer en #481683
+   - le recolorer en #6b40b9
    - cacher le texte original
    - afficher ton message anglais
    - masquer le bouton Télécharger
@@ -146,9 +146,9 @@ html body div[class*="Nagbar"] {
   padding: 4px 44px 4px 12px !important;
   margin: 0 !important;
 
-  background: #481683 !important;
-  background-color: #481683 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: var(--kaly-nagbar-bg) !important;
+  background-color: var(--kaly-nagbar-bg) !important;
+  border-bottom: 1px solid var(--kaly-nagbar-border) !important;
   box-shadow: none !important;
 
   color: transparent !important;
@@ -179,7 +179,7 @@ html body div[class*="Nagbar"]::before {
   width: calc(100% - 120px) !important;
   max-width: 1400px !important;
 
-  color: #ffffff !important;
+  color: var(--kaly-nagbar-text) !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   line-height: 1.25 !important;
