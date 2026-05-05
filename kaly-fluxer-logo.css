@@ -1,139 +1,22 @@
 /* ============================================================
-   Fluxer Theme: Logo SVG + Custom Nagbar Text - Kaly fixed
+   Fluxer Theme: Nagbar final patch - #8c41c6 + close cross
    Objectif :
-   - remplacer uniquement le logo Fluxer natif
-   - logo SVG custom en blanc
-   - cercle violet autour du logo
-   - aucun glow
-   - recolorer le bandeau de téléchargement natif
-   - remplacer visuellement son message
-   - masquer le bouton Télécharger
-   - garder la croix de fermeture
-   - aucune redirection JS
+   - recolorer le bandeau en #8c41c6
+   - annuler les anciens masquages trop violents
+   - garder le message custom
+   - masquer Télécharger
+   - réafficher / redessiner la croix
    ============================================================ */
 
 :root {
-  --kaly-logo-circle: #8956e8;
-  --kaly-logo-circle-hover: #f0bdff;
-  --kaly-logo-bg: rgba(73, 36, 128, 0.18);
-  --kaly-logo-bg-hover: rgba(111, 63, 193, 0.28);
-
-  --kaly-logo-ring-size: 3.25rem;
-  --kaly-logo-icon-size: 2.55rem;
-
-  --kaly-nagbar-bg: #160e30;
+  --kaly-nagbar-bg: #8c41c6;
   --kaly-nagbar-text: #ffffff;
-  --kaly-nagbar-muted: #d9ccff;
-  --kaly-nagbar-border: rgba(255, 255, 255, 0.12);
-
-  --kaly-fluxer-logo: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201100%201083%22%20role%3D%22img%22%20aria-label%3D%22Logo%22%20fill%3D%22none%22%3E%3Cpath%20fill%3D%22white%22%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22%20M%20354%2025%20L%20348%2029%20L%20247%20151%20L%20184%20236%20L%20159%20275%20L%20137%20313%20L%20110%20366%20L%2091%20409%20L%2072%20459%20L%2055%20515%20L%2042%20569%20L%2035%20609%20L%2029%20653%20L%2024%20718%20L%2024%20763%20L%2029%20836%20L%2032%20840%20L%2066%20839%20L%2096%20835%20L%20123%20829%20L%20167%20813%20L%20194%20800%20L%20247%20771%20L%20278%20758%20L%20311%20750%20L%20331%20749%20L%20347%20751%20L%20358%20754%20L%20368%20759%20L%20379%20768%20L%20379%20771%20L%20364%20786%20L%20357%20796%20L%20348%20815%20L%20344%20829%20L%20340%20864%20L%20340%20923%20L%20336%20950%20L%20331%20967%20L%20322%20987%20L%20314%20999%20L%20294%201020%20L%20283%201028%20L%20293%201033%20L%20311%201037%20L%20349%201036%20L%20373%201030%20L%20389%201024%20L%20404%201016%20L%20420%201004%20L%20437%20985%20L%20448%20966%20L%20453%20953%20L%20459%20929%20L%20462%20901%20L%20467%20878%20L%20480%20850%20L%20484%20848%20L%20486%20896%20L%20495%20936%20L%20502%20957%20L%20523%201008%20L%20539%201039%20L%20551%201058%20L%20569%201027%20L%20581%201002%20L%20594%20971%20L%20605%20939%20L%20614%20897%20L%20616%20872%20L%20615%20848%20L%20618%20847%20L%20622%20852%20L%20633%20877%20L%20637%20893%20L%20642%20931%20L%20649%20957%20L%20658%20976%20L%20666%20988%20L%20684%201006%20L%20700%201017%20L%20718%201026%20L%20752%201036%20L%20790%201037%20L%20813%201031%20L%20818%201027%20L%20805%201018%20L%20784%20995%20L%20773%20975%20L%20767%20958%20L%20761%20922%20L%20760%20849%20L%20757%20830%20L%20751%20810%20L%20744%20796%20L%20736%20785%20L%20721%20771%20L%20721%20769%20L%20727%20763%20L%20746%20753%20L%20760%20750%20L%20779%20749%20L%20806%20753%20L%20826%20759%20L%20852%20770%20L%20929%20810%20L%20980%20829%20L%201007%20835%20L%201035%20839%20L%201068%20840%20L%201070%20838%20L%201075%20783%20L%201075%20700%20L%201071%20649%20L%201065%20605%20L%201053%20542%20L%201038%20485%20L%201018%20426%20L%20993%20366%20L%20973%20325%20L%20953%20289%20L%20907%20217%20L%20842%20132%20L%20751%2026%20L%20745%2024%20L%20734%2024%20L%20728%2026%20L%20691%2069%20L%20666%20102%20L%20644%20135%20L%20623%20171%20L%20606%20206%20L%20591%20244%20L%20585%20244%20L%20561%20238%20L%20539%20238%20L%20512%20244%20L%20510%20242%20L%20498%20208%20L%20482%20173%20L%20459%20133%20L%20440%20104%20L%20415%2071%20L%20375%2026%20L%20369%2024%20Z%20M%20719%20451%20L%20737%20451%20L%20755%20454%20L%20769%20459%20L%20793%20473%20L%20807%20486%20L%20820%20504%20L%20831%20530%20L%20835%20552%20L%20834%20579%20L%20830%20595%20L%20821%20615%20L%20810%20631%20L%20794%20647%20L%20778%20658%20L%20756%20667%20L%20732%20671%20L%20713%20670%20L%20693%20665%20L%20679%20659%20L%20659%20646%20L%20645%20632%20L%20633%20615%20L%20623%20592%20L%20619%20571%20L%20619%20552%20L%20622%20534%20L%20626%20522%20L%20634%20506%20L%20644%20492%20L%20661%20475%20L%20674%20466%20L%20693%20457%20Z%20M%20366%20451%20L%20384%20451%20L%20401%20454%20L%20427%20465%20L%20440%20474%20L%20453%20486%20L%20464%20500%20L%20471%20512%20L%20478%20530%20L%20482%20550%20L%20482%20572%20L%20477%20595%20L%20470%20611%20L%20455%20633%20L%20434%20652%20L%20416%20662%20L%20398%20668%20L%20376%20671%20L%20354%20669%20L%20337%20664%20L%20324%20658%20L%20305%20645%20L%20293%20633%20L%20280%20614%20L%20271%20593%20L%20267%20571%20L%20267%20551%20L%20271%20530%20L%20281%20507%20L%20293%20490%20L%20307%20476%20L%20321%20466%20L%20340%20457%20Z%20%22%2F%3E%3C%2Fsvg%3E");
+  --kaly-nagbar-border: rgba(255, 255, 255, 0.16);
 }
 
-/* ============================================================
-   Logo Fluxer custom
-   ============================================================ */
-
-[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]) {
-  position: relative !important;
-  overflow: visible !important;
-  isolation: isolate !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]) > svg[class*="fluxerSymbolIcon"] {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  fill: transparent !important;
-  stroke: transparent !important;
-  color: transparent !important;
-}
-
-[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"])::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-
-  width: var(--kaly-logo-ring-size);
-  height: var(--kaly-logo-ring-size);
-  transform: translate(-50%, -50%);
-
-  pointer-events: none;
-  box-sizing: border-box;
-  border-radius: 50%;
-  border: 2px solid var(--kaly-logo-circle) !important;
-  background-color: var(--kaly-logo-bg) !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"])::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-
-  width: var(--kaly-logo-icon-size);
-  height: var(--kaly-logo-icon-size);
-  transform: translate(-50%, -50%);
-
-  pointer-events: none;
-  background-color: transparent !important;
-  background-image: var(--kaly-fluxer-logo) !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: contain !important;
-
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]):hover::after,
-[class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"])::after {
-  border-color: var(--kaly-logo-circle-hover) !important;
-  background-color: var(--kaly-logo-bg-hover) !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]):hover::before,
-[class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"])::before {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-[class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"]) {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-@supports not selector(:has(*)) {
-  svg[class*="fluxerSymbolIcon"] {
-    opacity: 0 !important;
-    visibility: hidden !important;
-  }
-}
-
-/* ============================================================
-   Nagbar custom visuel
-   Objectif :
-   - ne pas supprimer le bandeau
-   - le recolorer en #481683
-   - cacher le texte original
-   - afficher ton message anglais
-   - masquer le bouton Télécharger
-   - garder / refaire visuellement la croix de fermeture
-   ============================================================ */
-
-html body div[class*="Nagbar.module__nagbar__"],
-html body div[class*="nagbar"],
-html body div[class*="Nagbar"] {
+/* Bandeau */
+html body div[class*="nagbar" i],
+html body div[class*="Nagbar" i] {
   position: relative !important;
   display: flex !important;
   align-items: center !important;
@@ -146,29 +29,36 @@ html body div[class*="Nagbar"] {
   padding: 4px 44px 4px 12px !important;
   margin: 0 !important;
 
-  background: #481683 !important;
-  background-color: #481683 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: #8c41c6 !important;
+  background-color: #8c41c6 !important;
+  border-bottom: 1px solid var(--kaly-nagbar-border) !important;
   box-shadow: none !important;
 
-  color: transparent !important;
   overflow: hidden !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
-/* Cache le contenu natif sauf les boutons */
-html body div[class*="Nagbar.module__nagbar__"] > *:not(button),
-html body div[class*="nagbar"] > *:not(button),
-html body div[class*="Nagbar"] > *:not(button) {
-  opacity: 0 !important;
-  visibility: hidden !important;
+/* IMPORTANT : annule l'ancien hide qui enterrait les enfants du bandeau */
+html body div[class*="nagbar" i] > *,
+html body div[class*="Nagbar" i] > * {
+  display: revert !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Cache visuellement le contenu natif sans casser les conteneurs */
+html body div[class*="nagbar" i] *,
+html body div[class*="Nagbar" i] * {
   color: transparent !important;
-  pointer-events: none !important;
+  text-shadow: none !important;
 }
 
-/* Message anglais custom */
-html body div[class*="Nagbar.module__nagbar__"]::before,
-html body div[class*="nagbar"]::before,
-html body div[class*="Nagbar"]::before {
+/* Message custom */
+html body div[class*="nagbar" i]::before,
+html body div[class*="Nagbar" i]::before {
   content: "To download the desktop or Android app, go to HUB | Lycoria's Daycare. Find it in Discover, or go to Add a Community > Join a Community and search “HUB”.";
   position: absolute !important;
 
@@ -190,23 +80,31 @@ html body div[class*="Nagbar"]::before {
   text-overflow: ellipsis !important;
 
   pointer-events: none !important;
-  z-index: 5 !important;
+  z-index: 20 !important;
 }
 
-/* Cache tous les boutons du bandeau par défaut */
-html body div[class*="Nagbar.module__nagbar__"] button,
-html body div[class*="nagbar"] button,
-html body div[class*="Nagbar"] button {
+/* Boutons natifs du bandeau */
+html body div[class*="nagbar" i] button,
+html body div[class*="Nagbar" i] button {
+  position: static !important;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Masque tous les boutons sauf le dernier, normalement la croix */
+html body div[class*="nagbar" i] button:not(:last-of-type),
+html body div[class*="Nagbar" i] button:not(:last-of-type) {
   display: none !important;
-  visibility: hidden !important;
   opacity: 0 !important;
+  visibility: hidden !important;
   pointer-events: none !important;
 }
 
-/* Réaffiche uniquement le dernier bouton, normalement la croix */
-html body div[class*="Nagbar.module__nagbar__"] button:last-of-type,
-html body div[class*="nagbar"] button:last-of-type,
-html body div[class*="Nagbar"] button:last-of-type {
+/* Bouton de fermeture */
+html body div[class*="nagbar" i] button:last-of-type,
+html body div[class*="Nagbar" i] button:last-of-type {
   position: absolute !important;
   right: 8px !important;
   top: 50% !important;
@@ -223,25 +121,30 @@ html body div[class*="Nagbar"] button:last-of-type {
   border: 0 !important;
   border-radius: 8px !important;
   background: transparent !important;
-  color: #ffffff !important;
 
   opacity: 1 !important;
   visibility: visible !important;
   cursor: pointer !important;
   pointer-events: auto !important;
-  z-index: 10 !important;
 
   font-size: 0 !important;
   line-height: 1 !important;
+  z-index: 40 !important;
 }
 
-/* Force une vraie croix visible */
-html body div[class*="Nagbar.module__nagbar__"] button:last-of-type::before,
-html body div[class*="nagbar"] button:last-of-type::before,
-html body div[class*="Nagbar"] button:last-of-type::before {
-  content: "×" !important;
-  display: block !important;
+/* Cache l'icône native de la croix si elle existe */
+html body div[class*="nagbar" i] button:last-of-type > *,
+html body div[class*="Nagbar" i] button:last-of-type > * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
 
+/* Redessine la croix sur le vrai bouton */
+html body div[class*="nagbar" i] button:last-of-type::before,
+html body div[class*="Nagbar" i] button:last-of-type::before {
+  content: "×" !important;
+
+  display: block !important;
   color: #ffffff !important;
   font-size: 24px !important;
   font-weight: 400 !important;
@@ -252,34 +155,45 @@ html body div[class*="Nagbar"] button:last-of-type::before {
   pointer-events: none !important;
 }
 
-/* Cache les icônes natives dans la croix, sinon doublon */
-html body div[class*="Nagbar.module__nagbar__"] button:last-of-type > *,
-html body div[class*="nagbar"] button:last-of-type > *,
-html body div[class*="Nagbar"] button:last-of-type > * {
-  opacity: 0 !important;
-  visibility: hidden !important;
+/* Fallback visuel si la croix native n'est pas un bouton */
+html body div[class*="nagbar" i]::after,
+html body div[class*="Nagbar" i]::after {
+  content: "×" !important;
+
+  position: absolute !important;
+  right: 15px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+
+  color: #ffffff !important;
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  z-index: 30 !important;
 }
 
-html body div[class*="Nagbar.module__nagbar__"] button:last-of-type:hover,
-html body div[class*="nagbar"] button:last-of-type:hover,
-html body div[class*="Nagbar"] button:last-of-type:hover {
+/* Hover de la vraie zone cliquable */
+html body div[class*="nagbar" i] button:last-of-type:hover,
+html body div[class*="Nagbar" i] button:last-of-type:hover {
   background: rgba(255, 255, 255, 0.14) !important;
 }
 
-/* Mobile : message sur deux lignes si besoin */
+/* Mobile */
 @media (max-width: 900px) {
-  html body div[class*="Nagbar.module__nagbar__"],
-  html body div[class*="nagbar"],
-  html body div[class*="Nagbar"] {
+  html body div[class*="nagbar" i],
+  html body div[class*="Nagbar" i] {
     height: 52px !important;
     min-height: 52px !important;
     max-height: 52px !important;
     padding: 6px 40px 6px 10px !important;
   }
 
-  html body div[class*="Nagbar.module__nagbar__"]::before,
-  html body div[class*="nagbar"]::before,
-  html body div[class*="Nagbar"]::before {
+  html body div[class*="nagbar" i]::before,
+  html body div[class*="Nagbar" i]::before {
     width: calc(100% - 64px) !important;
     font-size: 12px !important;
     line-height: 1.25 !important;
