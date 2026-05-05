@@ -169,7 +169,7 @@ html body div[class*="Nagbar"] > *:not(button) {
 html body div[class*="Nagbar.module__nagbar__"]::before,
 html body div[class*="nagbar"]::before,
 html body div[class*="Nagbar"]::before {
-  content: "To download the desktop app, go to HUB in Lycoria's Daycare. Find the announcement in Discover, or use Add Server and search for HUB.";
+  content: "To download the desktop or Android app, go to HUB | Lycoria's Daycare. Find it in Discover, or go to Add a Community > Join a Community and search “HUB”";
   position: absolute !important;
 
   left: 50% !important;
