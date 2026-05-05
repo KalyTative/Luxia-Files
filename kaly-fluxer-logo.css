@@ -8,7 +8,7 @@
    - recolorer le bandeau de téléchargement natif
    - remplacer visuellement son message
    - masquer le bouton Télécharger
-   - garder la croix de fermeture
+   - garder / redessiner la croix de fermeture
    - aucune redirection JS
    ============================================================ */
 
@@ -152,17 +152,22 @@ html body div[class*="Nagbar"] {
   box-shadow: none !important;
 
   color: transparent !important;
+  font-size: 0 !important;
   overflow: hidden !important;
 }
 
-/* Cache le contenu natif sauf les boutons */
-html body div[class*="Nagbar.module__nagbar__"] > *:not(button),
-html body div[class*="nagbar"] > *:not(button),
-html body div[class*="Nagbar"] > *:not(button) {
-  opacity: 0 !important;
-  visibility: hidden !important;
+/* Cache visuellement le contenu texte natif sans enterrer les boutons */
+html body div[class*="Nagbar.module__nagbar__"] span,
+html body div[class*="nagbar"] span,
+html body div[class*="Nagbar"] span,
+html body div[class*="Nagbar.module__nagbar__"] p,
+html body div[class*="nagbar"] p,
+html body div[class*="Nagbar"] p,
+html body div[class*="Nagbar.module__nagbar__"] strong,
+html body div[class*="nagbar"] strong,
+html body div[class*="Nagbar"] strong {
   color: transparent !important;
-  pointer-events: none !important;
+  text-shadow: none !important;
 }
 
 /* Message anglais custom */
@@ -193,17 +198,20 @@ html body div[class*="Nagbar"]::before {
   z-index: 5 !important;
 }
 
-/* Cache tous les boutons du bandeau par défaut */
-html body div[class*="Nagbar.module__nagbar__"] button,
-html body div[class*="nagbar"] button,
-html body div[class*="Nagbar"] button {
+/* Masque le bouton Télécharger si plusieurs boutons existent */
+html body div[class*="Nagbar.module__nagbar__"] button:first-of-type:not(:last-of-type),
+html body div[class*="nagbar"] button:first-of-type:not(:last-of-type),
+html body div[class*="Nagbar"] button:first-of-type:not(:last-of-type),
+html body div[class*="Nagbar.module__nagbar__"] a:first-of-type:not(:last-of-type),
+html body div[class*="nagbar"] a:first-of-type:not(:last-of-type),
+html body div[class*="Nagbar"] a:first-of-type:not(:last-of-type) {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
 }
 
-/* Réaffiche uniquement le dernier bouton, normalement la croix */
+/* Réactive le dernier bouton, normalement la fermeture */
 html body div[class*="Nagbar.module__nagbar__"] button:last-of-type,
 html body div[class*="nagbar"] button:last-of-type,
 html body div[class*="Nagbar"] button:last-of-type {
@@ -219,6 +227,7 @@ html body div[class*="Nagbar"] button:last-of-type {
   width: 28px !important;
   height: 28px !important;
   padding: 0 !important;
+  margin: 0 !important;
 
   border: 0 !important;
   border-radius: 8px !important;
@@ -229,20 +238,29 @@ html body div[class*="Nagbar"] button:last-of-type {
   visibility: visible !important;
   cursor: pointer !important;
   pointer-events: auto !important;
-  z-index: 10 !important;
+  z-index: 50 !important;
 
   font-size: 0 !important;
   line-height: 1 !important;
 }
 
-/* Force une vraie croix visible */
+/* Cache l'icône native du bouton de fermeture si elle gêne */
+html body div[class*="Nagbar.module__nagbar__"] button:last-of-type > *,
+html body div[class*="nagbar"] button:last-of-type > *,
+html body div[class*="Nagbar"] button:last-of-type > * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Dessine la croix sur le vrai bouton */
 html body div[class*="Nagbar.module__nagbar__"] button:last-of-type::before,
 html body div[class*="nagbar"] button:last-of-type::before,
 html body div[class*="Nagbar"] button:last-of-type::before {
   content: "×" !important;
-  display: block !important;
 
+  display: block !important;
   color: #ffffff !important;
+
   font-size: 24px !important;
   font-weight: 400 !important;
   line-height: 1 !important;
@@ -252,12 +270,26 @@ html body div[class*="Nagbar"] button:last-of-type::before {
   pointer-events: none !important;
 }
 
-/* Cache les icônes natives dans la croix, sinon doublon */
-html body div[class*="Nagbar.module__nagbar__"] button:last-of-type > *,
-html body div[class*="nagbar"] button:last-of-type > *,
-html body div[class*="Nagbar"] button:last-of-type > * {
-  opacity: 0 !important;
-  visibility: hidden !important;
+/* Fallback : dessine une croix visuelle même si la fermeture n'est pas un bouton */
+html body div[class*="Nagbar.module__nagbar__"]::after,
+html body div[class*="nagbar"]::after,
+html body div[class*="Nagbar"]::after {
+  content: "×" !important;
+
+  position: absolute !important;
+  right: 15px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+
+  color: #ffffff !important;
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  z-index: 40 !important;
 }
 
 html body div[class*="Nagbar.module__nagbar__"] button:last-of-type:hover,
@@ -284,5 +316,11 @@ html body div[class*="Nagbar"] button:last-of-type:hover {
     font-size: 12px !important;
     line-height: 1.25 !important;
     white-space: normal !important;
+  }
+
+  html body div[class*="Nagbar.module__nagbar__"]::after,
+  html body div[class*="nagbar"]::after,
+  html body div[class*="Nagbar"]::after {
+    right: 12px !important;
   }
 }
