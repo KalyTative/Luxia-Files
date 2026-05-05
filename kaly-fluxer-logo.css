@@ -8,6 +8,7 @@
    - recolorer le bandeau de téléchargement natif
    - remplacer visuellement son message
    - masquer / supprimer le bouton Télécharger
+   - masquer / supprimer le bouton Help
    - garder / redessiner une seule croix de fermeture
    - aucune redirection JS
    ============================================================ */
@@ -120,16 +121,23 @@
 }
 
 /* ============================================================
-   Download button removal
+   Header buttons removal
    Objectif :
    - supprimer le bouton Télécharger
-   - cible : DownloadButton.module__button___XzQwMj
+   - supprimer le bouton Help
+   - cibles :
+     DownloadButton.module__button___XzQwMj
+     HelpButton.module__button___XzhjYj
    ============================================================ */
 
 html body [class*="DownloadButton.module__button__"],
 html body [class*="DownloadButton"][class*="button"],
 html body button[class*="DownloadButton"],
-html body a[class*="DownloadButton"] {
+html body a[class*="DownloadButton"],
+html body [class*="HelpButton.module__button__"],
+html body [class*="HelpButton"][class*="button"],
+html body button[class*="HelpButton"],
+html body a[class*="HelpButton"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
