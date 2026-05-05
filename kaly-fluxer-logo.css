@@ -120,13 +120,25 @@
 }
 
 /* ============================================================
-   Nagbar custom visuel
+   Nagbar custom visuel clean
+   Objectif :
+   - cibler uniquement le bandeau desktop
+   - éviter les doublons de texte
+   - éviter les deux croix
    ============================================================ */
 
-html body div[class*="Nagbar.module__nagbar__"],
-html body div[class*="nagbarDesktop"],
-html body div[class*="Nagbar.module__nagbarDesktop__"] {
+/* Reset anti-anciens pseudos/doublons */
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"]::after,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"]::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Bandeau natif Fluxer */
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"],
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] {
   position: relative !important;
+
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -148,22 +160,21 @@ html body div[class*="Nagbar.module__nagbarDesktop__"] {
   overflow: hidden !important;
 }
 
-/* Enterre tout le contenu natif direct */
-html body div[class*="Nagbar.module__nagbar__"] > *,
-html body div[class*="nagbarDesktop"] > *,
-html body div[class*="Nagbar.module__nagbarDesktop__"] > * {
-  opacity: 0 !important;
+/* Cache tout le contenu natif direct sauf le dernier élément, supposé être la fermeture */
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:not(:last-child),
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:not(:last-child) {
+  display: none !important;
   visibility: hidden !important;
+  opacity: 0 !important;
   pointer-events: none !important;
 }
 
 /* Message custom unique */
-html body div[class*="Nagbar.module__nagbar__"]::before,
-html body div[class*="nagbarDesktop"]::before,
-html body div[class*="Nagbar.module__nagbarDesktop__"]::before {
-  content: "To download the desktop or Android app, go to HUB | Lycoria's Daycare. Find it in Discover, or go to Add a Community > Join a Community and search “HUB”.";
-  position: absolute !important;
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"]::before,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"]::before {
+  content: "To download the desktop or Android app, go to HUB | Lycoria's Daycare. Find it in Discover, or go to Add a Community > Join a Community and search HUB." !important;
 
+  position: absolute !important;
   left: 50% !important;
   top: 50% !important;
   transform: translate(-50%, -50%) !important;
@@ -185,10 +196,9 @@ html body div[class*="Nagbar.module__nagbarDesktop__"]::before {
   z-index: 5 !important;
 }
 
-/* Réactive uniquement le dernier bouton du bandeau, normalement la fermeture */
-html body div[class*="Nagbar.module__nagbar__"] > button:last-of-type,
-html body div[class*="nagbarDesktop"] > button:last-of-type,
-html body div[class*="Nagbar.module__nagbarDesktop__"] > button:last-of-type {
+/* Dernier enfant du bandeau : zone de fermeture */
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child {
   position: absolute !important;
   right: 8px !important;
   top: 50% !important;
@@ -206,8 +216,8 @@ html body div[class*="Nagbar.module__nagbarDesktop__"] > button:last-of-type {
   border: 0 !important;
   border-radius: 8px !important;
   background: transparent !important;
-  color: #ffffff !important;
 
+  color: #ffffff !important;
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto !important;
@@ -218,18 +228,16 @@ html body div[class*="Nagbar.module__nagbarDesktop__"] > button:last-of-type {
   z-index: 20 !important;
 }
 
-/* Cache l'icône native du bouton de fermeture */
-html body div[class*="Nagbar.module__nagbar__"] > button:last-of-type > *,
-html body div[class*="nagbarDesktop"] > button:last-of-type > *,
-html body div[class*="Nagbar.module__nagbarDesktop__"] > button:last-of-type > * {
+/* Cache le contenu natif de la fermeture pour éviter double icône */
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child > *,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child > * {
   opacity: 0 !important;
   visibility: hidden !important;
 }
 
-/* Dessine une seule croix */
-html body div[class*="Nagbar.module__nagbar__"] > button:last-of-type::before,
-html body div[class*="nagbarDesktop"] > button:last-of-type::before,
-html body div[class*="Nagbar.module__nagbarDesktop__"] > button:last-of-type::before {
+/* Redessine une seule croix sur le vrai dernier élément */
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child::before,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child::before {
   content: "×" !important;
 
   display: block !important;
@@ -244,26 +252,23 @@ html body div[class*="Nagbar.module__nagbarDesktop__"] > button:last-of-type::be
   pointer-events: none !important;
 }
 
-html body div[class*="Nagbar.module__nagbar__"] > button:last-of-type:hover,
-html body div[class*="nagbarDesktop"] > button:last-of-type:hover,
-html body div[class*="Nagbar.module__nagbarDesktop__"] > button:last-of-type:hover {
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child:hover,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child:hover {
   background: rgba(255, 255, 255, 0.14) !important;
 }
 
 /* Mobile */
 @media (max-width: 900px) {
-  html body div[class*="Nagbar.module__nagbar__"],
-  html body div[class*="nagbarDesktop"],
-  html body div[class*="Nagbar.module__nagbarDesktop__"] {
+  html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"],
+  html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] {
     height: 52px !important;
     min-height: 52px !important;
     max-height: 52px !important;
     padding: 6px 40px 6px 10px !important;
   }
 
-  html body div[class*="Nagbar.module__nagbar__"]::before,
-  html body div[class*="nagbarDesktop"]::before,
-  html body div[class*="Nagbar.module__nagbarDesktop__"]::before {
+  html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"]::before,
+  html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"]::before {
     width: calc(100% - 64px) !important;
     font-size: 12px !important;
     line-height: 1.25 !important;
