@@ -2296,5 +2296,67 @@ html body::after {
   user-select: none !important;
 }
 
+/* =========================
+   Kaly - Auth logo Lycoria
+   Remplace AuthLayout.module__logo___XzNiND
+   ========================= */
 
+:root {
+  --kaly-auth-logo-lycoria: url("https://github.com/KalyTative/Luxia-Files/blob/main/logo-lycoria.png?raw=true");
+}
 
+html body .AuthLayout\.module__logo___XzNiND,
+html body [class~="AuthLayout.module__logo___XzNiND"],
+html body [class*="AuthLayout.module__logo___XzNiND"],
+html body [class*="AuthLayout"][class*="module__logo___XzNiND"],
+html body [class*="module__logo___XzNiND"] {
+  width: 96px !important;
+  height: 96px !important;
+  min-width: 96px !important;
+  min-height: 96px !important;
+  max-width: 96px !important;
+  max-height: 96px !important;
+
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 !important;
+
+  background-image: var(--kaly-auth-logo-lycoria) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-color: transparent !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+/* Si le logo est un <img>, ça force l'image */
+html body img.AuthLayout\.module__logo___XzNiND,
+html body img[class~="AuthLayout.module__logo___XzNiND"],
+html body img[class*="AuthLayout.module__logo___XzNiND"],
+html body img[class*="AuthLayout"][class*="module__logo___XzNiND"],
+html body img[class*="module__logo___XzNiND"] {
+  content: var(--kaly-auth-logo-lycoria) !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* Si le logo contient un SVG/image interne, on le masque */
+html body :is(
+  .AuthLayout\.module__logo___XzNiND,
+  [class~="AuthLayout.module__logo___XzNiND"],
+  [class*="AuthLayout.module__logo___XzNiND"],
+  [class*="AuthLayout"][class*="module__logo___XzNiND"],
+  [class*="module__logo___XzNiND"]
+) > :is(svg, img, picture, canvas) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  display: none !important;
+  pointer-events: none !important;
+}
