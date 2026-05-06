@@ -2295,3 +2295,58 @@ html body::after {
   pointer-events: none !important;
   user-select: none !important;
 }
+
+/* =========================
+   Kaly - Auth + Splash logo custom
+   ========================= */
+
+html body .AuthLayout\.module__logo___XzNiND,
+html body svg.SplashScreen\.module__icon___ZTBkMm {
+  width: var(--kaly-logo-icon-size) !important;
+  height: var(--kaly-logo-icon-size) !important;
+
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+
+  color: transparent !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Cache le SVG/logo natif sans cacher le background custom */
+html body .AuthLayout\.module__logo___XzNiND *,
+html body svg.SplashScreen\.module__icon___ZTBkMm * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+}
+
+/* Fallback si AuthLayout logo est un conteneur HTML */
+html body .AuthLayout\.module__logo___XzNiND {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+html body .AuthLayout\.module__logo___XzNiND::before {
+  content: "" !important;
+
+  position: absolute !important;
+  inset: 0 !important;
+
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+
+  pointer-events: none !important;
+}
