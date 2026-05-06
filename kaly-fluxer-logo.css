@@ -1,99 +1,2297 @@
 /* ============================================================
-   Kaly - Auth logo Lycoria patch
-   À coller tout en bas du thème Fluxer Embed Forge Purple V4.3.38
-   Objectif : remplacer le logo d'authentification Fluxer par logo-lycoria.png
-   Cible principale : AuthLayout.module__logo___XzNiND
+   Fluxer Theme: Embed Forge Purple V4.3.38 Clean + Custom Logo + Kaly Nagbar + Round Softer Guild Badge + Voice Badge + Sober Channel Highlight
+   Objectif :
+   - interface V4.3.4 conservée
+   - mêmes couleurs, cadres, boutons, scrollbars
+   - mêmes ombres sur les vraies fenêtres
+   - suppression de la fausse fenêtre derrière
+   - photos de profil / avatars corrigés
+   - mentions et messages mentionnés rose violet glowing
+   - logo Fluxer remplacé par un logo SVG custom blanc
+   - cercle violet autour du logo, sans glow
+   - bandeau téléchargement recoloré et reformulé
+   - suppression des boutons Download et Help
+   - merge du bloc Logo SVG + Custom Nagbar Text - Kaly fixed
+   - bulle de notification guild discrète, position native conservée
+   - support GuildsLayout.module__guildVoiceBadge
+   - suppression du trait blanc dm/guild
+   - halo circulaire propre sur BaseAvatar + GuildListDMItem fullSize
+   - highlight sobre des salons de guild sans modifier le texte
    ============================================================ */
 
 :root {
-  --kaly-auth-logo-lycoria: url("https://github.com/KalyTative/Luxia-Files/blob/main/logo-lycoria.png?raw=true");
-  --kaly-auth-logo-size: 96px;
-  --kaly-auth-logo-radius: 22px;
-  --kaly-auth-logo-glow: rgba(240, 189, 255, 0.28);
+  /* =========================
+     Palette Forge V4.3.23
+     ========================= */
+
+  --forge-bg-left: #07040d;
+  --forge-bg-left-soft: #0d0717;
+
+  --forge-bg-main: #120d1b;
+  --forge-bg-main-soft: #181025;
+
+  --forge-sidebar: rgba(19, 14, 29, 0.9);
+  --forge-sidebar-soft: rgba(25, 17, 38, 0.92);
+
+  --forge-panel: rgba(27, 18, 40, 0.84);
+  --forge-panel-soft: rgba(33, 22, 48, 0.88);
+  --forge-panel-hover: rgba(47, 29, 72, 0.9);
+  --forge-panel-active: rgba(63, 38, 94, 0.96);
+
+  --forge-modal: rgba(23, 16, 33, 0.96);
+  --forge-modal-side: rgba(16, 11, 25, 0.96);
+
+  --forge-input: rgba(12, 7, 19, 0.94);
+  --forge-input-soft: rgba(18, 11, 29, 0.98);
+
+  --forge-border: rgba(227, 133, 255, 0.16);
+  --forge-border-soft: rgba(255, 255, 255, 0.08);
+  --forge-border-strong: rgba(227, 133, 255, 0.34);
+
+  --forge-text: #f7f1ff;
+  --forge-text-soft: #e4d8f6;
+  --forge-muted: #bfafd8;
+  --forge-muted-dark: #8d7ba4;
+
+  --forge-purple: #492480;
+  --forge-purple-2: #6f3fc1;
+  --forge-purple-3: #8956e8;
+  --forge-purple-soft: #a678ff;
+
+  --forge-pink: #e385ff;
+  --forge-pink-soft: #f0bdff;
+
+  --forge-cyan: #8be9ff;
+  --forge-green: #7ef0bc;
+  --forge-red: #ff7d96;
+  --forge-yellow: #ffd36b;
+
+  --forge-glow-purple: 0 0 24px rgba(125, 74, 217, 0.22);
+  --forge-glow-pink: 0 0 28px rgba(227, 133, 255, 0.16);
+  --forge-shadow-deep: 0 18px 50px rgba(0, 0, 0, 0.34);
+  --forge-shadow-panel: 0 10px 32px rgba(0, 0, 0, 0.22);
+
+  --forge-radius-sm: 10px;
+  --forge-radius-md: 14px;
+  --forge-radius-lg: 18px;
+
+  /* =========================
+     Bandeau Kaly
+     ========================= */
+
+  --kaly-nagbar-bg: #6b40b9;
+  --kaly-nagbar-text: #ffffff;
+  --kaly-nagbar-border: rgba(255, 255, 255, 0.12);
+
+  /* =========================
+     Logo custom Kaly
+     ========================= */
+
+  --kaly-logo-circle: #8956e8;
+  --kaly-logo-circle-hover: #f0bdff;
+  --kaly-logo-bg: rgba(73, 36, 128, 0.18);
+  --kaly-logo-bg-hover: rgba(111, 63, 193, 0.28);
+
+  --kaly-logo-ring-size: 3.25rem;
+  --kaly-logo-icon-size: 2.55rem;
+
+  --kaly-fluxer-logo: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201100%201083%22%20role%3D%22img%22%20aria-label%3D%22Logo%22%20fill%3D%22none%22%3E%3Cpath%20fill%3D%22white%22%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22%20M%20354%2025%20L%20348%2029%20L%20247%20151%20L%20184%20236%20L%20159%20275%20L%20137%20313%20L%20110%20366%20L%2091%20409%20L%2072%20459%20L%2055%20515%20L%2042%20569%20L%2035%20609%20L%2029%20653%20L%2024%20718%20L%2024%20763%20L%2029%20836%20L%2032%20840%20L%2066%20839%20L%2096%20835%20L%20123%20829%20L%20167%20813%20L%20194%20800%20L%20247%20771%20L%20278%20758%20L%20311%20750%20L%20331%20749%20L%20347%20751%20L%20358%20754%20L%20368%20759%20L%20379%20768%20L%20379%20771%20L%20364%20786%20L%20357%20796%20L%20348%20815%20L%20344%20829%20L%20340%20864%20L%20340%20923%20L%20336%20950%20L%20331%20967%20L%20322%20987%20L%20314%20999%20L%20294%201020%20L%20283%201028%20L%20293%201033%20L%20311%201037%20L%20349%201036%20L%20373%201030%20L%20389%201024%20L%20404%201016%20L%20420%201004%20L%20437%20985%20L%20448%20966%20L%20453%20953%20L%20459%20929%20L%20462%20901%20L%20467%20878%20L%20480%20850%20L%20484%20848%20L%20486%20896%20L%20495%20936%20L%20502%20957%20L%20523%201008%20L%20539%201039%20L%20551%201058%20L%20569%201027%20L%20581%201002%20L%20594%20971%20L%20605%20939%20L%20614%20897%20L%20616%20872%20L%20615%20848%20L%20618%20847%20L%20622%20852%20L%20633%20877%20L%20637%20893%20L%20642%20931%20L%20649%20957%20L%20658%20976%20L%20666%20988%20L%20684%201006%20L%20700%201017%20L%20718%201026%20L%20752%201036%20L%20790%201037%20L%20813%201031%20L%20818%201027%20L%20805%201018%20L%20784%20995%20L%20773%20975%20L%20767%20958%20L%20761%20922%20L%20760%20849%20L%20757%20830%20L%20751%20810%20L%20744%20796%20L%20736%20785%20L%20721%20771%20L%20721%20769%20L%20727%20763%20L%20746%20753%20L%20760%20750%20L%20779%20749%20L%20806%20753%20L%20826%20759%20L%20852%20770%20L%20929%20810%20L%20980%20829%20L%201007%20835%20L%201035%20839%20L%201068%20840%20L%201070%20838%20L%201075%20783%20L%201075%20700%20L%201071%20649%20L%201065%20605%20L%201053%20542%20L%201038%20485%20L%201018%20426%20L%20993%20366%20L%20973%20325%20L%20953%20289%20L%20907%20217%20L%20842%20132%20L%20751%2026%20L%20745%2024%20L%20734%2024%20L%20728%2026%20L%20691%2069%20L%20666%20102%20L%20644%20135%20L%20623%20171%20L%20606%20206%20L%20591%20244%20L%20585%20244%20L%20561%20238%20L%20539%20238%20L%20512%20244%20L%20510%20242%20L%20498%20208%20L%20482%20173%20L%20459%20133%20L%20440%20104%20L%20415%2071%20L%20375%2026%20L%20369%2024%20Z%20M%20719%20451%20L%20737%20451%20L%20755%20454%20L%20769%20459%20L%20793%20473%20L%20807%20486%20L%20820%20504%20L%20831%20530%20L%20835%20552%20L%20834%20579%20L%20830%20595%20L%20821%20615%20L%20810%20631%20L%20794%20647%20L%20778%20658%20L%20756%20667%20L%20732%20671%20L%20713%20670%20L%20693%20665%20L%20679%20659%20L%20659%20646%20L%20645%20632%20L%20633%20615%20L%20623%20592%20L%20619%20571%20L%20619%20552%20L%20622%20534%20L%20626%20522%20L%20634%20506%20L%20644%20492%20L%20661%20475%20L%20674%20466%20L%20693%20457%20Z%20M%20366%20451%20L%20384%20451%20L%20401%20454%20L%20427%20465%20L%20440%20474%20L%20453%20486%20L%20464%20500%20L%20471%20512%20L%20478%20530%20L%20482%20550%20L%20482%20572%20L%20477%20595%20L%20470%20611%20L%20455%20633%20L%20434%20652%20L%20416%20662%20L%20398%20668%20L%20376%20671%20L%20354%20669%20L%20337%20664%20L%20324%20658%20L%20305%20645%20L%20293%20633%20L%20280%20614%20L%20271%20593%20L%20267%20571%20L%20267%20551%20L%20271%20530%20L%20281%20507%20L%20293%20490%20L%20307%20476%20L%20321%20466%20L%20340%20457%20Z%20%22%2F%3E%3C%2Fsvg%3E");
+
+  /* =========================
+     Bulle notification guild
+     ========================= */
+
+  --kaly-guild-badge-bg: linear-gradient(135deg, #7a45c9 0%, #6130a6 48%, #3c1e67 100%);
+  --kaly-guild-badge-bg-active: linear-gradient(135deg, #8f5bea 0%, #7440c9 46%, #4b267d 100%);
+  --kaly-guild-badge-text: #ffffff;
+  --kaly-guild-badge-ring: #120d1b;
+  --kaly-guild-badge-glow: rgba(227, 133, 255, 0.34);
+
+  /* =========================
+     Variables Fluxer
+     ========================= */
+
+  --background-tertiary: var(--forge-bg-left);
+
+  --background-secondary: var(--forge-sidebar);
+  --background-secondary-alt: var(--forge-sidebar-soft);
+  --background-secondary-lighter: var(--forge-panel-soft);
+
+  --background-primary: var(--forge-bg-main);
+  --background-textarea: var(--forge-input);
+
+  --background-header-primary: rgba(17, 11, 26, 0.92);
+  --background-header-primary-hover: var(--forge-panel);
+  --background-header-secondary: var(--forge-bg-left-soft);
+
+  --background-modifier-hover: rgba(227, 133, 255, 0.055);
+  --background-modifier-selected: var(--forge-panel-active);
+  --background-modifier-accent: rgba(255, 255, 255, 0.08);
+  --background-modifier-accent-focus: rgba(227, 133, 255, 0.28);
+
+  --brand-primary: var(--forge-purple-2);
+  --brand-secondary: var(--forge-purple);
+  --brand-primary-light: var(--forge-purple-3);
+
+  --accent-primary: var(--forge-purple-3);
+  --focus-primary: var(--forge-pink);
+
+  --text-primary: var(--forge-text);
+  --text-secondary: var(--forge-text-soft);
+  --text-tertiary: var(--forge-muted);
+  --text-primary-muted: var(--forge-muted);
+  --text-tertiary-muted: var(--forge-muted-dark);
+  --text-tertiary-secondary: var(--forge-muted-dark);
+
+  --text-chat: var(--forge-text);
+  --text-chat-muted: var(--forge-muted);
+  --text-link: #dcc0ff;
+
+  --guild_list-foreground: var(--forge-bg-left);
+
+  /* =========================
+     Apparence / Markdown
+     ========================= */
+
+  --bg-primary: var(--forge-bg-main);
+  --bg-secondary: var(--forge-panel);
+  --bg-tertiary: var(--forge-bg-left);
+  --bg-hover: var(--forge-panel-hover);
+  --bg-active: var(--forge-panel-active);
+
+  --bg-code: #09050e;
+  --bg-code-block: #09050e;
+  --bg-blockquote: rgba(25, 17, 38, 0.82);
+  --bg-table-header: rgba(9, 6, 15, 0.95);
+  --bg-table-row-odd: rgba(15, 10, 23, 0.88);
+  --bg-table-row-even: rgba(23, 16, 35, 0.88);
+
+  --markup-mention-text: #f0bdff;
+  --markup-interactive-hover-text: var(--forge-pink);
+
+  --button-outline-border: rgba(227, 133, 255, 0.2);
+  --border-color: var(--forge-border-soft);
+
+  --form-surface-background: var(--forge-panel);
+  --surface-interactive-hover-bg: var(--forge-panel-hover);
+  --surface-interactive-selected-bg: var(--forge-panel-active);
+  --surface-interactive-selected-color: var(--forge-text);
+
+  --scrollbar-thumb-bg: #3a2456;
+  --scrollbar-thumb-bg-hover: var(--forge-purple-3);
+  --scrollbar-track-bg: #08050d;
+
+  color-scheme: dark;
 }
 
-/*
-   Supporte les deux cas :
-   - classe littérale avec un point : AuthLayout.module__logo___XzNiND
-   - classes séparées / hash partiel généré par Fluxer
-*/
-html body .AuthLayout\.module__logo___XzNiND,
-html body [class~="AuthLayout.module__logo___XzNiND"],
-html body [class*="AuthLayout.module__logo___XzNiND"],
-html body [class*="AuthLayout"][class*="module__logo___XzNiND"],
-html body [class*="module__logo___XzNiND"] {
-  display: block !important;
-  width: var(--kaly-auth-logo-size) !important;
-  height: var(--kaly-auth-logo-size) !important;
-  min-width: var(--kaly-auth-logo-size) !important;
-  min-height: var(--kaly-auth-logo-size) !important;
-  max-width: var(--kaly-auth-logo-size) !important;
-  max-height: var(--kaly-auth-logo-size) !important;
+/* =========================
+   Animations
+   ========================= */
 
-  padding: 0 !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+@keyframes forge-bg-drift {
+  0% {
+    background-position: 0% 0%, 100% 0%, 50% 50%;
+  }
 
-  object-fit: contain !important;
-  object-position: center !important;
+  50% {
+    background-position: 12% 4%, 88% 8%, 50% 50%;
+  }
 
-  background-color: transparent !important;
-  background-image: var(--kaly-auth-logo-lycoria) !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: contain !important;
+  100% {
+    background-position: 0% 0%, 100% 0%, 50% 50%;
+  }
+}
 
-  border-radius: var(--kaly-auth-logo-radius) !important;
-  border: 1px solid rgba(240, 189, 255, 0.18) !important;
+@keyframes forge-button-shine {
+  0% {
+    background-position: 0% 50%;
+  }
 
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* =========================
+   Base
+   ========================= */
+
+html,
+body,
+#root {
+  background-color: var(--forge-bg-main) !important;
+  color: var(--forge-text) !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(137, 86, 232, 0.18), transparent 32rem),
+    radial-gradient(circle at 86% 4%, rgba(227, 133, 255, 0.1), transparent 30rem),
+    linear-gradient(135deg, #07040d 0%, #120d1b 48%, #090611 100%) !important;
+  background-attachment: fixed !important;
+  animation: forge-bg-drift 18s ease-in-out infinite;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999999;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(circle at center, black 0%, transparent 74%);
+}
+
+main {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(73, 36, 128, 0.12), transparent 32rem),
+    linear-gradient(180deg, rgba(18, 13, 27, 0.96), rgba(11, 7, 17, 0.98)) !important;
+}
+
+/* =========================
+   Colonnes latérales
+   ========================= */
+
+aside {
+  background-color: var(--forge-sidebar) !important;
+  border-right: 1px solid rgba(227, 133, 255, 0.08) !important;
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+}
+
+aside:first-child {
+  background:
+    linear-gradient(180deg, rgba(7, 4, 13, 0.96), rgba(13, 7, 23, 0.96)) !important;
+  box-shadow: inset -1px 0 0 rgba(227, 133, 255, 0.08);
+}
+
+/* =========================
+   Panneaux ciblés
+   ========================= */
+
+section,
+article,
+nav {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+[class*="card"],
+[class*="Card"],
+[class*="panel"],
+[class*="Panel"],
+[class*="surface"],
+[class*="Surface"] {
+  border-color: rgba(227, 133, 255, 0.1) !important;
+}
+
+/* =========================
+   Modales / paramètres / profils
+   ========================= */
+
+dialog {
+  background:
+    linear-gradient(180deg, rgba(31, 20, 46, 0.96), rgba(18, 12, 28, 0.96)) !important;
+  color: var(--forge-text) !important;
+  border: 1px solid var(--forge-border) !important;
+  border-radius: var(--forge-radius-lg) !important;
   box-shadow:
-    0 0 0 1px rgba(137, 86, 232, 0.10),
-    0 0 18px var(--kaly-auth-logo-glow),
-    0 12px 32px rgba(0, 0, 0, 0.28) !important;
+    var(--forge-shadow-deep),
+    var(--forge-glow-pink) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease !important;
+}
 
+.modal-backdrop [role="dialog"] {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
   filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.modal-backdrop [class*="Modal_focusLock"],
+.modal-backdrop [class*="Modal_surface"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.modal-backdrop [class*="Modal_root"] {
+  background:
+    linear-gradient(180deg, rgba(31, 20, 46, 0.96), rgba(18, 12, 28, 0.96)) !important;
+  color: var(--forge-text) !important;
+  border: 1px solid var(--forge-border) !important;
+  border-radius: var(--forge-radius-lg) !important;
+  box-shadow:
+    var(--forge-shadow-deep),
+    var(--forge-glow-pink) !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: hidden !important;
+  pointer-events: all !important;
+}
+
+dialog:not([open]),
+.modal-backdrop [role="dialog"][hidden],
+.modal-backdrop [role="dialog"][aria-hidden="true"],
+.modal-backdrop [role="dialog"][data-state="closed"],
+.modal-backdrop [role="dialog"][data-closing="true"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+[class*="Modal_modalBackdrop"],
+[class*="modalBackdrop"],
+[class*="ModalBackdrop"] {
+  background: rgba(0, 0, 0, 0.42) !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[class*="Modal_backdropCentered"],
+[class*="backdropCentered"],
+[class*="BackdropCentered"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.modal-backdrop {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.modal-backdrop[aria-hidden="true"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+[class*="Modal_layer"][style*="visibility: hidden"],
+[class*="Modal_layer"][style*="visibility:hidden"],
+[class*="Modal_layer"][style*="opacity: 0"],
+[class*="Modal_layer"][style*="opacity:0"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+[class*="Popout"][aria-hidden="true"],
+[class*="popout"][aria-hidden="true"],
+[class*="Popout"][data-state="closed"],
+[class*="popout"][data-state="closed"],
+[class*="Popout"][data-closing="true"],
+[class*="popout"][data-closing="true"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* =========================
+   Champs texte
+   ========================= */
+
+input,
+textarea,
+select {
+  background:
+    linear-gradient(180deg, rgba(14, 8, 22, 0.96), rgba(8, 5, 13, 0.96)) !important;
+  color: var(--forge-text) !important;
+  border: 1px solid rgba(227, 133, 255, 0.15) !important;
+  border-radius: var(--forge-radius-md) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 8px 24px rgba(0, 0, 0, 0.16) !important;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+textarea {
+  min-height: 46px !important;
+  line-height: 20px !important;
+  padding: 13px 14px !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: rgba(227, 133, 255, 0.26) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--forge-muted-dark) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: var(--forge-input-soft) !important;
+  border-color: var(--forge-purple-3) !important;
+  outline: none !important;
+  box-shadow:
+    0 0 0 2px rgba(137, 86, 232, 0.22),
+    0 0 26px rgba(137, 86, 232, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+/* =========================
+   Liens
+   ========================= */
+
+a {
+  color: #dcc0ff !important;
+  text-decoration-color: rgba(227, 133, 255, 0.32) !important;
+  text-underline-offset: 3px;
+  transition:
+    color 140ms ease,
+    text-decoration-color 140ms ease,
+    text-shadow 140ms ease;
+}
+
+a:hover {
+  color: var(--forge-pink-soft) !important;
+  text-decoration-color: rgba(240, 189, 255, 0.72) !important;
+  text-shadow: 0 0 14px rgba(227, 133, 255, 0.24);
+}
+
+/* =========================
+   Boutons
+   ========================= */
+
+button {
+  color: var(--forge-text) !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: var(--forge-radius-md) !important;
+  border-color: rgba(227, 133, 255, 0.16) !important;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    background-color 140ms ease,
+    filter 140ms ease;
+}
+
+button:hover {
+  border-color: rgba(227, 133, 255, 0.3) !important;
+  transform: translateY(-1px);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.2),
+    var(--forge-glow-purple) !important;
+}
+
+button:active {
+  transform: translateY(0);
+  filter: brightness(0.96);
+}
+
+button:disabled {
+  opacity: 0.52;
+  transform: none;
+  box-shadow: none !important;
+}
+
+button[type="submit"],
+button[data-primary="true"] {
+  background:
+    linear-gradient(135deg, var(--forge-purple), var(--forge-purple-2), var(--forge-purple-3)) !important;
+  background-size: 180% 180% !important;
+  color: #ffffff !important;
+  border-color: rgba(227, 133, 255, 0.34) !important;
+  box-shadow:
+    0 10px 30px rgba(111, 63, 193, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+button[type="submit"]:hover,
+button[data-primary="true"]:hover {
+  animation: forge-button-shine 900ms ease forwards;
+  box-shadow:
+    0 14px 34px rgba(111, 63, 193, 0.34),
+    0 0 0 2px rgba(227, 133, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+/* =========================
+   Suppression boutons header
+   ========================= */
+
+html body [class*="DownloadButton.module__button__"],
+html body [class*="DownloadButton"][class*="button"],
+html body button[class*="DownloadButton"],
+html body a[class*="DownloadButton"],
+html body [class*="HelpButton.module__button__"],
+html body [class*="HelpButton"][class*="button"],
+html body button[class*="HelpButton"],
+html body a[class*="HelpButton"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+/* =========================
+   Avatars / photos de profil
+   ========================= */
+
+[role="img"][aria-label],
+[role="button"][aria-label] {
   opacity: 1 !important;
   visibility: visible !important;
 }
 
-/* Cas où la cible est directement un <img>. */
-html body img.AuthLayout\.module__logo___XzNiND,
-html body img[class~="AuthLayout.module__logo___XzNiND"],
-html body img[class*="AuthLayout.module__logo___XzNiND"],
-html body img[class*="AuthLayout"][class*="module__logo___XzNiND"],
-html body img[class*="module__logo___XzNiND"] {
-  content: var(--kaly-auth-logo-lycoria) !important;
+[role="img"][aria-label] svg,
+[role="button"][aria-label] svg,
+svg[class*="overlay"],
+svg[class*="Overlay"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  background: transparent !important;
+  filter: none !important;
 }
 
-/* Cas où Fluxer met un SVG ou une image interne dans le conteneur du logo. */
-html body :is(
-  .AuthLayout\.module__logo___XzNiND,
-  [class~="AuthLayout.module__logo___XzNiND"],
-  [class*="AuthLayout.module__logo___XzNiND"],
-  [class*="AuthLayout"][class*="module__logo___XzNiND"],
-  [class*="module__logo___XzNiND"]
-) > :is(svg, img, picture, canvas) {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  display: none !important;
+[role="img"][aria-label] image,
+[role="button"][aria-label] image,
+svg[class*="overlay"] image,
+svg[class*="Overlay"] image {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  filter: none !important;
+}
+
+[aria-hidden="true"][role="presentation"],
+svg[aria-hidden="true"][class*="overlay"],
+svg[aria-hidden="true"][class*="Overlay"] {
+  opacity: 1 !important;
+  visibility: visible !important;
   pointer-events: none !important;
 }
 
-/* Sécurité : remet le logo visible si un parent tente de l'éteindre. */
+/* =========================
+   Messages
+   ========================= */
+
+[class*="message"]:not([data-message-id]):not(svg):hover,
+[class*="Message"]:not([data-message-id]):not(svg):hover {
+  background-color: transparent !important;
+}
+
+[role="article"][data-message-id] {
+  border-radius: var(--forge-radius-md);
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+[role="article"][data-message-id]:hover {
+  background-color: rgba(227, 133, 255, 0.045) !important;
+  box-shadow:
+    inset 2px 0 0 rgba(227, 133, 255, 0.18),
+    0 0 0 1px rgba(227, 133, 255, 0.035) !important;
+}
+
+[role="article"][data-message-id][class*="messageMentioned"],
+[role="article"][data-message-id][class*="MessageMentioned"] {
+  position: relative;
+  background-color: rgba(227, 133, 255, 0.09) !important;
+  box-shadow:
+    0 0 22px rgba(137, 86, 232, 0.14),
+    inset 0 0 0 1px rgba(227, 133, 255, 0.05) !important;
+  overflow: hidden !important;
+}
+
+[role="article"][data-message-id][class*="messageMentioned"]::before,
+[role="article"][data-message-id][class*="MessageMentioned"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(240, 189, 255, 0.98), rgba(227, 133, 255, 0.9), rgba(137, 86, 232, 0.92)) !important;
+  box-shadow:
+    0 0 12px rgba(240, 189, 255, 0.34),
+    0 0 20px rgba(227, 133, 255, 0.24) !important;
+  pointer-events: none;
+}
+
+[role="article"][data-message-id][class*="messageMentioned"]:hover,
+[role="article"][data-message-id][class*="MessageMentioned"]:hover {
+  background-color: rgba(227, 133, 255, 0.13) !important;
+  box-shadow:
+    0 0 28px rgba(227, 133, 255, 0.18),
+    inset 0 0 0 1px rgba(240, 189, 255, 0.07) !important;
+}
+
+[role="article"][data-message-id][class*="messageMentioned"]:hover::before,
+[role="article"][data-message-id][class*="MessageMentioned"]:hover::before {
+  background:
+    linear-gradient(180deg, rgba(255, 230, 255, 1), rgba(240, 189, 255, 0.96), rgba(137, 86, 232, 0.96)) !important;
+  box-shadow:
+    0 0 14px rgba(255, 230, 255, 0.34),
+    0 0 24px rgba(227, 133, 255, 0.3) !important;
+}
+
+[role="article"][data-message-id][class*="messageReplying"],
+[role="article"][data-message-id][class*="messageHighlight"],
+[role="article"][data-message-id][class*="MessageReplying"],
+[role="article"][data-message-id][class*="MessageHighlight"] {
+  background-color: rgba(137, 86, 232, 0.1) !important;
+}
+
+[role="article"][data-message-id][class*="messageReplying"]:hover,
+[role="article"][data-message-id][class*="messageHighlight"]:hover,
+[role="article"][data-message-id][class*="MessageReplying"]:hover,
+[role="article"][data-message-id][class*="MessageHighlight"]:hover {
+  background-color: rgba(137, 86, 232, 0.14) !important;
+}
+
+[role="article"][data-message-id][class*="messagePreview"]:hover,
+[role="article"][data-message-id][class*="MessagePreview"]:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+@media (pointer: coarse) {
+  [role="article"][data-message-id]:hover {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+/* =========================
+   Mentions / badges
+   ========================= */
+
+[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]),
+[class*="pill" i] {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  color: #ead8ff !important;
+  border-radius: 999px !important;
+}
+
+[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i])::before,
+[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i])::after,
+[class*="pill" i]::before,
+[class*="pill" i]::after {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+button[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]),
+button[class*="pill" i],
+[role="button"][class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]),
+[role="button"][class*="pill" i] {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+button[class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]):hover,
+button[class*="pill" i]:hover,
+[role="button"][class*="badge" i]:not([class*="guildbadge" i]):not([class*="partnerbadge" i]):hover,
+[role="button"][class*="pill" i]:hover {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+[class*="GuildBadge_module_partnerBadge"],
+[class*="guildbadge" i][class*="partnerbadge" i] {
+  background: #6e41bd !important;
+  background-color: #6e41bd !important;
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  border-radius: 50% !important;
+}
+
+:is(a, span, button)[class*="mention" i]:not([class*="messageMentioned" i]),
+:is(a, span, button)[data-mention],
+:is(a, span, button)[data-mention-id] {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: baseline;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(73, 36, 128, 0.72),
+      rgba(137, 86, 232, 0.62) 48%,
+      rgba(227, 133, 255, 0.52)
+    ) !important;
+
+  color: #fff1ff !important;
+  border: 1px solid rgba(240, 189, 255, 0.42) !important;
+  border-radius: 999px !important;
+  padding: 0.08em 0.46em !important;
+
+  font-weight: 800;
+  text-decoration: none !important;
+  text-shadow:
+    0 0 8px rgba(240, 189, 255, 0.52),
+    0 0 18px rgba(227, 133, 255, 0.28);
+
+  box-shadow:
+    0 0 0 1px rgba(137, 86, 232, 0.18),
+    0 0 16px rgba(227, 133, 255, 0.22),
+    0 0 28px rgba(137, 86, 232, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+
+  transition:
+    color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    text-shadow 140ms ease,
+    filter 140ms ease;
+}
+
+:is(a, span, button)[class*="mention" i]:not([class*="messageMentioned" i])::before,
+:is(a, span, button)[data-mention]::before,
+:is(a, span, button)[data-mention-id]::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(227, 133, 255, 0.34), transparent 68%);
+  filter: blur(7px);
+  opacity: 0.72;
+}
+
+:is(a, span, button)[class*="mention" i]:not([class*="messageMentioned" i]):hover,
+:is(a, span, button)[data-mention]:hover,
+:is(a, span, button)[data-mention-id]:hover {
+  color: #ffffff !important;
+  border-color: rgba(240, 189, 255, 0.68) !important;
+  filter: brightness(1.08);
+
+  text-shadow:
+    0 0 10px rgba(255, 241, 255, 0.72),
+    0 0 22px rgba(227, 133, 255, 0.48);
+
+  box-shadow:
+    0 0 0 1px rgba(227, 133, 255, 0.3),
+    0 0 20px rgba(227, 133, 255, 0.34),
+    0 0 36px rgba(137, 86, 232, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+}
+
+/* =========================
+   Code / blocs
+   ========================= */
+
+code,
+pre {
+  background:
+    linear-gradient(180deg, rgba(9, 5, 14, 0.98), rgba(14, 8, 22, 0.98)) !important;
+  color: #f8efff !important;
+  border-color: rgba(227, 133, 255, 0.12) !important;
+  border-radius: var(--forge-radius-md) !important;
+}
+
+pre {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 12px 32px rgba(0, 0, 0, 0.24) !important;
+}
+
+/* =========================
+   Tableaux / citations
+   ========================= */
+
+blockquote {
+  background: rgba(25, 17, 38, 0.74) !important;
+  border-left: 3px solid rgba(227, 133, 255, 0.42) !important;
+  color: var(--forge-text-soft) !important;
+  border-radius: 0 var(--forge-radius-md) var(--forge-radius-md) 0 !important;
+}
+
+table {
+  border-color: rgba(227, 133, 255, 0.12) !important;
+}
+
+th {
+  background: rgba(9, 6, 15, 0.94) !important;
+  color: var(--forge-text) !important;
+}
+
+td {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* =========================
+   Sélection
+   ========================= */
+
+::selection {
+  background: rgba(137, 86, 232, 0.46);
+  color: #ffffff;
+}
+
+/* =========================
+   Scrollbars
+   ========================= */
+
+* {
+  scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-track-bg);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, #4b2d70, #2f1d48);
+  border-radius: 999px;
+  border: 2px solid var(--scrollbar-track-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, var(--forge-purple-3), #4b2d70);
+}
+
+/* =========================
+   Nagbar custom visuel clean
+   ========================= */
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"]::after,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"]::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"],
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] {
+  position: relative !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+
+  padding: 4px 44px 4px 12px !important;
+  margin: 0 !important;
+
+  background: var(--kaly-nagbar-bg) !important;
+  background-color: var(--kaly-nagbar-bg) !important;
+  border-bottom: 1px solid var(--kaly-nagbar-border) !important;
+  box-shadow: none !important;
+
+  color: transparent !important;
+  font-size: 0 !important;
+  overflow: hidden !important;
+}
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:not(:last-child),
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:not(:last-child) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"]::before,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"]::before {
+  content: "To download the desktop or Android app, go to HUB | Lycoria's Daycare. Find it in Discover, or go to Add a Community > Join a Community and search HUB." !important;
+
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+
+  width: calc(100% - 96px) !important;
+  max-width: 1400px !important;
+
+  color: var(--kaly-nagbar-text) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+
+  pointer-events: none !important;
+  z-index: 5 !important;
+}
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child {
+  position: absolute !important;
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+
+  color: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+
+  font-size: 0 !important;
+  line-height: 1 !important;
+  z-index: 20 !important;
+}
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child > *,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child > * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child::before,
+html body div[class*="Nagbar.module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child::before,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child::before {
+  content: "×" !important;
+
+  display: block !important;
+  color: #ffffff !important;
+
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"] > *:last-child:hover,
+html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] > *:last-child:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+
+@media (max-width: 900px) {
+  html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"],
+  html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"] {
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+    padding: 6px 40px 6px 10px !important;
+  }
+
+  html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"]::before,
+  html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"]::before {
+    width: calc(100% - 64px) !important;
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+  }
+}
+
+/* =========================
+   Logo Fluxer remplacé
+   ========================= */
+
+[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]) {
+  position: relative !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]) > svg[class*="fluxerSymbolIcon"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+  color: transparent !important;
+}
+
+[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+
+  width: var(--kaly-logo-ring-size);
+  height: var(--kaly-logo-ring-size);
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--kaly-logo-circle) !important;
+  background-color: var(--kaly-logo-bg) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"])::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+
+  width: var(--kaly-logo-icon-size);
+  height: var(--kaly-logo-icon-size);
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+  background-color: transparent !important;
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]):hover::after,
+[class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"])::after {
+  border-color: var(--kaly-logo-circle-hover) !important;
+  background-color: var(--kaly-logo-bg-hover) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+[class*="fluxerButtonIcon"]:has(> svg[class*="fluxerSymbolIcon"]):hover::before,
+[class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"])::before {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+[class*="fluxerButtonIconSelected"]:has(> svg[class*="fluxerSymbolIcon"]) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+@supports not selector(:has(*)) {
+  svg[class*="fluxerSymbolIcon"] {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
+/* =========================
+   Bulle notification guild
+   ========================= */
+
+html body div[class*="GuildsLayout"][class*="guildBadge" i]:not([class*="guildBadgeActive" i]):not([class*="guildVoiceBadge" i]),
+html body span[class*="GuildsLayout"][class*="guildBadge" i]:not([class*="guildBadgeActive" i]):not([class*="guildVoiceBadge" i]),
+html body [class*="GuildsLayout.module__guildBadge__"]:not([class*="GuildsLayout.module__guildBadgeActive__"]):not([class*="GuildsLayout.module__guildVoiceBadge__"]) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html body div[class*="GuildsLayout"][class*="guildBadgeActive" i],
+html body span[class*="GuildsLayout"][class*="guildBadgeActive" i],
+html body div[class*="GuildsLayout"][class*="guildVoiceBadge" i],
+html body span[class*="GuildsLayout"][class*="guildVoiceBadge" i],
+html body [class*="GuildsLayout.module__guildBadgeActive__"],
+html body [class*="GuildsLayout.module__guildVoiceBadge__"] {
+  z-index: 50 !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 18px !important;
+  min-width: 18px !important;
+  max-width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  max-height: 18px !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+
+  background:
+    radial-gradient(circle at 45% 35%, rgba(240, 189, 255, 0.34), transparent 42%),
+    linear-gradient(135deg, rgba(137, 86, 232, 0.82), rgba(73, 36, 128, 0.82)) !important;
+  background-color: rgba(111, 63, 193, 0.78) !important;
+
+  border: 1px solid rgba(240, 189, 255, 0.24) !important;
+  outline: 2px solid rgba(7, 4, 13, 0.9) !important;
+  outline-offset: 0 !important;
+
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: none !important;
+
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.02em !important;
+  font-variant-numeric: tabular-nums !important;
+  text-align: center !important;
+
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.72) !important;
+
+  box-shadow:
+    0 0 0 1px rgba(137, 86, 232, 0.18),
+    0 0 7px rgba(137, 86, 232, 0.28),
+    0 2px 5px rgba(0, 0, 0, 0.35) !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+
+  filter: none !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+html body [class*="GuildsLayout"][class*="guildBadgeActive" i] *,
+html body [class*="GuildsLayout"][class*="guildVoiceBadge" i] *,
+html body [class*="GuildsLayout.module__guildBadgeActive__"] *,
+html body [class*="GuildsLayout.module__guildVoiceBadge__"] * {
+  color: inherit !important;
+  fill: inherit !important;
+  font: inherit !important;
+  line-height: inherit !important;
+  text-shadow: inherit !important;
+}
+
+/* =========================
+   MessageReactionsModal hover fix
+   ========================= */
+
+html body [class*="MessageReactionsModal.module__sidebar__"],
+html body [class*="MessageReactionsModal_module__sidebar__"],
+html body [class*="MessageReactionsModal"][class*="sidebar"],
+html body [class*="MessageReactionsModal.module__sidebar__"]:hover,
+html body [class*="MessageReactionsModal_module__sidebar__"]:hover,
+html body [class*="MessageReactionsModal"][class*="sidebar"]:hover,
+html body [class*="MessageReactionsModal.module__sidebar__"]:focus-within,
+html body [class*="MessageReactionsModal_module__sidebar__"]:focus-within,
+html body [class*="MessageReactionsModal"][class*="sidebar"]:focus-within {
+  background:
+    linear-gradient(180deg, rgba(16, 11, 25, 0.98), rgba(23, 16, 33, 0.96)) !important;
+  background-color: rgba(16, 11, 25, 0.98) !important;
+  border-right: 1px solid rgba(227, 133, 255, 0.12) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+html body [class*="MessageReactionsModal.module__reactionListContainer__"],
+html body [class*="MessageReactionsModal_module__reactionListContainer__"],
+html body [class*="MessageReactionsModal"][class*="reactionListContainer"],
+html body [class*="MessageReactionsModal.module__reactionListContainer__"]:hover,
+html body [class*="MessageReactionsModal_module__reactionListContainer__"]:hover,
+html body [class*="MessageReactionsModal"][class*="reactionListContainer"]:hover,
+html body [class*="MessageReactionsModal.module__reactionListContainer__"]:focus-within,
+html body [class*="MessageReactionsModal_module__reactionListContainer__"]:focus-within,
+html body [class*="MessageReactionsModal"][class*="reactionListContainer"]:focus-within {
+  background:
+    linear-gradient(180deg, rgba(27, 18, 40, 0.97), rgba(18, 12, 28, 0.97)) !important;
+  background-color: rgba(27, 18, 40, 0.97) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+html body [class*="MessageReactionsModal.module__sidebar__"] *,
+html body [class*="MessageReactionsModal_module__sidebar__"] *,
+html body [class*="MessageReactionsModal"][class*="sidebar"] *,
+html body [class*="MessageReactionsModal.module__reactionListContainer__"] *,
+html body [class*="MessageReactionsModal_module__reactionListContainer__"] *,
+html body [class*="MessageReactionsModal"][class*="reactionListContainer"] * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* =========================
+   MessageReactionsModal avatars fix
+   ========================= */
+
+html body [class*="MessageReactionsModal"] [role="img"],
+html body [class*="MessageReactionsModal"] [class*="avatar" i],
+html body [class*="MessageReactionsModal"] [class*="Avatar"],
+html body [class*="MessageReactionsModal"] [class*="pfp" i] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  filter: none !important;
+  overflow: hidden !important;
+  border-radius: 50% !important;
+}
+
+html body [class*="MessageReactionsModal"] img,
+html body [class*="MessageReactionsModal"] picture,
+html body [class*="MessageReactionsModal"] canvas,
+html body [class*="MessageReactionsModal"] svg,
+html body [class*="MessageReactionsModal"] svg image,
+html body [class*="MessageReactionsModal"] [role="img"] img,
+html body [class*="MessageReactionsModal"] [role="img"] svg,
+html body [class*="MessageReactionsModal"] [class*="avatar" i] img,
+html body [class*="MessageReactionsModal"] [class*="avatar" i] svg,
+html body [class*="MessageReactionsModal"] [class*="avatar" i] image {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  background: transparent !important;
+  filter: none !important;
+}
+
+html body [class*="MessageReactionsModal"] [class*="avatar" i]::before,
+html body [class*="MessageReactionsModal"] [class*="avatar" i]::after,
+html body [class*="MessageReactionsModal"] [role="img"]::before,
+html body [class*="MessageReactionsModal"] [role="img"]::after {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* =========================
+   Focus accessible
+   ========================= */
+
+:focus-visible {
+  outline: 2px solid rgba(227, 133, 255, 0.5) !important;
+  outline-offset: 2px;
+}
+
+/* =========================
+   Kaly - Voice badge blanc uniquement
+   ========================= */
+
+html body div[class*="GuildsLayout"][class*="guildVoiceBadge" i],
+html body span[class*="GuildsLayout"][class*="guildVoiceBadge" i],
+html body svg[class*="GuildsLayout"][class*="guildVoiceBadge" i],
+html body [class*="GuildsLayout.module__guildVoiceBadge__"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+
+  translate: 2px 0 !important;
+
+  filter:
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9))
+    drop-shadow(0 0 5px rgba(255, 255, 255, 0.55)) !important;
+}
+
+html body div[class*="GuildsLayout"][class*="guildVoiceBadge" i] *,
+html body span[class*="GuildsLayout"][class*="guildVoiceBadge" i] *,
+html body svg[class*="GuildsLayout"][class*="guildVoiceBadge" i] *,
+html body [class*="GuildsLayout.module__guildVoiceBadge__"] *,
+html body div[class*="GuildsLayout"][class*="guildVoiceBadge" i] path,
+html body span[class*="GuildsLayout"][class*="guildVoiceBadge" i] path,
+html body svg[class*="GuildsLayout"][class*="guildVoiceBadge" i] path,
+html body [class*="GuildsLayout.module__guildVoiceBadge__"] path {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* =========================
+   Kaly - Guild / DM avatar aura indicator V4.3.35
+   ========================= */
+
+:root {
+  --kaly-avatar-aura-ring-hover: rgba(240, 189, 255, 0.78);
+  --kaly-avatar-aura-ring-active: rgba(255, 255, 255, 0.95);
+
+  --kaly-avatar-aura-purple: rgba(137, 86, 232, 0.62);
+  --kaly-avatar-aura-pink: rgba(227, 133, 255, 0.56);
+  --kaly-avatar-aura-soft: rgba(240, 189, 255, 0.34);
+  --kaly-avatar-aura-deep: rgba(73, 36, 128, 0.42);
+
+  --kaly-avatar-aura-hover-scale: 1.04;
+  --kaly-avatar-aura-active-scale: 1.055;
+}
+
+@keyframes kaly-avatar-aura-pulse {
+  0% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(0.96);
+    filter: blur(10px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+    filter: blur(13px);
+  }
+
+  100% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(0.96);
+    filter: blur(10px);
+  }
+}
+
+@keyframes kaly-avatar-ring-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes kaly-avatar-ring-breathe {
+  0% {
+    opacity: 0.78;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.78;
+  }
+}
+
 html body :is(
-  .AuthLayout\.module__logo___XzNiND,
-  [class~="AuthLayout.module__logo___XzNiND"],
-  [class*="AuthLayout.module__logo___XzNiND"],
-  [class*="AuthLayout"][class*="module__logo___XzNiND"],
-  [class*="module__logo___XzNiND"]
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
+) {
+  position: relative !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
 )::before,
 html body :is(
-  .AuthLayout\.module__logo___XzNiND,
-  [class~="AuthLayout.module__logo___XzNiND"],
-  [class*="AuthLayout.module__logo___XzNiND"],
-  [class*="AuthLayout"][class*="module__logo___XzNiND"],
-  [class*="module__logo___XzNiND"]
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
 )::after {
   content: none !important;
   display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
+) :is(
+  [class*="indicator" i],
+  [class*="selected" i],
+  [class*="selector" i],
+  [class*="pill" i],
+  [class*="bar" i],
+  [class*="active" i]
+):not([class*="badge" i]):not([class*="voice" i]):not([class*="avatar" i]):not([class*="BaseAvatar" i]):not([role="img"]) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
+) > *:not([class*="BaseAvatar" i]):not([class*="avatar" i]):not([class*="badge" i]):not([class*="voice" i]):not([role="img"])::before,
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
+) > *:not([class*="BaseAvatar" i]):not([class*="avatar" i]):not([class*="badge" i]):not([class*="voice" i]):not([role="img"])::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body :is(
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+  [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+  [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+) {
+  position: relative !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+  border-radius: 50% !important;
+
+  transform: translateZ(0) scale(1) !important;
+  filter: brightness(1) saturate(1) !important;
+
+  transition:
+    transform 190ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 190ms ease,
+    box-shadow 190ms ease !important;
+}
+
+html body :is(
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+  [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+  [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+) > * {
+  position: relative !important;
+  z-index: 4 !important;
+  border-radius: inherit !important;
+}
+
+html body :is(
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+  [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+  [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+)::before {
+  content: "" !important;
+
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  z-index: 1 !important;
+
+  width: calc(100% + 22px) !important;
+  height: calc(100% + 22px) !important;
+  border-radius: 50% !important;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.18) 0%,
+      var(--kaly-avatar-aura-soft) 18%,
+      var(--kaly-avatar-aura-pink) 38%,
+      var(--kaly-avatar-aura-purple) 56%,
+      rgba(137, 86, 232, 0) 74%
+    ) !important;
+
+  opacity: 0 !important;
+  transform: translate(-50%, -50%) scale(0.72) !important;
+  filter: blur(12px) !important;
+
+  pointer-events: none !important;
+
+  transition:
+    opacity 190ms ease,
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 240ms ease !important;
+}
+
+html body :is(
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+  [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+  [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+)::after {
+  content: "" !important;
+
+  position: absolute !important;
+  inset: -5px !important;
+  z-index: 2 !important;
+
+  border-radius: 50% !important;
+  padding: 2px !important;
+
+  background:
+    conic-gradient(
+      from 210deg,
+      rgba(255, 255, 255, 0) 0deg,
+      rgba(255, 255, 255, 0.78) 34deg,
+      rgba(240, 189, 255, 0.95) 82deg,
+      rgba(137, 86, 232, 0.88) 142deg,
+      rgba(73, 36, 128, 0.28) 202deg,
+      rgba(227, 133, 255, 0.82) 284deg,
+      rgba(255, 255, 255, 0) 360deg
+    ) !important;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+
+  opacity: 0 !important;
+  transform: scale(0.86) rotate(0deg) !important;
+  transform-origin: center center !important;
+
+  pointer-events: none !important;
+
+  filter:
+    drop-shadow(0 0 7px rgba(227, 133, 255, 0.22))
+    drop-shadow(0 0 13px rgba(137, 86, 232, 0.16)) !important;
+
+  transition:
+    opacity 190ms ease,
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 220ms ease !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
+):hover :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+),
+html body :is(
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+  [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+  [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+):hover {
+  transform: translateZ(0) scale(var(--kaly-avatar-aura-hover-scale)) !important;
+  filter: brightness(1.08) saturate(1.08) !important;
+
+  box-shadow:
+    0 0 0 1px rgba(240, 189, 255, 0.10),
+    0 0 18px rgba(227, 133, 255, 0.18),
+    0 0 28px rgba(137, 86, 232, 0.12) !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
+):hover :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+)::before,
+html body :is(
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+  [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+  [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+):hover::before {
+  opacity: 0.92 !important;
+  transform: translate(-50%, -50%) scale(1.02) !important;
+  filter: blur(11px) !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"],
+  [class*="dmListItem" i][class*="guildListItem" i],
+  [class*="GuildListDMItem.module__fullSize___"],
+  [class*="GuildListDMItem"][class*="fullSize"]
+):hover :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+)::after,
+html body :is(
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+  [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+  [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+  [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+):hover::after {
+  opacity: 1 !important;
+  transform: scale(1) rotate(0deg) !important;
+
+  filter:
+    drop-shadow(0 0 8px rgba(240, 189, 255, 0.32))
+    drop-shadow(0 0 18px rgba(137, 86, 232, 0.24)) !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-expanded="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-selected="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-current="page"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][data-state="open"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-expanded="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-selected="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-current="page"],
+  [class*="dmListItem" i][class*="guildListItem" i][data-state="open"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-expanded="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-selected="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-current="page"],
+  [class*="GuildListDMItem.module__fullSize___"][data-state="open"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-expanded="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-selected="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-current="page"],
+  [class*="GuildListDMItem"][class*="fullSize"][data-state="open"]
+) :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+) {
+  transform: translateZ(0) scale(var(--kaly-avatar-aura-active-scale)) !important;
+  filter: brightness(1.12) saturate(1.12) !important;
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 18px rgba(240, 189, 255, 0.24),
+    0 0 32px rgba(137, 86, 232, 0.18) !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-expanded="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-selected="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-current="page"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][data-state="open"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-expanded="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-selected="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-current="page"],
+  [class*="dmListItem" i][class*="guildListItem" i][data-state="open"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-expanded="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-selected="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-current="page"],
+  [class*="GuildListDMItem.module__fullSize___"][data-state="open"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-expanded="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-selected="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-current="page"],
+  [class*="GuildListDMItem"][class*="fullSize"][data-state="open"]
+) :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+)::before {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1.08) !important;
+  filter: blur(12px) !important;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(240, 189, 255, 0.48) 20%,
+      rgba(227, 133, 255, 0.56) 42%,
+      rgba(137, 86, 232, 0.42) 62%,
+      rgba(137, 86, 232, 0) 78%
+    ) !important;
+
+  animation: kaly-avatar-aura-pulse 2.4s ease-in-out infinite !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-expanded="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-selected="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-current="page"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][data-state="open"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-expanded="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-selected="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-current="page"],
+  [class*="dmListItem" i][class*="guildListItem" i][data-state="open"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-expanded="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-selected="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-current="page"],
+  [class*="GuildListDMItem.module__fullSize___"][data-state="open"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-expanded="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-selected="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-current="page"],
+  [class*="GuildListDMItem"][class*="fullSize"][data-state="open"]
+) :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+)::after {
+  opacity: 1 !important;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(255, 255, 255, 0.98) 0deg,
+      rgba(240, 189, 255, 0.96) 58deg,
+      rgba(137, 86, 232, 0.94) 126deg,
+      rgba(73, 36, 128, 0.30) 188deg,
+      rgba(227, 133, 255, 0.92) 262deg,
+      rgba(255, 255, 255, 0.98) 360deg
+    ) !important;
+
+  filter:
+    drop-shadow(0 0 8px rgba(255, 255, 255, 0.22))
+    drop-shadow(0 0 16px rgba(240, 189, 255, 0.34))
+    drop-shadow(0 0 28px rgba(137, 86, 232, 0.28)) !important;
+
+  animation:
+    kaly-avatar-ring-spin 5.5s linear infinite,
+    kaly-avatar-ring-breathe 2.2s ease-in-out infinite !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-expanded="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-selected="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-current="page"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][data-state="open"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-expanded="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-selected="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-current="page"],
+  [class*="dmListItem" i][class*="guildListItem" i][data-state="open"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-expanded="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-selected="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-current="page"],
+  [class*="GuildListDMItem.module__fullSize___"][data-state="open"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-expanded="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-selected="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-current="page"],
+  [class*="GuildListDMItem"][class*="fullSize"][data-state="open"]
+):hover :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+) {
+  transform: translateZ(0) scale(1.075) !important;
+  filter: brightness(1.16) saturate(1.16) !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-expanded="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-selected="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-current="page"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][data-state="open"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-expanded="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-selected="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-current="page"],
+  [class*="dmListItem" i][class*="guildListItem" i][data-state="open"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-expanded="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-selected="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-current="page"],
+  [class*="GuildListDMItem.module__fullSize___"][data-state="open"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-expanded="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-selected="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-current="page"],
+  [class*="GuildListDMItem"][class*="fullSize"][data-state="open"]
+):hover :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+)::before {
+  opacity: 1 !important;
+  filter: blur(14px) !important;
+}
+
+html body :is(
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-expanded="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-selected="true"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][aria-current="page"],
+  [class*="GuildsLayout.module__dmListItem__"][class*="GuildsLayout.module__guildListItem__"][data-state="open"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-expanded="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-selected="true"],
+  [class*="dmListItem" i][class*="guildListItem" i][aria-current="page"],
+  [class*="dmListItem" i][class*="guildListItem" i][data-state="open"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-expanded="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-selected="true"],
+  [class*="GuildListDMItem.module__fullSize___"][aria-current="page"],
+  [class*="GuildListDMItem.module__fullSize___"][data-state="open"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-expanded="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-selected="true"],
+  [class*="GuildListDMItem"][class*="fullSize"][aria-current="page"],
+  [class*="GuildListDMItem"][class*="fullSize"][data-state="open"]
+):hover :is(
+  [class*="BaseAvatar.module__container___"],
+  [class*="BaseAvatar"][class*="container"]
+)::after {
+  filter:
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.28))
+    drop-shadow(0 0 20px rgba(240, 189, 255, 0.44))
+    drop-shadow(0 0 34px rgba(137, 86, 232, 0.34)) !important;
+}
+
+/* =========================
+   Kaly - Guild channel item highlight V4.3.38 sober no text dim
+   Objectif :
+   - highlight sobre des salons de guild
+   - hover violet discret
+   - actif lisible sans glow agressif
+   - ne jamais assombrir le texte
+   - ne pas forcer la couleur des salons muted
+   - ne pas casser la structure Fluxer
+   ========================= */
+
+:root {
+  --kaly-channel-bg-hover: rgba(227, 133, 255, 0.035);
+  --kaly-channel-bg-hover-strong: rgba(137, 86, 232, 0.07);
+  --kaly-channel-bg-active: rgba(111, 63, 193, 0.16);
+  --kaly-channel-bg-active-strong: rgba(137, 86, 232, 0.20);
+
+  --kaly-channel-border-hover: rgba(227, 133, 255, 0.10);
+  --kaly-channel-border-active: rgba(240, 189, 255, 0.22);
+
+  --kaly-channel-shadow-hover: rgba(0, 0, 0, 0.10);
+  --kaly-channel-shadow-active: rgba(0, 0, 0, 0.16);
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+
+  border-radius: 10px !important;
+  border: 1px solid transparent !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  filter: none !important;
+
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    filter 140ms ease !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+)::before {
+  content: "" !important;
+
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+
+  border-radius: inherit !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(137, 86, 232, 0.10),
+      rgba(227, 133, 255, 0.045) 52%,
+      rgba(73, 36, 128, 0) 100%
+    ) !important;
+
+  opacity: 0 !important;
+  transform: none !important;
+
+  transition: opacity 150ms ease !important;
+
+  pointer-events: none !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+)::after {
+  content: "" !important;
+
+  position: absolute !important;
+  left: 0 !important;
+  top: 8px !important;
+  bottom: 8px !important;
+  z-index: 2 !important;
+
+  width: 2px !important;
+  border-radius: 999px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(240, 189, 255, 0.72),
+      rgba(137, 86, 232, 0.68)
+    ) !important;
+
+  opacity: 0 !important;
+  transform: scaleY(0.75) !important;
+  transform-origin: center center !important;
+
+  box-shadow: none !important;
+
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease !important;
+
+  pointer-events: none !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):hover {
+  background:
+    linear-gradient(
+      90deg,
+      var(--kaly-channel-bg-hover-strong),
+      var(--kaly-channel-bg-hover)
+    ) !important;
+
+  border-color: var(--kaly-channel-border-hover) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 4px 12px var(--kaly-channel-shadow-hover) !important;
+
+  transform: none !important;
+  filter: none !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):hover::before {
+  opacity: 0.72 !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):hover::after {
+  opacity: 0.62 !important;
+  transform: scaleY(1) !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):is(
+  [aria-selected="true"],
+  [aria-current="page"],
+  [data-state="open"],
+  [data-selected="true"]
+),
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):has([aria-selected="true"]),
+html body :is(
+  [class*="ChannelItem.module__channelItemActive___"],
+  [class*="ChannelItem.module__channelItemSelected___"],
+  [class*="ChannelItem"][class*="channelItemActive"],
+  [class*="ChannelItem"][class*="channelItemSelected"]
+) {
+  background:
+    linear-gradient(
+      90deg,
+      var(--kaly-channel-bg-active-strong),
+      var(--kaly-channel-bg-active)
+    ) !important;
+
+  border-color: var(--kaly-channel-border-active) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 6px 16px var(--kaly-channel-shadow-active) !important;
+
+  transform: none !important;
+  filter: none !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):is(
+  [aria-selected="true"],
+  [aria-current="page"],
+  [data-state="open"],
+  [data-selected="true"]
+)::before,
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):has([aria-selected="true"])::before {
+  opacity: 0.9 !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):is(
+  [aria-selected="true"],
+  [aria-current="page"],
+  [data-state="open"],
+  [data-selected="true"]
+)::after,
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):has([aria-selected="true"])::after {
+  opacity: 0.88 !important;
+  transform: scaleY(1) !important;
+}
+
+/* Muted : aucune opacité, aucune couleur forcée. Fluxer garde son rendu natif. */
+html body :is(
+  [class*="ChannelItem.module__channelItemMuted___"],
+  [class*="ChannelItem"][class*="channelItemMuted"]
+) {
+  opacity: unset !important;
+  filter: none !important;
+}
+
+html body :is(
+  [class*="ChannelItem.module__channelItemMuted___"],
+  [class*="ChannelItem"][class*="channelItemMuted"]
+) * {
+  filter: none !important;
+}
+
+/* Focus propre */
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):focus-visible,
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):focus-within {
+  outline: 2px solid rgba(227, 133, 255, 0.28) !important;
+  outline-offset: 2px !important;
+  border-color: rgba(240, 189, 255, 0.20) !important;
+}
+
+@media (pointer: coarse) {
+  html body :is(
+    [class*="ChannelItemSurface.module__channelItemSurface___"],
+    [class*="ChannelItemSurface"][class*="channelItemSurface"],
+    [class*="channelItemSurface" i]
+  ):hover {
+    transform: none !important;
+  }
+}
+
+/* =========================
+   Réduction des animations
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  button[type="submit"]:hover,
+  button[data-primary="true"]:hover {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html body :is(
+    [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+    [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+    [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+    [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+    [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+    [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+  )::before,
+  html body :is(
+    [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar.module__container___"],
+    [class*="GuildListDMItem.module__fullSize___"] [class*="BaseAvatar"][class*="container"],
+    [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar.module__container___"],
+    [class*="GuildListDMItem"][class*="fullSize"] [class*="BaseAvatar"][class*="container"],
+    [class*="BaseAvatar.module__container___"][class*="GuildListDMItem.module__fullSize___"],
+    [class*="BaseAvatar"][class*="container"][class*="GuildListDMItem"][class*="fullSize"]
+  )::after,
+  html body :is(
+    [class*="ChannelItemSurface.module__channelItemSurface___"],
+    [class*="ChannelItemSurface"][class*="channelItemSurface"],
+    [class*="channelItemSurface" i]
+  ),
+  html body :is(
+    [class*="ChannelItemSurface.module__channelItemSurface___"],
+    [class*="ChannelItemSurface"][class*="channelItemSurface"],
+    [class*="channelItemSurface" i]
+  )::before,
+  html body :is(
+    [class*="ChannelItemSurface.module__channelItemSurface___"],
+    [class*="ChannelItemSurface"][class*="channelItemSurface"],
+    [class*="channelItemSurface" i]
+  )::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================
+   Kaly - Beta label bas gauche V4.3.38
+   ========================= */
+
+html body::after {
+  content: "beta V.4.3.38" !important;
+
+  position: fixed !important;
+  left: calc(8px + 4ch) !important;
+  bottom: 6px !important;
+  z-index: 2147483647 !important;
+
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+
+  color: rgba(240, 189, 255, 0.76) !important;
+
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif !important;
+
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.04em !important;
+
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.85),
+    0 0 7px rgba(227, 133, 255, 0.22) !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  user-select: none !important;
 }
