@@ -1,6 +1,6 @@
 /* ============================================================
    Fluxer Theme: Embed Forge Purple Android Nano Lite Kaly
-   Version: V4.3.41 Android Nano Lite + 3 Logos
+   Version: V4.3.42 Android Nano Lite + 3 Logos Fixed
    Objectif :
    - garder l'idée violette Forge
    - garder le SVG custom blanc sur guilds, login et splash
@@ -8,7 +8,7 @@
    - garder mentions et liens de salons en néon léger
    - supprimer le gras inutile : animations, auras, highlights, gros hovers
    - base propre si ajout du grid plus tard
-   - logo mobile login AuthLayout.module__mobileLogoContainer___XzNiND ajouté
+   - logo mobile login AuthLayout.module__mobileLogoContainer___XzNiND corrigé
    ============================================================ */
 
 :root {
@@ -474,16 +474,27 @@ td {
   }
 }
 
-/* 2/3 - Écran de login */
-html body .AuthLayout\.module__logo___XzNiND {
+/* 2/3 - Écran de login
+   Sélecteurs exacts + sélecteurs robustes pour Android.
+   Le SVG reste unique : --kaly-fluxer-logo.
+*/
+html body :is(
+  .AuthLayout\.module__logo___XzNiND,
+  [class*="AuthLayout.module__logo"],
+  [class*="AuthLayout"][class*="logo"]
+) {
   position: relative !important;
   overflow: visible !important;
   width: var(--kaly-logo-icon-size) !important;
+  min-width: var(--kaly-logo-icon-size) !important;
   height: var(--kaly-logo-icon-size) !important;
-  background-image: var(--kaly-login-logo) !important;
+  min-height: var(--kaly-logo-icon-size) !important;
+
+  background-image: var(--kaly-fluxer-logo) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: contain !important;
+
   color: transparent !important;
   fill: transparent !important;
   stroke: transparent !important;
@@ -494,31 +505,56 @@ html body .AuthLayout\.module__logo___XzNiND {
   box-shadow: none !important;
 }
 
-html body .AuthLayout\.module__logo___XzNiND * {
+html body :is(
+  .AuthLayout\.module__logo___XzNiND,
+  [class*="AuthLayout.module__logo"],
+  [class*="AuthLayout"][class*="logo"]
+) * {
   opacity: 0 !important;
   visibility: hidden !important;
   fill: transparent !important;
   stroke: transparent !important;
 }
 
-html body .AuthLayout\.module__logo___XzNiND::before {
+html body :is(
+  .AuthLayout\.module__logo___XzNiND,
+  [class*="AuthLayout.module__logo"],
+  [class*="AuthLayout"][class*="logo"]
+)::before {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background-image: var(--kaly-login-logo) !important;
+  background-image: var(--kaly-fluxer-logo) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: contain !important;
   pointer-events: none !important;
 }
 
-/* Login mobile : conteneur logo */
-html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
+/* Login mobile : conteneur réel Android */
+html body :is(
+  .AuthLayout\.module__mobileLogoContainer___XzNiND,
+  [class*="AuthLayout.module__mobileLogoContainer"],
+  [class*="AuthLayout"][class*="mobileLogoContainer"],
+  [class*="mobileLogoContainer"]
+) {
   position: relative !important;
   overflow: visible !important;
+
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+
+  width: var(--kaly-logo-icon-size) !important;
+  min-width: var(--kaly-logo-icon-size) !important;
+  height: var(--kaly-logo-icon-size) !important;
+  min-height: var(--kaly-logo-icon-size) !important;
+
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+
   color: transparent !important;
   fill: transparent !important;
   stroke: transparent !important;
@@ -528,34 +564,61 @@ html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
   box-shadow: none !important;
 }
 
-html body .AuthLayout\.module__mobileLogoContainer___XzNiND > * {
+html body :is(
+  .AuthLayout\.module__mobileLogoContainer___XzNiND,
+  [class*="AuthLayout.module__mobileLogoContainer"],
+  [class*="AuthLayout"][class*="mobileLogoContainer"],
+  [class*="mobileLogoContainer"]
+) > * {
   opacity: 0 !important;
   visibility: hidden !important;
   fill: transparent !important;
   stroke: transparent !important;
 }
 
-html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
+html body :is(
+  .AuthLayout\.module__mobileLogoContainer___XzNiND,
+  [class*="AuthLayout.module__mobileLogoContainer"],
+  [class*="AuthLayout"][class*="mobileLogoContainer"],
+  [class*="mobileLogoContainer"]
+)::before {
   content: "" !important;
-  display: block !important;
-  flex: 0 0 auto !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
   width: var(--kaly-logo-icon-size) !important;
   height: var(--kaly-logo-icon-size) !important;
-  background-image: var(--kaly-login-logo) !important;
+  transform: translate(-50%, -50%) !important;
+  background-image: var(--kaly-fluxer-logo) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: contain !important;
   pointer-events: none !important;
 }
 
-/* 3/3 - Splash screen */
-html body svg.SplashScreen\.module__icon___ZTBkMm {
+/* 3/3 - Splash screen
+   Important : on ne cible pas seulement svg.SplashScreen... car Android peut changer
+   le tag ou le hash. On couvre exact + partiel + fallback générique splash/icon.
+*/
+html body :is(
+  svg.SplashScreen\.module__icon___ZTBkMm,
+  [class*="SplashScreen.module__icon"],
+  [class*="SplashScreen"][class*="module__icon"],
+  [class*="SplashScreen"][class*="icon"],
+  [class*="splash" i][class*="icon" i]
+) {
+  position: relative !important;
+  overflow: visible !important;
   width: var(--kaly-logo-icon-size) !important;
+  min-width: var(--kaly-logo-icon-size) !important;
   height: var(--kaly-logo-icon-size) !important;
-  background-image: var(--kaly-splash-logo) !important;
+  min-height: var(--kaly-logo-icon-size) !important;
+
+  background-image: var(--kaly-fluxer-logo) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: contain !important;
+
   color: transparent !important;
   fill: transparent !important;
   stroke: transparent !important;
@@ -566,11 +629,33 @@ html body svg.SplashScreen\.module__icon___ZTBkMm {
   box-shadow: none !important;
 }
 
-html body svg.SplashScreen\.module__icon___ZTBkMm * {
+html body :is(
+  svg.SplashScreen\.module__icon___ZTBkMm,
+  [class*="SplashScreen.module__icon"],
+  [class*="SplashScreen"][class*="module__icon"],
+  [class*="SplashScreen"][class*="icon"],
+  [class*="splash" i][class*="icon" i]
+) * {
   opacity: 0 !important;
   visibility: hidden !important;
   fill: transparent !important;
   stroke: transparent !important;
+}
+
+html body :is(
+  [class*="SplashScreen.module__icon"],
+  [class*="SplashScreen"][class*="module__icon"],
+  [class*="SplashScreen"][class*="icon"],
+  [class*="splash" i][class*="icon" i]
+):not(svg)::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  pointer-events: none !important;
 }
 
 /* Voice badge blanc minimal */
