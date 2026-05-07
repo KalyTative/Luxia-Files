@@ -693,6 +693,59 @@ html body [class*="GuildsLayout.module__guildVoiceBadge__"] path {
   visibility: visible !important;
 }
 
+
+/* Spoilers plus sombres */
+:root {
+  --kaly-spoiler-bg: #050309;
+  --kaly-spoiler-bg-hover: #08050d;
+  --kaly-spoiler-bg-open: rgba(13, 7, 23, 0.96);
+  --kaly-spoiler-border: rgba(227, 133, 255, 0.08);
+  --kaly-spoiler-border-open: rgba(227, 133, 255, 0.14);
+}
+
+html body :is(
+  [class*="spoiler" i],
+  [data-spoiler]
+):not([class*="revealed" i]):not([class*="open" i]):not([aria-expanded="true"]):not([data-state="open"]):not([data-revealed="true"]) {
+  background: var(--kaly-spoiler-bg) !important;
+  background-color: var(--kaly-spoiler-bg) !important;
+  border-color: var(--kaly-spoiler-border) !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025) !important;
+  filter: none !important;
+}
+
+html body :is(
+  [class*="spoiler" i],
+  [data-spoiler]
+):not([class*="revealed" i]):not([class*="open" i]):not([aria-expanded="true"]):not([data-state="open"]):not([data-revealed="true"]):hover {
+  background: var(--kaly-spoiler-bg-hover) !important;
+  background-color: var(--kaly-spoiler-bg-hover) !important;
+  border-color: rgba(227, 133, 255, 0.12) !important;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+html body :is(
+  [class*="spoiler" i][class*="revealed" i],
+  [class*="spoiler" i][class*="open" i],
+  [class*="spoiler" i][aria-expanded="true"],
+  [class*="spoiler" i][data-state="open"],
+  [class*="spoiler" i][data-revealed="true"],
+  [data-spoiler][aria-expanded="true"],
+  [data-spoiler][data-state="open"],
+  [data-spoiler][data-revealed="true"]
+) {
+  background: var(--kaly-spoiler-bg-open) !important;
+  background-color: var(--kaly-spoiler-bg-open) !important;
+  border-color: var(--kaly-spoiler-border-open) !important;
+  color: var(--forge-text-soft) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
 /* Focus accessible */
 :focus-visible {
   outline: 2px solid rgba(227, 133, 255, 0.38) !important;
