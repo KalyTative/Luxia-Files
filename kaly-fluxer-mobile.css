@@ -1,6 +1,6 @@
 /* ============================================================
    Fluxer Theme: Embed Forge Purple Android Nano Lite Kaly
-   Version: V4.3.43 Android Nano Lite + 3 Logos Fixed
+   Version: V4.3.44 Android Nano Lite + 3 Logos + Spoilers + Selected Channel
    Objectif :
    - garder l'idée violette Forge
    - garder le SVG custom blanc sur guilds, login et splash
@@ -9,6 +9,8 @@
    - supprimer le gras inutile : animations, auras, highlights, gros hovers
    - base propre si ajout du grid plus tard
    - logo mobile login AuthLayout.module__mobileLogoContainer___XzNiND centré sur sa ligne
+   - spoilers réellement sombres avec sélecteurs larges
+   - salon sélectionné plus propre, sans animation lourde
    ============================================================ */
 
 :root {
@@ -694,19 +696,36 @@ html body [class*="GuildsLayout.module__guildVoiceBadge__"] path {
 }
 
 
-/* Spoilers plus sombres */
+/* =========================
+   Spoilers sombres robustes
+   ========================= */
+
 :root {
-  --kaly-spoiler-bg: #050309;
-  --kaly-spoiler-bg-hover: #08050d;
-  --kaly-spoiler-bg-open: rgba(13, 7, 23, 0.96);
+  --kaly-spoiler-bg: #030207;
+  --kaly-spoiler-bg-hover: #07040d;
+  --kaly-spoiler-bg-open: rgba(13, 7, 23, 0.98);
   --kaly-spoiler-border: rgba(227, 133, 255, 0.08);
-  --kaly-spoiler-border-open: rgba(227, 133, 255, 0.14);
+  --kaly-spoiler-border-open: rgba(227, 133, 255, 0.16);
+
+  --kaly-channel-selected-bg-a: rgba(111, 63, 193, 0.24);
+  --kaly-channel-selected-bg-b: rgba(227, 133, 255, 0.10);
+  --kaly-channel-selected-border: rgba(240, 189, 255, 0.24);
+  --kaly-channel-selected-line: rgba(240, 189, 255, 0.78);
 }
 
 html body :is(
   [class*="spoiler" i],
-  [data-spoiler]
-):not([class*="revealed" i]):not([class*="open" i]):not([aria-expanded="true"]):not([data-state="open"]):not([data-revealed="true"]) {
+  [class*="obscured" i],
+  [class*="hiddenText" i],
+  [class*="hidden-text" i],
+  [class*="Spoiler"],
+  [data-spoiler],
+  [data-spoiler-id],
+  [data-markdown-spoiler],
+  [data-type="spoiler"],
+  [aria-label*="spoiler" i],
+  [title*="spoiler" i]
+):not([class*="revealed" i]):not([class*="open" i]):not([class*="visible" i]):not([aria-expanded="true"]):not([aria-pressed="true"]):not([data-state="open"]):not([data-revealed="true"]):not([data-open="true"]) {
   background: var(--kaly-spoiler-bg) !important;
   background-color: var(--kaly-spoiler-bg) !important;
   border-color: var(--kaly-spoiler-border) !important;
@@ -718,24 +737,55 @@ html body :is(
 
 html body :is(
   [class*="spoiler" i],
-  [data-spoiler]
-):not([class*="revealed" i]):not([class*="open" i]):not([aria-expanded="true"]):not([data-state="open"]):not([data-revealed="true"]):hover {
+  [class*="obscured" i],
+  [class*="hiddenText" i],
+  [class*="hidden-text" i],
+  [class*="Spoiler"],
+  [data-spoiler],
+  [data-spoiler-id],
+  [data-markdown-spoiler],
+  [data-type="spoiler"],
+  [aria-label*="spoiler" i],
+  [title*="spoiler" i]
+):not([class*="revealed" i]):not([class*="open" i]):not([class*="visible" i]):not([aria-expanded="true"]):not([aria-pressed="true"]):not([data-state="open"]):not([data-revealed="true"]):not([data-open="true"]) * {
+  color: transparent !important;
+  text-shadow: none !important;
+  background-color: transparent !important;
+  filter: none !important;
+}
+
+html body :is(
+  [class*="spoiler" i],
+  [class*="obscured" i],
+  [class*="hiddenText" i],
+  [class*="hidden-text" i],
+  [class*="Spoiler"],
+  [data-spoiler],
+  [data-spoiler-id],
+  [data-markdown-spoiler],
+  [data-type="spoiler"],
+  [aria-label*="spoiler" i],
+  [title*="spoiler" i]
+):not([class*="revealed" i]):not([class*="open" i]):not([class*="visible" i]):not([aria-expanded="true"]):not([aria-pressed="true"]):not([data-state="open"]):not([data-revealed="true"]):not([data-open="true"]):hover {
   background: var(--kaly-spoiler-bg-hover) !important;
   background-color: var(--kaly-spoiler-bg-hover) !important;
   border-color: rgba(227, 133, 255, 0.12) !important;
-  color: transparent !important;
-  text-shadow: none !important;
 }
 
 html body :is(
   [class*="spoiler" i][class*="revealed" i],
   [class*="spoiler" i][class*="open" i],
+  [class*="spoiler" i][class*="visible" i],
   [class*="spoiler" i][aria-expanded="true"],
+  [class*="spoiler" i][aria-pressed="true"],
   [class*="spoiler" i][data-state="open"],
   [class*="spoiler" i][data-revealed="true"],
+  [class*="spoiler" i][data-open="true"],
   [data-spoiler][aria-expanded="true"],
+  [data-spoiler][aria-pressed="true"],
   [data-spoiler][data-state="open"],
-  [data-spoiler][data-revealed="true"]
+  [data-spoiler][data-revealed="true"],
+  [data-spoiler][data-open="true"]
 ) {
   background: var(--kaly-spoiler-bg-open) !important;
   background-color: var(--kaly-spoiler-bg-open) !important;
@@ -745,6 +795,82 @@ html body :is(
   box-shadow: none !important;
   filter: none !important;
 }
+
+/* =========================
+   Salon sélectionné sobre + plus joli
+   ========================= */
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+) {
+  border-radius: 10px !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):is(
+  [aria-selected="true"],
+  [aria-current="page"],
+  [data-selected="true"],
+  [data-state="open"]
+),
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):has(:is([aria-selected="true"], [aria-current="page"], [data-selected="true"])),
+html body :is(
+  [class*="ChannelItem.module__channelItemActive___"],
+  [class*="ChannelItem.module__channelItemSelected___"],
+  [class*="ChannelItem"][class*="channelItemActive"],
+  [class*="ChannelItem"][class*="channelItemSelected"],
+  [class*="channelItem" i][class*="active" i],
+  [class*="channelItem" i][class*="selected" i]
+) {
+  position: relative !important;
+  overflow: hidden !important;
+  background:
+    linear-gradient(
+      90deg,
+      var(--kaly-channel-selected-bg-a),
+      var(--kaly-channel-selected-bg-b)
+    ) !important;
+  border: 1px solid var(--kaly-channel-selected-border) !important;
+  border-radius: 10px !important;
+  box-shadow:
+    inset 3px 0 0 var(--kaly-channel-selected-line),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+  color: var(--forge-text) !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface.module__channelItemSurface___"],
+  [class*="ChannelItemSurface"][class*="channelItemSurface"],
+  [class*="channelItemSurface" i]
+):is(
+  [aria-selected="true"],
+  [aria-current="page"],
+  [data-selected="true"],
+  [data-state="open"]
+) *,
+html body :is(
+  [class*="ChannelItem.module__channelItemActive___"],
+  [class*="ChannelItem.module__channelItemSelected___"],
+  [class*="ChannelItem"][class*="channelItemActive"],
+  [class*="ChannelItem"][class*="channelItemSelected"],
+  [class*="channelItem" i][class*="active" i],
+  [class*="channelItem" i][class*="selected" i]
+) * {
+  color: inherit !important;
+  filter: none !important;
+}
+
 
 /* Focus accessible */
 :focus-visible {
