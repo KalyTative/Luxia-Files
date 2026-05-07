@@ -5,7 +5,6 @@
    - logo SVG custom en blanc
    - cercle violet autour du logo
    - aucun glow
-   - remplacer le logo SplashScreen
    - recolorer le bandeau de téléchargement natif
    - remplacer visuellement son message
    - masquer / supprimer le bouton Télécharger
@@ -22,9 +21,6 @@
 
   --kaly-logo-ring-size: 3.25rem;
   --kaly-logo-icon-size: 2.55rem;
-
-  --kaly-splash-logo-ring-size: 4.75rem;
-  --kaly-splash-logo-icon-size: 3.65rem;
 
   --kaly-nagbar-bg: #6b40b9;
   --kaly-nagbar-text: #ffffff;
@@ -122,117 +118,6 @@
     opacity: 0 !important;
     visibility: hidden !important;
   }
-}
-
-/* ============================================================
-   SplashScreen custom logo
-   Cible corrigée :
-   - div.SplashScreen.module__iconWrapper___HASH
-   - donc deux classes :
-     .SplashScreen
-     [class*="module__iconWrapper"]
-   ============================================================ */
-
-html body div.SplashScreen[class*="module__iconWrapper"],
-html body div[class~="SplashScreen"][class*="module__iconWrapper"],
-html body div[class*="SplashScreen"][class*="module__iconWrapper"],
-html body div[class*="SplashScreen"][class*="iconWrapper"],
-html body div[class*="SplashScreen.module__iconWrapper"] {
-  position: relative !important;
-  overflow: visible !important;
-  isolation: isolate !important;
-
-  width: 80px !important;
-  height: 80px !important;
-  min-width: 80px !important;
-  min-height: 80px !important;
-  max-width: 80px !important;
-  max-height: 80px !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-
-  color: transparent !important;
-  font-size: 0 !important;
-
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-/* Cache tout le contenu natif du logo SplashScreen */
-html body div.SplashScreen[class*="module__iconWrapper"] > *,
-html body div[class~="SplashScreen"][class*="module__iconWrapper"] > *,
-html body div[class*="SplashScreen"][class*="module__iconWrapper"] > *,
-html body div[class*="SplashScreen"][class*="iconWrapper"] > *,
-html body div[class*="SplashScreen.module__iconWrapper"] > * {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  display: none !important;
-  fill: transparent !important;
-  stroke: transparent !important;
-  color: transparent !important;
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-/* Cercle violet SplashScreen */
-html body div.SplashScreen[class*="module__iconWrapper"]::after,
-html body div[class~="SplashScreen"][class*="module__iconWrapper"]::after,
-html body div[class*="SplashScreen"][class*="module__iconWrapper"]::after,
-html body div[class*="SplashScreen"][class*="iconWrapper"]::after,
-html body div[class*="SplashScreen.module__iconWrapper"]::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  z-index: 1 !important;
-
-  width: var(--kaly-splash-logo-ring-size) !important;
-  height: var(--kaly-splash-logo-ring-size) !important;
-  transform: translate(-50%, -50%) !important;
-
-  pointer-events: none !important;
-  box-sizing: border-box !important;
-  border-radius: 50% !important;
-  border: 2px solid var(--kaly-logo-circle) !important;
-  background-color: var(--kaly-logo-bg) !important;
-
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-/* Logo SVG blanc SplashScreen */
-html body div.SplashScreen[class*="module__iconWrapper"]::before,
-html body div[class~="SplashScreen"][class*="module__iconWrapper"]::before,
-html body div[class*="SplashScreen"][class*="module__iconWrapper"]::before,
-html body div[class*="SplashScreen"][class*="iconWrapper"]::before,
-html body div[class*="SplashScreen.module__iconWrapper"]::before {
-  content: "" !important;
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  z-index: 2 !important;
-
-  width: var(--kaly-splash-logo-icon-size) !important;
-  height: var(--kaly-splash-logo-icon-size) !important;
-  transform: translate(-50%, -50%) !important;
-
-  pointer-events: none !important;
-  background-color: transparent !important;
-  background-image: var(--kaly-fluxer-logo) !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: contain !important;
-
-  box-shadow: none !important;
-  filter: none !important;
 }
 
 /* ============================================================
@@ -418,7 +303,7 @@ html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDes
   }
 
   html body div[class*="module__nagbar__"][class*="module__nagbarDesktop__"]::before,
-  html body div[class*="Nagbar.module__nagbar__"][class*="module__nagbarDesktop__"]::before {
+  html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDesktop__"]::before {
     width: calc(100% - 64px) !important;
     font-size: 12px !important;
     line-height: 1.25 !important;
