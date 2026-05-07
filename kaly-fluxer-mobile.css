@@ -1,6 +1,6 @@
 /* ============================================================
    Fluxer Theme: Embed Forge Purple Android Nano Lite Kaly
-   Version: V4.3.42 Android Nano Lite + 3 Logos Fixed
+   Version: V4.3.43 Android Nano Lite + 3 Logos Fixed
    Objectif :
    - garder l'idée violette Forge
    - garder le SVG custom blanc sur guilds, login et splash
@@ -8,7 +8,7 @@
    - garder mentions et liens de salons en néon léger
    - supprimer le gras inutile : animations, auras, highlights, gros hovers
    - base propre si ajout du grid plus tard
-   - logo mobile login AuthLayout.module__mobileLogoContainer___XzNiND corrigé et centré
+   - logo mobile login AuthLayout.module__mobileLogoContainer___XzNiND centré sur sa ligne
    ============================================================ */
 
 :root {
@@ -531,7 +531,10 @@ html body :is(
   pointer-events: none !important;
 }
 
-/* Login mobile : conteneur réel Android */
+/* Login mobile : conteneur réel Android
+   Le conteneur prend toute la ligne, le SVG reste à la même hauteur,
+   et seul le dessin est centré horizontalement dans cette ligne.
+*/
 html body :is(
   .AuthLayout\.module__mobileLogoContainer___XzNiND,
   [class*="AuthLayout.module__mobileLogoContainer"],
@@ -541,25 +544,27 @@ html body :is(
   position: relative !important;
   overflow: visible !important;
 
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: block !important;
+  flex: 1 1 100% !important;
 
-  margin-left: auto !important;
-  margin-right: auto !important;
-  margin-inline: auto !important;
-  align-self: center !important;
-  justify-self: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  inline-size: 100% !important;
 
-  width: var(--kaly-logo-icon-size) !important;
-  min-width: var(--kaly-logo-icon-size) !important;
   height: var(--kaly-logo-icon-size) !important;
   min-height: var(--kaly-logo-icon-size) !important;
 
-  background-image: var(--kaly-fluxer-logo) !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: contain !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-inline: 0 !important;
+
+  align-self: center !important;
+  justify-self: stretch !important;
+  text-align: center !important;
+
+  background: transparent !important;
+  background-image: none !important;
 
   color: transparent !important;
   fill: transparent !important;
