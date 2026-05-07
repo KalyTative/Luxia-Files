@@ -310,3 +310,95 @@ html body div[class*="Nagbar.module__nagbar__"][class*="Nagbar.module__nagbarDes
     white-space: normal !important;
   }
 }
+/* ============================================================
+   SplashScreen custom logo
+   Objectif :
+   - remplacer le logo natif du SplashScreen
+   - réutiliser le même SVG blanc
+   - cercle violet autour du logo
+   - aucun glow
+   ============================================================ */
+
+:root {
+  --kaly-splash-logo-ring-size: 4.75rem;
+  --kaly-splash-logo-icon-size: 3.65rem;
+}
+
+/* Wrapper du logo SplashScreen */
+html body div[class*="SplashScreen.module__iconWrapper__"],
+html body div[class*="SplashScreen"][class*="module__iconWrapper__"] {
+  position: relative !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+
+  width: 80px !important;
+  height: 80px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Cache le logo natif dans le SplashScreen */
+html body div[class*="SplashScreen.module__iconWrapper__"] > svg,
+html body div[class*="SplashScreen.module__iconWrapper__"] > img,
+html body div[class*="SplashScreen"][class*="module__iconWrapper__"] > svg,
+html body div[class*="SplashScreen"][class*="module__iconWrapper__"] > img {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+  color: transparent !important;
+}
+
+/* Cercle violet autour du logo */
+html body div[class*="SplashScreen.module__iconWrapper__"]::after,
+html body div[class*="SplashScreen"][class*="module__iconWrapper__"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+
+  width: var(--kaly-splash-logo-ring-size);
+  height: var(--kaly-splash-logo-ring-size);
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--kaly-logo-circle) !important;
+  background-color: var(--kaly-logo-bg) !important;
+
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Logo SVG custom blanc */
+html body div[class*="SplashScreen.module__iconWrapper__"]::before,
+html body div[class*="SplashScreen"][class*="module__iconWrapper__"]::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+
+  width: var(--kaly-splash-logo-icon-size);
+  height: var(--kaly-splash-logo-icon-size);
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+  background-color: transparent !important;
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+
+  box-shadow: none !important;
+  filter: none !important;
+}
