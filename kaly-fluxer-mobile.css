@@ -925,3 +925,64 @@ html body [class*="GuildsLayout.module__guildVoiceBadge__"] path {
     scroll-behavior: auto !important;
   }
 }
+/* =========================
+   Auth mobile logo custom centré écran
+   ========================= */
+
+html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 50 !important;
+
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+
+  display: grid !important;
+  place-items: center !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+
+  pointer-events: none !important;
+  overflow: visible !important;
+}
+
+html body .AuthLayout\.module__mobileLogoContainer___XzNiND > * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  display: none !important;
+
+  color: transparent !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
+  content: "" !important;
+
+  width: var(--kaly-logo-icon-size) !important;
+  height: var(--kaly-logo-icon-size) !important;
+
+  display: block !important;
+
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+
+  pointer-events: none !important;
+}
