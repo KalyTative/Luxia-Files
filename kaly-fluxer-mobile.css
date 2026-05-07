@@ -926,34 +926,30 @@ html body [class*="GuildsLayout.module__guildVoiceBadge__"] path {
   }
 }
 /* =========================
-   Auth mobile logo custom centré écran
+   Auth mobile logo custom
+   même hauteur native + centré horizontalement
    ========================= */
 
 html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 50 !important;
+  position: relative !important;
 
-  width: 100vw !important;
-  height: 100dvh !important;
-  min-height: 100dvh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 
-  display: grid !important;
-  place-items: center !important;
+  width: 100% !important;
 
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
   filter: none !important;
 
-  pointer-events: none !important;
   overflow: visible !important;
 }
 
 html body .AuthLayout\.module__mobileLogoContainer___XzNiND > * {
   opacity: 0 !important;
   visibility: hidden !important;
-  display: none !important;
 
   color: transparent !important;
   fill: transparent !important;
@@ -967,10 +963,14 @@ html body .AuthLayout\.module__mobileLogoContainer___XzNiND > * {
 html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
   content: "" !important;
 
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+
   width: var(--kaly-logo-icon-size) !important;
   height: var(--kaly-logo-icon-size) !important;
 
-  display: block !important;
+  transform: translate(-50%, -50%) !important;
 
   background-image: var(--kaly-fluxer-logo) !important;
   background-repeat: no-repeat !important;
