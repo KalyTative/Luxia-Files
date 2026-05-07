@@ -8,7 +8,7 @@
    - garder mentions et liens de salons en néon léger
    - supprimer le gras inutile : animations, auras, highlights, gros hovers
    - base propre si ajout du grid plus tard
-   - logo mobile login AuthLayout.module__mobileLogoContainer___XzNiND corrigé
+   - logo mobile login AuthLayout.module__mobileLogoContainer___XzNiND corrigé et centré
    ============================================================ */
 
 :root {
@@ -544,6 +544,12 @@ html body :is(
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-inline: auto !important;
+  align-self: center !important;
+  justify-self: center !important;
 
   width: var(--kaly-logo-icon-size) !important;
   min-width: var(--kaly-logo-icon-size) !important;
