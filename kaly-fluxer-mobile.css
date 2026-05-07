@@ -970,9 +970,13 @@ html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
   background-image: none !important;
 }
 
-/* Logo custom sur desktop + mobile */
-html body .AuthLayout\.module__logo___XzNiND::before,
-html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
+/* Mobile : garde la hauteur, centre seulement horizontalement */
+html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
+  width: 100% !important;
+}
+
+/* Logo custom desktop */
+html body .AuthLayout\.module__logo___XzNiND::before {
   content: "" !important;
 
   position: absolute !important;
@@ -984,4 +988,30 @@ html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
   background-size: contain !important;
 
   pointer-events: none !important;
+}
+
+/* Logo custom mobile centré horizontalement, même position verticale */
+html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
+  content: "" !important;
+
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+
+  width: var(--kaly-logo-icon-size) !important;
+  height: var(--kaly-logo-icon-size) !important;
+
+  transform: translateX(-50%) !important;
+
+  background-image: var(--kaly-fluxer-logo) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+
+  pointer-events: none !important;
+}
+
+/* Splash screen */
+html body svg.SplashScreen\.module__icon___ZTBkMm {
+  background-image: var(--kaly-fluxer-logo) !important;
 }
