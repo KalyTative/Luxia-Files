@@ -952,6 +952,7 @@ html body svg.SplashScreen\.module__icon___ZTBkMm {
   box-shadow: none !important;
 }
 
+/* On planque le logo original dedans */
 html body .AuthLayout\.module__logo___XzNiND *,
 html body .AuthLayout\.module__mobileLogoContainer___XzNiND *,
 html body svg.SplashScreen\.module__icon___ZTBkMm * {
@@ -961,12 +962,15 @@ html body svg.SplashScreen\.module__icon___ZTBkMm * {
   stroke: transparent !important;
 }
 
+/* Conteneurs capables d'afficher le logo custom */
 html body .AuthLayout\.module__logo___XzNiND,
 html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
   position: relative !important;
   overflow: visible !important;
+  background-image: none !important;
 }
 
+/* Logo custom sur desktop + mobile */
 html body .AuthLayout\.module__logo___XzNiND::before,
 html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
   content: "" !important;
