@@ -927,17 +927,20 @@ html body [class*="GuildsLayout.module__guildVoiceBadge__"] path {
 }
 /* =========================
    Auth mobile logo custom
-   même hauteur native + centré horizontalement
+   hauteur native + centrage horizontal uniquement
    ========================= */
 
 html body .AuthLayout\.module__mobileLogoContainer___XzNiND {
   position: relative !important;
 
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+  inset: auto !important;
+  z-index: auto !important;
 
   width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+
+  display: block !important;
 
   background: transparent !important;
   border: 0 !important;
@@ -965,12 +968,12 @@ html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
 
   position: absolute !important;
   left: 50% !important;
-  top: 50% !important;
+  top: 0 !important;
 
   width: var(--kaly-logo-icon-size) !important;
   height: var(--kaly-logo-icon-size) !important;
 
-  transform: translate(-50%, -50%) !important;
+  transform: translateX(-50%) !important;
 
   background-image: var(--kaly-fluxer-logo) !important;
   background-repeat: no-repeat !important;
