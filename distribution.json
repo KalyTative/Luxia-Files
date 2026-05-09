@@ -1082,18 +1082,18 @@
             "value": false
           }
         },
-        {
-          "id": "net.p3pp3rf1y:sophisticatedbackpacks:3.24.30.1614@jar",
-          "name": "Sophisticated Backpacks",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 1013858,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar",
-            "MD5": "cd0b94ac7afdc7d2332c9fe520feb131"
-          },
-          "required": {
-            "value": false
-          }
+//        {
+//          "id": "net.p3pp3rf1y:sophisticatedbackpacks:3.24.30.1614@jar",
+//          "name": "Sophisticated Backpacks",
+//          "type": "ForgeMod",
+//          "artifact": {
+//            "size": 1013858,
+//            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar",
+//            "MD5": "cd0b94ac7afdc7d2332c9fe520feb131"
+//          },
+//          "required": {
+//            "value": false
+//          }
         },
         {
           "id": "net.p3pp3rf1y:sophisticatedcore:1.3.12.1578@jar",
