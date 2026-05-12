@@ -1041,3 +1041,82 @@ html body .AuthLayout\.module__mobileLogoContainer___XzNiND::before {
 html body svg.SplashScreen\.module__icon___ZTBkMm {
   background-image: var(--kaly-fluxer-logo) !important;
 }
+/* ============================= */
+/* Fluxer - bouton fullscreen stream */
+/* ============================= */
+
+:root {
+  --kaly-stream-fullscreen-z: 2147483647;
+  --kaly-fs-button-size: 32px;
+  --kaly-fs-button-bg: rgba(13, 7, 23, 0.85);
+  --kaly-fs-button-border: rgba(255, 255, 255, 0.18);
+  --kaly-fs-button-icon: #ffffff;
+}
+
+/* Le conteneur direct de la vidéo LiveKit */
+div:has(> video.lk-participant-media-video) {
+  position: relative !important;
+}
+
+/* Faux bouton en haut à droite */
+div:has(> video.lk-participant-media-video)::after {
+  content: "⛶";
+
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+
+  width: var(--kaly-fs-button-size) !important;
+  height: var(--kaly-fs-button-size) !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  z-index: 50 !important;
+
+  color: var(--kaly-fs-button-icon) !important;
+  background: var(--kaly-fs-button-bg) !important;
+  border: 1px solid var(--kaly-fs-button-border) !important;
+  border-radius: 8px !important;
+
+  font-size: 18px !important;
+  line-height: 1 !important;
+
+  cursor: pointer !important;
+  opacity: 0 !important;
+
+  backdrop-filter: blur(8px) !important;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    background 120ms ease !important;
+}
+
+/* Affiche le bouton au survol du stream */
+div:has(> video.lk-participant-media-video):hover::after {
+  opacity: 1 !important;
+}
+
+/* Petit effet clic */
+div:has(> video.lk-participant-media-video):active::after {
+  transform: scale(0.92) !important;
+  background: rgba(90, 55, 150, 0.95) !important;
+}
+
+/* Pseudo-fullscreen quand tu cliques/maintien le stream */
+div:has(> video.lk-participant-media-video):active > video.lk-participant-media-video {
+  position: fixed !important;
+  inset: 0 !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  z-index: var(--kaly-stream-fullscreen-z) !important;
+
+  object-fit: contain !important;
+  background: #000 !important;
+}
