@@ -1083,45 +1083,6 @@
           }
         },
         {
-          "id": "net.p3pp3rf1y:sophisticatedbackpacks:3.24.30.1614@jar",
-          "name": "Sophisticated Backpacks",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 1013858,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar",
-            "MD5": "cd0b94ac7afdc7d2332c9fe520feb131"
-          },
-          "required": {
-            "value": false
-          }
-        },
-        {
-          "id": "net.p3pp3rf1y:sophisticatedcore:1.3.12.1578@jar",
-          "name": "Sophisticated Core",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 1423513,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedcore-1.20.1-1.3.12.1578.jar",
-            "MD5": "cea978593d8a1b3f8d18bf843e3ac862"
-          },
-          "required": {
-            "value": false
-          }
-        },
-        {
-          "id": "net.spudacious5705.shops:spudaciousshops:1.10.2-forge-1.20.1@jar",
-          "name": "Spud's Shops",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 943555,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/spudaciousshops-1.10.2-forge-1.20.1.jar",
-            "MD5": "a64b10de40b82e3e812abcb313751d15"
-          },
-          "required": {
-            "value": false
-          }
-        },
-        {
           "id": "com.ldtteam:structurize:1.20.1-1.0.809-snapshot@jar",
           "name": "Structurize",
           "type": "ForgeMod",
@@ -1236,6 +1197,32 @@
           },
           "required": {
             "value": false
+          }
+        },
+        {
+          "id": "hammertater:treechop-forge:0.19.0",
+          "name": "TreeChop",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 517162,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/TreeChop-1.20.1-forge-0.19.0.jar",
+            "MD5": "cb12be5d9e1ac3d3ca43b46436c8fc1e"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+         "id": "tschipcraft:dynamiclights-forge:1.9+mod",
+         "name": "Dynamic Lights",
+         "type": "ForgeMod",
+         "artifact": {
+            "size": 406570,
+           "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dynamiclights-v1.9-mc1.17-1.21.9-mod(1).jar",
+           "md5": "3638ace041955c1c927d8db26f22218d"
+          },
+         "required": {
+           "value": false
           }
         }
       ]
