@@ -1237,6 +1237,32 @@
           "required": {
             "value": false
           }
+        },
+        {
+          "id": "hammertater:treechop-forge:0.19.0",
+          "name": "TreeChop",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 517162,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/TreeChop-1.20.1-forge-0.19.0.jar",
+            "MD5": "cb12be5d9e1ac3d3ca43b46436c8fc1e"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+         "id": "tschipcraft:dynamiclights-forge:1.9+mod",
+         "name": "Dynamic Lights",
+         "type": "ForgeMod",
+         "artifact": {
+            "size": 406570,
+           "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dynamiclights-v1.9-mc1.17-1.21.9-mod(1).jar",
+           "md5": "3638ace041955c1c927d8db26f22218d"
+          },
+         "required": {
+           "value": false
+          }
         }
       ]
     }
