@@ -1083,45 +1083,6 @@
           }
         },
         {
-          "id": "net.p3pp3rf1y:sophisticatedbackpacks:3.24.30.1614@jar",
-          "name": "Sophisticated Backpacks",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 1013858,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar",
-            "MD5": "cd0b94ac7afdc7d2332c9fe520feb131"
-          },
-          "required": {
-            "value": false
-          }
-        },
-        {
-          "id": "net.p3pp3rf1y:sophisticatedcore:1.3.12.1578@jar",
-          "name": "Sophisticated Core",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 1423513,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedcore-1.20.1-1.3.12.1578.jar",
-            "MD5": "cea978593d8a1b3f8d18bf843e3ac862"
-          },
-          "required": {
-            "value": false
-          }
-        },
-        {
-          "id": "net.spudacious5705.shops:spudaciousshops:1.10.2-forge-1.20.1@jar",
-          "name": "Spud's Shops",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 943555,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/spudaciousshops-1.10.2-forge-1.20.1.jar",
-            "MD5": "a64b10de40b82e3e812abcb313751d15"
-          },
-          "required": {
-            "value": false
-          }
-        },
-        {
           "id": "com.ldtteam:structurize:1.20.1-1.0.809-snapshot@jar",
           "name": "Structurize",
           "type": "ForgeMod",
