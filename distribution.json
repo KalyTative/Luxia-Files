@@ -1213,16 +1213,146 @@
           }
         },
         {
-         "id": "tschipcraft:dynamiclights-forge:1.9+mod",
-         "name": "Dynamic Lights",
-         "type": "ForgeMod",
-         "artifact": {
+          "id": "tschipcraft:dynamiclights-forge:1.9+mod",
+          "name": "Dynamic Lights",
+          "type": "ForgeMod",
+          "artifact": {
             "size": 406570,
-           "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dynamiclights-v1.9-mc1.17-1.21.9-mod(1).jar",
-           "md5": "3638ace041955c1c927d8db26f22218d"
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dynamiclights-v1.9-mc1.17-1.21.9-mod(1).jar",
+            "MD5": "3638ace041955c1c927d8db26f22218d"
           },
-         "required": {
-           "value": false
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:mafglib:0.1.14-mc1.20.1@jar",
+          "name": "MaFgLib",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 521709,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/MaFgLib-0.1.14-mc1.20.1.jar",
+            "MD5": "739a08ec65e3c5cdd5bfc64adc90947d"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:forgematica:0.1.13-mc1.20.1@jar",
+          "name": "Forgematica",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 997501,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Forgematica-0.1.13-mc1.20.1.jar",
+            "MD5": "8def10203e22c87e5820ecf2efd14184"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:ironchests:5.0.2@jar",
+          "name": "Iron Chests: Restocked",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 492203,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/ironchests-5.0.2-forge.jar",
+            "MD5": "b8c2836e89d7754987aba3f452502575"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:doapi:1.2.15@jar",
+          "name": "[Let's Do] API",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 1440591,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/letsdo-API-forge-1.2.15-forge.jar",
+            "MD5": "82d392dd5ef6064d8988592a35b3b403"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:farm_and_charm:1.0.14@jar",
+          "name": "[Let's Do] Farm & Charm",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 2328624,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/letsdo-farm_and_charm-forge-1.0.14.jar",
+            "MD5": "6278fb984da2ca60498fd4c78675524a"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:bakery:1.1.15@jar",
+          "name": "[Let's Do] Bakery",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 1539376,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/letsdo-bakery-forge-1.1.15.jar",
+            "MD5": "c1ea271f8ea61df80a37010e32d9e08f"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:brewery:2.0.6@jar",
+          "name": "[Let's Do] Brewery",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 2048413,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/letsdo-brewery-forge-2.0.6.jar",
+            "MD5": "4acf34c0821b41d5a640b94e69672798"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:vinery:1.4.41@jar",
+          "name": "[Let's Do] Vinery",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 2041283,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/letsdo-vinery-forge-1.4.41.jar",
+            "MD5": "bf692e0100772cfa90b9878a38c1f28a"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:smallships:2.0.0-b1.4@jar",
+          "name": "Small Ships",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 1816687,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/smallships-forge-1.20.1-2.0.0-b1.4.jar",
+            "MD5": "c52bf453f18b87f43cae36acf628eb60"
+          },
+          "required": {
+            "value": false
+          }
+        },
+        {
+          "id": "generated.forgemod:spudaciousshops:1.2@jar",
+          "name": "Spud's Shops",
+          "type": "ForgeMod",
+          "artifact": {
+            "size": 938016,
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/spudaciousshops-1.2.jar",
+            "MD5": "658cc737c92714f79096b177e0503c14"
+          },
+          "required": {
+            "value": false
           }
         }
       ]
