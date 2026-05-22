@@ -3,9 +3,9 @@
 
   const STYLE_ID = "kaly-fluxer-members-scroll-fix";
   const PANEL_ID = "kaly-fluxer-members-scroll-panel";
-  const MEMBERS_PATH_REGEX = /^\/channels\/[^/]+\/members\/?$/;
+  const MEMBERS_PATH_REGEX = /^\/channels\/\d+\/members\/?$/;
 
-  function isMembersPage() {
+  function isGuildMembersPage() {
     return MEMBERS_PATH_REGEX.test(window.location.pathname);
   }
 
@@ -153,19 +153,18 @@
       const text = table.textContent?.toLowerCase() ?? "";
 
       return (
-        text.includes("nom") ||
-        text.includes("name")
-      ) && (
-        text.includes("membre depuis") ||
-        text.includes("member since")
-      ) && (
-        text.includes("rôles") ||
-        text.includes("roles")
+        (text.includes("nom") || text.includes("name")) &&
+        (text.includes("membre depuis") || text.includes("member since")) &&
+        (text.includes("rôles") || text.includes("roles"))
       );
     });
   }
 
   function getScroller() {
+    if (!isGuildMembersPage()) {
+      return null;
+    }
+
     const table = findMembersTable();
 
     if (!table) {
@@ -187,6 +186,11 @@
   }
 
   function createPanel() {
+    if (!isGuildMembersPage()) {
+      removePatch();
+      return;
+    }
+
     if (document.getElementById(PANEL_ID)) {
       return;
     }
@@ -229,7 +233,7 @@
   }
 
   function applyPatch() {
-    if (!isMembersPage()) {
+    if (!isGuildMembersPage()) {
       removePatch();
       return;
     }
@@ -271,8 +275,22 @@
       return;
     }
 
+    let lastPath = window.location.pathname;
+
     const observer = new MutationObserver(() => {
-      applyPatch();
+      const currentPath = window.location.pathname;
+
+      if (currentPath !== lastPath) {
+        lastPath = currentPath;
+        applyPatch();
+        return;
+      }
+
+      if (isGuildMembersPage()) {
+        applyPatch();
+      } else {
+        removePatch();
+      }
     });
 
     observer.observe(document.documentElement, {
@@ -287,5 +305,5 @@
   observeDom();
   applyPatch();
 
-  console.log("[Kaly Fluxer] Scroll membres activé seulement sur la page Membres.");
+  console.log("[Kaly Fluxer] Scroll membres actif uniquement sur /channels/<guildId>/members.");
 })();
