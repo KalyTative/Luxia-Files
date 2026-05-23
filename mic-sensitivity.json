@@ -634,7 +634,7 @@
       "font-size": "12px"
     });
 
-    const autoText = createElement("span", "Déterminer automatiquement");
+    const autoText = createElement("span", "Déterminer automatiquement (Bêta)");
 
     const autoButton = createElement("button", null, {
       "position": "relative",
