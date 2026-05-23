@@ -1,0 +1,386 @@
+(() => {
+  "use strict";
+
+  const CONFIG_URL = "/custom/mic-sensitivity.json";
+
+  const DEFAULT_CONFIG = {
+    enabled: true,
+    auto: false,
+    threshold: 0.025,
+    closedGain: 0,
+    openGain: 1,
+    echoCancellation: true,
+    noiseSuppression: true,
+    autoGainControl: false,
+    autoMode: {
+      minThreshold: 0.008,
+      maxThreshold: 0.08,
+      multiplier: 3.2,
+      offset: 0.004
+    }
+  };
+
+  if (window.__KALY_MIC_SENSITIVITY_PATCHED__) {
+    return;
+  }
+
+  window.__KALY_MIC_SENSITIVITY_PATCHED__ = true;
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    console.warn("[KalyMicSensitivity] getUserMedia indisponible.");
+    return;
+  }
+
+  const state = {
+    config: { ...DEFAULT_CONFIG },
+    threshold: DEFAULT_CONFIG.threshold,
+    auto: DEFAULT_CONFIG.auto,
+    lastLevel: 0,
+    speaking: false,
+    nodes: new Set(),
+    callbacks: new Set(),
+    noiseSamples: []
+  };
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  async function loadConfig() {
+    try {
+      const response = await fetch(CONFIG_URL, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const remoteConfig = await response.json();
+
+      state.config = {
+        ...DEFAULT_CONFIG,
+        ...remoteConfig,
+        autoMode: {
+          ...DEFAULT_CONFIG.autoMode,
+          ...(remoteConfig.autoMode || {})
+        }
+      };
+
+      state.threshold = Number(state.config.threshold);
+      state.auto = Boolean(state.config.auto);
+
+      console.info("[KalyMicSensitivity] Config chargée:", state.config);
+    } catch (error) {
+      console.warn("[KalyMicSensitivity] Config JSON introuvable, valeurs par défaut utilisées.", error);
+      state.config = { ...DEFAULT_CONFIG };
+      state.threshold = DEFAULT_CONFIG.threshold;
+      state.auto = DEFAULT_CONFIG.auto;
+    }
+  }
+
+  const configPromise = loadConfig();
+
+  const workletCode = `
+    class KalyNoiseGateProcessor extends AudioWorkletProcessor {
+      static get parameterDescriptors() {
+        return [
+          {
+            name: "threshold",
+            defaultValue: 0.025,
+            minValue: 0,
+            maxValue: 1,
+            automationRate: "k-rate"
+          },
+          {
+            name: "closedGain",
+            defaultValue: 0,
+            minValue: 0,
+            maxValue: 1,
+            automationRate: "k-rate"
+          },
+          {
+            name: "openGain",
+            defaultValue: 1,
+            minValue: 0,
+            maxValue: 4,
+            automationRate: "k-rate"
+          }
+        ];
+      }
+
+      constructor() {
+        super();
+        this.level = 0;
+        this.outputGain = 0;
+        this.frameCount = 0;
+      }
+
+      process(inputs, outputs, parameters) {
+        const input = inputs[0];
+        const output = outputs[0];
+
+        if (!input || input.length === 0) {
+          return true;
+        }
+
+        let sum = 0;
+        let count = 0;
+
+        for (let channel = 0; channel < input.length; channel++) {
+          const samples = input[channel];
+
+          for (let i = 0; i < samples.length; i++) {
+            const sample = samples[i];
+            sum += sample * sample;
+            count++;
+          }
+        }
+
+        const rms = Math.sqrt(sum / Math.max(count, 1));
+        this.level = this.level * 0.85 + rms * 0.15;
+
+        const threshold = parameters.threshold[0];
+        const closedGain = parameters.closedGain[0];
+        const openGain = parameters.openGain[0];
+
+        const shouldOpen = this.level >= threshold;
+        const targetGain = shouldOpen ? openGain : closedGain;
+
+        const smoothing = shouldOpen ? 0.35 : 0.08;
+        this.outputGain += (targetGain - this.outputGain) * smoothing;
+
+        for (let channel = 0; channel < output.length; channel++) {
+          const inputChannel = input[channel] || input[0];
+          const outputChannel = output[channel];
+
+          for (let i = 0; i < outputChannel.length; i++) {
+            outputChannel[i] = inputChannel[i] * this.outputGain;
+          }
+        }
+
+        this.frameCount++;
+
+        if (this.frameCount % 8 === 0) {
+          this.port.postMessage({
+            level: this.level,
+            speaking: shouldOpen,
+            outputGain: this.outputGain,
+            threshold
+          });
+        }
+
+        return true;
+      }
+    }
+
+    registerProcessor("kaly-noise-gate", KalyNoiseGateProcessor);
+  `;
+
+  async function createWorkletUrl() {
+    const blob = new Blob([workletCode], { type: "application/javascript" });
+    return URL.createObjectURL(blob);
+  }
+
+  function updateNodes() {
+    for (const node of state.nodes) {
+      node.parameters.get("threshold").value = state.threshold;
+      node.parameters.get("closedGain").value = state.config.closedGain;
+      node.parameters.get("openGain").value = state.config.openGain;
+    }
+  }
+
+  function notifyCallbacks() {
+    const payload = {
+      level: state.lastLevel,
+      threshold: state.threshold,
+      speaking: state.speaking,
+      auto: state.auto
+    };
+
+    for (const callback of state.callbacks) {
+      try {
+        callback(payload);
+      } catch (error) {
+        console.warn("[KalyMicSensitivity] Callback erreur:", error);
+      }
+    }
+  }
+
+  function handleAutoThreshold(level, speaking) {
+    if (!state.auto) {
+      return;
+    }
+
+    if (!speaking) {
+      state.noiseSamples.push(level);
+
+      if (state.noiseSamples.length > 120) {
+        state.noiseSamples.shift();
+      }
+    }
+
+    if (state.noiseSamples.length < 12) {
+      return;
+    }
+
+    const sorted = [...state.noiseSamples].sort((a, b) => a - b);
+    const medianNoise = sorted[Math.floor(sorted.length * 0.5)];
+
+    const autoMode = state.config.autoMode;
+
+    const nextThreshold = clamp(
+      medianNoise * autoMode.multiplier + autoMode.offset,
+      autoMode.minThreshold,
+      autoMode.maxThreshold
+    );
+
+    state.threshold = state.threshold * 0.85 + nextThreshold * 0.15;
+    updateNodes();
+  }
+
+  async function processMicrophoneStream(inputStream) {
+    const audioTracks = inputStream.getAudioTracks();
+
+    if (audioTracks.length === 0) {
+      return inputStream;
+    }
+
+    const audioContext = new AudioContext();
+    await audioContext.resume();
+
+    const workletUrl = await createWorkletUrl();
+    await audioContext.audioWorklet.addModule(workletUrl);
+    URL.revokeObjectURL(workletUrl);
+
+    const audioOnlyStream = new MediaStream(audioTracks);
+    const source = audioContext.createMediaStreamSource(audioOnlyStream);
+
+    const gateNode = new AudioWorkletNode(audioContext, "kaly-noise-gate");
+
+    gateNode.parameters.get("threshold").value = state.threshold;
+    gateNode.parameters.get("closedGain").value = state.config.closedGain;
+    gateNode.parameters.get("openGain").value = state.config.openGain;
+
+    gateNode.port.onmessage = (event) => {
+      const data = event.data;
+
+      state.lastLevel = data.level;
+      state.speaking = data.speaking;
+
+      handleAutoThreshold(data.level, data.speaking);
+      notifyCallbacks();
+    };
+
+    const destination = audioContext.createMediaStreamDestination();
+
+    source.connect(gateNode);
+    gateNode.connect(destination);
+
+    state.nodes.add(gateNode);
+
+    const outputAudioTrack = destination.stream.getAudioTracks()[0];
+
+    const originalStop = outputAudioTrack.stop.bind(outputAudioTrack);
+
+    outputAudioTrack.stop = () => {
+      for (const track of audioTracks) {
+        try {
+          track.stop();
+        } catch {}
+      }
+
+      try {
+        gateNode.disconnect();
+      } catch {}
+
+      try {
+        source.disconnect();
+      } catch {}
+
+      try {
+        audioContext.close();
+      } catch {}
+
+      state.nodes.delete(gateNode);
+      originalStop();
+    };
+
+    const outputStream = new MediaStream([
+      outputAudioTrack,
+      ...inputStream.getVideoTracks()
+    ]);
+
+    console.info("[KalyMicSensitivity] Noise gate actif.", {
+      threshold: state.threshold,
+      auto: state.auto
+    });
+
+    return outputStream;
+  }
+
+  const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(
+    navigator.mediaDevices
+  );
+
+  navigator.mediaDevices.getUserMedia = async function patchedGetUserMedia(constraints = {}) {
+    await configPromise;
+
+    const wantsAudio = Boolean(constraints.audio);
+
+    if (!wantsAudio || !state.config.enabled) {
+      return originalGetUserMedia(constraints);
+    }
+
+    const originalAudioConstraints =
+      typeof constraints.audio === "object" ? constraints.audio : {};
+
+    const patchedConstraints = {
+      ...constraints,
+      audio: {
+        ...originalAudioConstraints,
+        echoCancellation: state.config.echoCancellation,
+        noiseSuppression: state.config.noiseSuppression,
+        autoGainControl: state.config.autoGainControl
+      }
+    };
+
+    const inputStream = await originalGetUserMedia(patchedConstraints);
+
+    return processMicrophoneStream(inputStream);
+  };
+
+  window.KalyMicSensitivity = {
+    setThreshold(value) {
+      state.threshold = clamp(Number(value), 0, 1);
+      state.auto = false;
+      updateNodes();
+    },
+
+    setAuto(enabled) {
+      state.auto = Boolean(enabled);
+      state.noiseSamples = [];
+      updateNodes();
+    },
+
+    getState() {
+      return {
+        level: state.lastLevel,
+        threshold: state.threshold,
+        speaking: state.speaking,
+        auto: state.auto,
+        enabled: state.config.enabled
+      };
+    },
+
+    onLevel(callback) {
+      if (typeof callback !== "function") {
+        throw new TypeError("callback doit être une fonction");
+      }
+
+      state.callbacks.add(callback);
+
+      return () => {
+        state.callbacks.delete(callback);
+      };
+    }
+  };
+})();
