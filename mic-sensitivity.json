@@ -16,6 +16,10 @@
     threshold: 0.020,
     closedGain: 0,
     openGain: 1,
+    inputGain: 1,
+    inputGainMin: 1,
+    inputGainMax: 4,
+    inputGainStep: 0.05,
     attackTime: 0.025,
     releaseTime: 0.120,
     echoCancellation: true,
@@ -57,6 +61,7 @@
 
   const state = {
     threshold: CONFIG.threshold,
+    inputGain: CONFIG.inputGain,
     auto: false,
     lastLevel: 0,
     speaking: false,
@@ -72,7 +77,9 @@
     status: null,
     levelText: null,
     thresholdText: null,
+    inputGainText: null,
     slider: null,
+    inputGainSlider: null,
     bar: null,
     marker: null,
     autoButton: null,
@@ -122,6 +129,7 @@
     const payload = {
       level: state.lastLevel,
       threshold: state.threshold,
+      inputGain: state.inputGain,
       speaking: state.speaking,
       auto: state.auto,
       activeProcessors: state.processors.size
@@ -195,11 +203,15 @@
     const gateGain = audioContext.createGain();
     gateGain.gain.value = CONFIG.closedGain;
 
+    const inputGainNode = audioContext.createGain();
+    inputGainNode.gain.value = state.inputGain;
+
     const destination = audioContext.createMediaStreamDestination();
 
     source.connect(analyser);
     source.connect(gateGain);
-    gateGain.connect(destination);
+    gateGain.connect(inputGainNode);
+    inputGainNode.connect(destination);
 
     const buffer = new Float32Array(analyser.fftSize);
 
@@ -208,6 +220,7 @@
       source,
       analyser,
       gateGain,
+      inputGainNode,
       destination,
       intervalId: null,
       stopped: false
@@ -271,6 +284,10 @@
       } catch {}
 
       try {
+        inputGainNode.disconnect();
+      } catch {}
+
+      try {
         audioContext.close();
       } catch {}
 
@@ -291,7 +308,8 @@
     console.info("[KalyMic] Noise gate actif.", {
       threshold: state.threshold,
       closedGain: CONFIG.closedGain,
-      openGain: CONFIG.openGain
+      openGain: CONFIG.openGain,
+      inputGain: state.inputGain
     });
 
     return new MediaStream([
@@ -344,6 +362,31 @@
     console.info("[KalyMic] Seuil:", state.threshold);
   }
 
+  function setInputGain(value) {
+    state.inputGain = clamp(
+      Number(value),
+      CONFIG.inputGainMin,
+      CONFIG.inputGainMax
+    );
+
+    for (const processor of state.processors) {
+      if (!processor.inputGainNode || !processor.audioContext) continue;
+
+      try {
+        processor.inputGainNode.gain.setTargetAtTime(
+          state.inputGain,
+          processor.audioContext.currentTime,
+          0.015
+        );
+      } catch {}
+    }
+
+    updatePanel();
+    notify();
+
+    console.info("[KalyMic] Gain d'entrée:", state.inputGain);
+  }
+
   function setAuto(value) {
     state.auto = Boolean(value);
     state.noiseSamples = [];
@@ -358,12 +401,21 @@
 
     const level = Number(state.lastLevel || 0);
     const threshold = Number(state.threshold || CONFIG.threshold);
+    const inputGain = Number(state.inputGain || CONFIG.inputGain);
     const speaking = Boolean(state.speaking);
     const active = state.processors.size > 0;
 
     ui.levelText.textContent = level.toFixed(4);
     ui.thresholdText.textContent = threshold.toFixed(3);
     ui.slider.value = threshold.toFixed(3);
+
+    if (ui.inputGainText) {
+      ui.inputGainText.textContent = `×${inputGain.toFixed(2)}`;
+    }
+
+    if (ui.inputGainSlider) {
+      ui.inputGainSlider.value = inputGain.toFixed(2);
+    }
 
     const levelPercent = clamp((level / 0.080) * 100, 0, 100);
     const thresholdPercent = clamp(((threshold - 0.005) / (0.080 - 0.005)) * 100, 0, 100);
@@ -541,6 +593,33 @@
     slider.step = "0.001";
     slider.value = String(CONFIG.threshold);
 
+    const gainRow = createElement("div", null, {
+      "display": "flex",
+      "justify-content": "space-between",
+      "align-items": "center",
+      "gap": "12px",
+      "margin-top": "14px",
+      "margin-bottom": "7px",
+      "font-size": "12px",
+      "color": "#ddd6fe"
+    });
+
+    const gainLabel = createElement("span", "Gain d’entrée");
+    const gainText = createElement("span", `×${CONFIG.inputGain.toFixed(2)}`);
+
+    gainRow.append(gainLabel, gainText);
+
+    const gainSlider = createElement("input", null, {
+      "width": "100%",
+      "cursor": "pointer",
+      "accent-color": "#f97316"
+    });
+    gainSlider.type = "range";
+    gainSlider.min = String(CONFIG.inputGainMin);
+    gainSlider.max = String(CONFIG.inputGainMax);
+    gainSlider.step = String(CONFIG.inputGainStep);
+    gainSlider.value = String(CONFIG.inputGain);
+
     const autoRow = createElement("div", null, {
       "display": "flex",
       "align-items": "center",
@@ -621,7 +700,7 @@
       "line-height": "1.35"
     });
 
-    panel.append(header, row1, meter, row2, slider, autoRow, buttons, help);
+    panel.append(header, row1, meter, row2, slider, gainRow, gainSlider, autoRow, buttons, help);
 
     const pill = createElement("button", "🎙️ Mic", {
       "position": "fixed",
@@ -654,7 +733,9 @@
     ui.status = status;
     ui.levelText = levelText;
     ui.thresholdText = thresholdText;
+    ui.inputGainText = gainText;
     ui.slider = slider;
+    ui.inputGainSlider = gainSlider;
     ui.bar = bar;
     ui.marker = marker;
     ui.autoButton = autoButton;
@@ -662,6 +743,10 @@
 
     slider.addEventListener("input", () => {
       setThreshold(slider.value, true);
+    });
+
+    gainSlider.addEventListener("input", () => {
+      setInputGain(gainSlider.value);
     });
 
     autoButton.addEventListener("click", () => {
@@ -736,6 +821,14 @@
       setThreshold(value, true);
     },
 
+    setInputGain(value) {
+      setInputGain(value);
+    },
+
+    setMicGain(value) {
+      setInputGain(value);
+    },
+
     setAuto(value) {
       setAuto(value);
     },
@@ -762,6 +855,7 @@
       return {
         level: state.lastLevel,
         threshold: state.threshold,
+        inputGain: state.inputGain,
         speaking: state.speaking,
         auto: state.auto,
         activeProcessors: state.processors.size
