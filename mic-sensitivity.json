@@ -20,8 +20,12 @@
     inputGainMin: 1,
     inputGainMax: 4,
     inputGainStep: 0.05,
-    attackTime: 0.025,
-    releaseTime: 0.120,
+    attackTime: 0.004,
+    releaseTime: 0.240,
+    gateCloseRatio: 0.62,
+    gateHoldTime: 0.280,
+    levelSmoothing: 0.35,
+    analyserSmoothing: 0.25,
     echoCancellation: true,
     noiseSuppression: true,
     autoGainControl: false,
@@ -65,6 +69,8 @@
     auto: false,
     lastLevel: 0,
     speaking: false,
+    gateOpen: false,
+    lastSpeechAt: 0,
     processors: new Set(),
     callbacks: new Set(),
     noiseSamples: []
@@ -198,7 +204,7 @@
 
     const analyser = audioContext.createAnalyser();
     analyser.fftSize = 2048;
-    analyser.smoothingTimeConstant = 0.75;
+    analyser.smoothingTimeConstant = CONFIG.analyserSmoothing;
 
     const gateGain = audioContext.createGain();
     gateGain.gain.value = CONFIG.closedGain;
@@ -232,9 +238,26 @@
       analyser.getFloatTimeDomainData(buffer);
 
       const rms = computeRms(buffer);
-      state.lastLevel = state.lastLevel * 0.80 + rms * 0.20;
+      const now = performance.now();
+      const smoothing = clamp(CONFIG.levelSmoothing, 0, 0.95);
 
-      const shouldOpen = state.lastLevel >= state.threshold;
+      state.lastLevel = state.lastLevel * smoothing + rms * (1 - smoothing);
+
+      const openThreshold = state.threshold;
+      const closeThreshold = state.threshold * CONFIG.gateCloseRatio;
+
+      if (state.lastLevel >= openThreshold) {
+        state.gateOpen = true;
+        state.lastSpeechAt = now;
+      } else if (
+        state.gateOpen &&
+        state.lastLevel < closeThreshold &&
+        now - state.lastSpeechAt > CONFIG.gateHoldTime * 1000
+      ) {
+        state.gateOpen = false;
+      }
+
+      const shouldOpen = state.gateOpen;
       state.speaking = shouldOpen;
 
       updateAutoThreshold(state.lastLevel, shouldOpen);
@@ -373,10 +396,10 @@
       if (!processor.inputGainNode || !processor.audioContext) continue;
 
       try {
-        processor.inputGainNode.gain.setTargetAtTime(
+        processor.inputGainNode.gain.cancelScheduledValues(processor.audioContext.currentTime);
+        processor.inputGainNode.gain.setValueAtTime(
           state.inputGain,
-          processor.audioContext.currentTime,
-          0.015
+          processor.audioContext.currentTime
         );
       } catch {}
     }
@@ -634,7 +657,7 @@
       "font-size": "12px"
     });
 
-    const autoText = createElement("span", "Déterminer automatiquement (Bêta)");
+    const autoText = createElement("span", "Déterminer automatiquement");
 
     const autoButton = createElement("button", null, {
       "position": "relative",
@@ -857,6 +880,7 @@
         threshold: state.threshold,
         inputGain: state.inputGain,
         speaking: state.speaking,
+        gateOpen: state.gateOpen,
         auto: state.auto,
         activeProcessors: state.processors.size
       };
