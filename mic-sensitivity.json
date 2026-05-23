@@ -29,6 +29,16 @@
     echoCancellation: true,
     noiseSuppression: true,
     autoGainControl: false,
+    forceDisableNativeAgc: true,
+    nativeAgcStartupScanMs: 12000,
+    nativeAgcScanIntervalMs: 500,
+    nativeAgcUiLabels: [
+      "Contrôle automatique du gain",
+      "Controle automatique du gain",
+      "Automatic gain control",
+      "Auto gain control",
+      "AGC"
+    ],
     autoMode: {
       minThreshold: 0.008,
       maxThreshold: 0.080,
@@ -62,6 +72,8 @@
     navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
 
   window.__KALY_ORIGINAL_GET_USER_MEDIA__ = originalGetUserMedia;
+
+  installNativeAgcDisabler();
 
   const state = {
     threshold: CONFIG.threshold,
@@ -118,6 +130,255 @@
     }
 
     return element;
+  }
+
+  function normalizeText(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  function isNativeAgcLabelText(value) {
+    const normalized = normalizeText(value);
+
+    if (!normalized) return false;
+
+    return CONFIG.nativeAgcUiLabels.some((label) => {
+      const normalizedLabel = normalizeText(label);
+      return normalizedLabel && normalized.includes(normalizedLabel);
+    });
+  }
+
+  function forceNativeAgcInObject(value, depth = 0) {
+    if (!value || typeof value !== "object" || depth > 8) {
+      return false;
+    }
+
+    let changed = false;
+
+    for (const [key, childValue] of Object.entries(value)) {
+      const normalizedKey = normalizeText(key).replace(/ /g, "");
+
+      if (
+        normalizedKey === "autogaincontrol" ||
+        normalizedKey === "automaticgaincontrol" ||
+        normalizedKey === "enableautogaincontrol" ||
+        normalizedKey === "gaincontrol"
+      ) {
+        if (value[key] !== false) {
+          value[key] = false;
+          changed = true;
+        }
+
+        continue;
+      }
+
+      if (childValue && typeof childValue === "object") {
+        changed = forceNativeAgcInObject(childValue, depth + 1) || changed;
+      }
+    }
+
+    return changed;
+  }
+
+  function disableStoredNativeAgc() {
+    if (!CONFIG.forceDisableNativeAgc) return 0;
+    if (!window.localStorage) return 0;
+
+    let changedCount = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+
+      if (!key) continue;
+
+      const normalizedKey = normalizeText(key).replace(/ /g, "");
+      const rawValue = localStorage.getItem(key);
+
+      if (
+        (normalizedKey === "autogaincontrol" ||
+          normalizedKey === "automaticgaincontrol" ||
+          normalizedKey === "enableautogaincontrol") &&
+        /^(true|1|on|enabled)$/i.test(String(rawValue || ""))
+      ) {
+        localStorage.setItem(key, "false");
+        changedCount++;
+        continue;
+      }
+
+      if (!rawValue || (!/gain/i.test(key) && !/autoGain|automaticGain|gainControl/i.test(rawValue))) {
+        continue;
+      }
+
+      try {
+        const parsed = JSON.parse(rawValue);
+
+        if (forceNativeAgcInObject(parsed)) {
+          localStorage.setItem(key, JSON.stringify(parsed));
+          changedCount++;
+        }
+      } catch {}
+    }
+
+    if (changedCount > 0) {
+      console.info(`[KalyMic] AGC natif désactivé dans localStorage: ${changedCount} entrée(s).`);
+    }
+
+    return changedCount;
+  }
+
+  function readSwitchState(element) {
+    if (!element) return null;
+
+    if (element.matches('input[type="checkbox"]')) {
+      return Boolean(element.checked);
+    }
+
+    const ariaChecked = element.getAttribute("aria-checked");
+
+    if (ariaChecked === "true") return true;
+    if (ariaChecked === "false") return false;
+
+    const dataState = element.getAttribute("data-state");
+
+    if (dataState === "checked" || dataState === "on" || dataState === "open") return true;
+    if (dataState === "unchecked" || dataState === "off" || dataState === "closed") return false;
+
+    const ariaPressed = element.getAttribute("aria-pressed");
+
+    if (ariaPressed === "true") return true;
+    if (ariaPressed === "false") return false;
+
+    return null;
+  }
+
+  function findNativeAgcSwitches() {
+    const matches = [];
+    const seen = new Set();
+    const textNodes = Array.from(
+      document.querySelectorAll("label, div, span, p, button, section, article")
+    ).filter((element) => isNativeAgcLabelText(element.textContent));
+
+    for (const labelElement of textNodes) {
+      let scope = labelElement;
+
+      for (let depth = 0; scope && depth < 7; depth++) {
+        const switches = Array.from(
+          scope.querySelectorAll(
+            'button[role="switch"], [role="switch"], input[type="checkbox"], button[aria-checked], [data-state="checked"], [data-state="unchecked"]'
+          )
+        );
+
+        for (const switchElement of switches) {
+          if (seen.has(switchElement)) continue;
+          seen.add(switchElement);
+          matches.push(switchElement);
+        }
+
+        if (matches.length > 0) break;
+        scope = scope.parentElement;
+      }
+    }
+
+    return matches;
+  }
+
+  function disableNativeAgcFromDom(reason = "scan") {
+    if (!CONFIG.forceDisableNativeAgc) return 0;
+
+    let disabledCount = 0;
+    const switches = findNativeAgcSwitches();
+
+    for (const switchElement of switches) {
+      const state = readSwitchState(switchElement);
+
+      if (state !== true) {
+        continue;
+      }
+
+      try {
+        switchElement.click();
+        disabledCount++;
+      } catch (error) {
+        console.warn("[KalyMic] Impossible de désactiver l'AGC natif via l'UI.", error);
+      }
+    }
+
+    if (disabledCount > 0) {
+      console.info(`[KalyMic] AGC natif Fluxer désactivé (${reason}): ${disabledCount} switch.`);
+    }
+
+    return disabledCount;
+  }
+
+  function forceAudioConstraints(constraints) {
+    if (!constraints || typeof constraints !== "object") {
+      return constraints;
+    }
+
+    return {
+      ...constraints,
+      autoGainControl: false
+    };
+  }
+
+  function installNativeAgcDisabler() {
+    if (!CONFIG.forceDisableNativeAgc) return;
+
+    disableStoredNativeAgc();
+    disableNativeAgcFromDom("startup");
+
+    if (window.MediaStreamTrack && MediaStreamTrack.prototype.applyConstraints) {
+      const originalApplyConstraints =
+        window.__KALY_ORIGINAL_APPLY_CONSTRAINTS__ ||
+        MediaStreamTrack.prototype.applyConstraints;
+
+      window.__KALY_ORIGINAL_APPLY_CONSTRAINTS__ = originalApplyConstraints;
+
+      if (!window.__KALY_APPLY_CONSTRAINTS_AGC_PATCHED__) {
+        window.__KALY_APPLY_CONSTRAINTS_AGC_PATCHED__ = true;
+
+        MediaStreamTrack.prototype.applyConstraints = function patchedApplyConstraints(constraints = {}) {
+          if (this && this.kind === "audio" && constraints && typeof constraints === "object") {
+            return originalApplyConstraints.call(this, forceAudioConstraints(constraints));
+          }
+
+          return originalApplyConstraints.call(this, constraints);
+        };
+      }
+    }
+
+    const startedAt = performance.now();
+    const startupInterval = window.setInterval(() => {
+      disableStoredNativeAgc();
+      disableNativeAgcFromDom("startup interval");
+
+      if (performance.now() - startedAt > CONFIG.nativeAgcStartupScanMs) {
+        window.clearInterval(startupInterval);
+      }
+    }, CONFIG.nativeAgcScanIntervalMs);
+
+    const mountObserver = () => {
+      if (!document.documentElement || window.__KALY_NATIVE_AGC_OBSERVER__) return;
+
+      window.__KALY_NATIVE_AGC_OBSERVER__ = new MutationObserver(() => {
+        disableNativeAgcFromDom("dom observer");
+      });
+
+      window.__KALY_NATIVE_AGC_OBSERVER__.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", mountObserver, { once: true });
+    } else {
+      mountObserver();
+    }
   }
 
   function computeRms(buffer) {
@@ -353,12 +614,12 @@
 
     const patchedConstraints = {
       ...constraints,
-      audio: {
+      audio: forceAudioConstraints({
         ...originalAudioConstraints,
         echoCancellation: CONFIG.echoCancellation,
         noiseSuppression: CONFIG.noiseSuppression,
         autoGainControl: CONFIG.autoGainControl
-      }
+      })
     };
 
     const inputStream = await originalGetUserMedia(patchedConstraints);
@@ -852,6 +1113,11 @@
       setInputGain(value);
     },
 
+    disableNativeAgc() {
+      disableStoredNativeAgc();
+      return disableNativeAgcFromDom("manual");
+    },
+
     setAuto(value) {
       setAuto(value);
     },
@@ -879,6 +1145,7 @@
         level: state.lastLevel,
         threshold: state.threshold,
         inputGain: state.inputGain,
+        nativeAutoGainControlDisabled: CONFIG.forceDisableNativeAgc,
         speaking: state.speaking,
         gateOpen: state.gateOpen,
         auto: state.auto,
@@ -911,5 +1178,6 @@
   }
 
   console.info("[KalyMic] Patch serveur injecté.");
+  console.info("[KalyMic] AGC natif Fluxer forcé sur OFF au chargement.");
   console.info("[KalyMic] Pour l'appliquer au flux actuel : coupe/rallume le micro ou quitte/rejoins le vocal.");
 })();
