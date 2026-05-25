@@ -1,46 +1,7 @@
-(function () {
-  "use strict";
-
-  var KALY_DIRECT_BOOT_VERSION = "kaly-direct-nginx-safe-one-boot-1.0.0";
-  var booted = false;
-  var timers = [];
-  var installedAt = Date.now();
-
-  function clearTimers() {
-    while (timers.length) {
-      clearTimeout(timers.pop());
-    }
-  }
-
-  function appLooksReady() {
-    if (!document.body) return false;
-
-    if (document.readyState === "complete") return true;
-
-    try {
-      if (document.querySelector("#root, #app, main, [role='main']")) return true;
-    } catch (error) {}
-
-    return false;
-  }
-
-  function boot(reason) {
-    if (booted) return false;
-    if (!document.body) return false;
-
-    booted = true;
-    clearTimers();
-
-    window.__KALY_MEMBERLIST_DIRECT_BOOT__.booted = true;
-    window.__KALY_MEMBERLIST_DIRECT_BOOT__.bootedAt = Date.now();
-    window.__KALY_MEMBERLIST_DIRECT_BOOT__.reason = reason || "manual";
-
-    console.log("[KalyMemberListDirectBoot] boot", KALY_DIRECT_BOOT_VERSION, reason || "manual");
-
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.27-direct-nginx-safe-one-boot";
+  var VERSION = "console-6.8.23-userprofile-modal-layer-fix";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -5927,7 +5888,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-member-click-router-api-direct-alt-native-1.1.1-direct-nginx-delay";
+  var VERSION = "kaly-member-click-router-native-first-api-fallback-1.0.0";
 
   if (window.__KALY_MERGED_MEMBER_CLICK_ROUTER__ && typeof window.__KALY_MERGED_MEMBER_CLICK_ROUTER__.stop === "function") {
     try {
@@ -5938,28 +5899,22 @@
   var controller = new AbortController();
 
   async function openMember(button, event) {
-    var wantsNative = Boolean(event && event.altKey);
+    var nativeOk = false;
 
-    /*
-      Chargement externe via Nginx/GitHub : le bridge natif peut attendre jusqu'à ~1,6 s
-      avant de tomber en fallback. Résultat visible : premier clic profil qui semble
-      « recharger ». Par défaut on ouvre donc directement notre ProfileCard API.
-      Alt+clic garde l'ancien test natif si besoin de debug.
-    */
-    if (wantsNative && window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__ && typeof window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton === "function") {
+    if (!event.altKey && window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__ && typeof window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton === "function") {
       try {
-        var nativeOk = await window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton(button);
-        if (nativeOk) return true;
+        nativeOk = await window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton(button);
       } catch (errorNative) {
-        console.warn("[KalyMemberRouter] ProfileCard native KO, fallback API :", errorNative);
+        console.warn("[KalyMemberRouter] vraie ProfileCard native KO, fallback API :", errorNative);
+        nativeOk = false;
       }
     }
 
-    if (window.KALY_FLUXER_PROFILECARD_API && typeof window.KALY_FLUXER_PROFILECARD_API.openFromButton === "function") {
-      return window.KALY_FLUXER_PROFILECARD_API.openFromButton(button, event || {});
+    if (!nativeOk && window.KALY_FLUXER_PROFILECARD_API && typeof window.KALY_FLUXER_PROFILECARD_API.openFromButton === "function") {
+      return window.KALY_FLUXER_PROFILECARD_API.openFromButton(button, event);
     }
 
-    return false;
+    return nativeOk;
   }
 
   function onClick(event) {
@@ -6032,7 +5987,7 @@
     };
   }
 
-  console.log("[KalyMemberRouter] actif", VERSION, "clic = API direct, Alt+clic = test natif");
+  console.log("[KalyMemberRouter] actif", VERSION, "Alt+clic = fallback API direct");
 })();
 
 /* -------------------------------------------------------------------------- */
@@ -6041,7 +5996,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.19-profile-direct-no-first-native-wait";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.18-userprofile-layer-click-json-fix";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -9633,74 +9588,4 @@
   }
 
   console.log("[KalyContextMenu] clic droit membre actif", VERSION);
-})();
-
-  }
-
-  function schedule(ms, reason) {
-    timers.push(setTimeout(function () {
-      if (booted) return;
-
-      var run = function () {
-        if (booted) return;
-        boot(reason || ("timer-" + ms));
-      };
-
-      if (typeof window.requestIdleCallback === "function") {
-        window.requestIdleCallback(run, { timeout: 1400 });
-      } else {
-        setTimeout(run, 250);
-      }
-    }, ms));
-  }
-
-  window.__KALY_MEMBERLIST_DIRECT_BOOT__ = {
-    version: KALY_DIRECT_BOOT_VERSION,
-    booted: false,
-    installedAt: installedAt,
-    bootedAt: 0,
-    reason: "pending",
-    bootNow: function () {
-      return boot("manual");
-    },
-    dump: function () {
-      return {
-        version: KALY_DIRECT_BOOT_VERSION,
-        booted: booted,
-        installedAt: installedAt,
-        bootedAt: this.bootedAt,
-        reason: this.reason,
-        readyState: document.readyState,
-        hasBody: Boolean(document.body),
-        runtimePresent: Boolean(window.KalyFluxerMemberListFix),
-        runtimeVersion: window.KalyFluxerMemberListFix ? window.KalyFluxerMemberListFix.version : ""
-      };
-    },
-    stop: function () {
-      clearTimers();
-      if (window.KalyFluxerMemberListFix && typeof window.KalyFluxerMemberListFix.stop === "function") {
-        try {
-          window.KalyFluxerMemberListFix.stop();
-        } catch (error) {
-          console.warn("[KalyMemberListDirectBoot] stop runtime KO :", error);
-        }
-      }
-      delete window.__KALY_MEMBERLIST_DIRECT_BOOT__;
-    }
-  };
-
-  /*
-    Un seul chargement, un seul boot.
-    Le script peut être injecté dans le <head> avec defer, mais il attend window.load
-    puis une fenêtre idle. Ça évite de bloquer Fluxer pendant son montage React.
-  */
-  if (document.readyState === "complete") {
-    schedule(1200, "ready-complete-safe-one-boot");
-  } else {
-    window.addEventListener("load", function () {
-      schedule(1200, "window-load-safe-one-boot");
-    }, { once: true });
-  }
-
-  console.log("[KalyMemberListDirectBoot] attente boot unique", KALY_DIRECT_BOOT_VERSION);
 })();
