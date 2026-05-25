@@ -2894,7 +2894,7 @@
     style.id = "kaly-fluxer-memberlist-style";
 
     style.textContent = `
-#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:2147483000;box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:20;box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
 #kaly-fluxer-memberlist-fix[data-kaly-force-hidden="1"],html[data-kaly-ml-route-visible="0"] #kaly-fluxer-memberlist-fix{display:none!important;visibility:hidden!important;pointer-events:none!important}
 #kaly-fluxer-memberlist-fix *{box-sizing:border-box}
 #kaly-fluxer-memberlist-fix .kml-header{height:62px;padding:12px 14px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,5,18,.24)}
@@ -2920,7 +2920,7 @@
 .kml-bot{display:inline-block;margin-left:4px;padding:1px 4px;border-radius:4px;font-size:9px;font-weight:900;line-height:1.2;color:#fff;background:#7c3aed;vertical-align:1px}
 #kaly-fluxer-memberlist-fix .kml-empty,#kaly-fluxer-memberlist-fix .kml-error{margin:12px;padding:10px;border-radius:12px;font-size:12px;line-height:1.45;color:#d9cff2;background:rgba(0,0,0,.22)}
 #kaly-fluxer-memberlist-fix .kml-error{color:#ffd7d7;background:rgba(185,28,28,.24)}
-#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:2147483100;border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:30;border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 #kaly-fluxer-memberlist-popout .kml-popout-banner{height:74px;background:radial-gradient(circle at 20% 25%,rgba(168,85,247,.85),transparent 32%),linear-gradient(135deg,#4c1d95,#1e102f 72%)}
 #kaly-fluxer-memberlist-popout .kml-popout-body{position:relative;padding:48px 14px 14px}
 #kaly-fluxer-memberlist-popout .kml-popout-avatar{width:72px;height:72px;position:absolute;top:-36px;left:14px;border-radius:50%;background:#130b1f;border:5px solid #171020;overflow:hidden}
@@ -4534,7 +4534,7 @@
 #${ROOT_ID}{
   position:fixed;
   inset:0;
-  z-index:2147483500;
+  z-index:40;
   pointer-events:none;
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
@@ -7094,7 +7094,7 @@
     var style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-#${ROOT_ID}{position:fixed;inset:0;z-index:2147483500;pointer-events:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#${ROOT_ID}{position:fixed;inset:0;z-index:40;pointer-events:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 #${ROOT_ID} *{box-sizing:border-box}
 #${ROOT_ID} .kfp-backdrop{position:absolute;inset:0;pointer-events:auto;background:transparent}
 #${ROOT_ID} .kfp-popout{position:absolute;pointer-events:auto;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35)) drop-shadow(0 4px 8px rgba(0,0,0,.25)) drop-shadow(0 12px 24px rgba(0,0,0,.18))}
@@ -7526,7 +7526,7 @@
     var style = document.createElement("style");
     style.id = PROFILE_MODAL_STYLE_ID;
     style.textContent = `
-#${ROOT_ID} .kfp-userprofile-backdrop.modal-backdrop{position:fixed;inset:0;z-index:2147483600;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.86)!important;pointer-events:auto;opacity:1!important;backdrop-filter:none!important}
+#${ROOT_ID} .kfp-userprofile-backdrop.modal-backdrop{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.86)!important;pointer-events:auto;opacity:1!important;backdrop-filter:none!important}
 #${ROOT_ID} .kfp-userprofile-layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:none}
 #${ROOT_ID} .kfp-userprofile-modal{position:relative;width:min(600px,calc(100vw - 32px));max-height:calc(100svh - 48px);display:flex;flex-direction:column;overflow:hidden;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#15111f!important;background-color:#15111f!important;color:var(--text-primary,#f7f1ff);box-shadow:0 0 0 1px hsla(223,7%,20%,.08),0 8px 24px -4px rgba(0,0,0,.25),0 20px 48px -8px rgba(0,0,0,.2);pointer-events:auto;animation:kfpUserProfileIn .16s ease-out;isolation:isolate;opacity:1!important}
 @keyframes kfpUserProfileIn{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:scale(1)}}
@@ -8753,7 +8753,7 @@
     var style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-#${MENU_ID}{position:fixed;z-index:2147483600;min-width:224px;max-width:290px;padding:6px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:var(--background-floating,#171020);color:var(--text-primary,#f4eeff);box-shadow:0 10px 28px rgba(0,0,0,.42),0 2px 6px rgba(0,0,0,.28);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.2;user-select:none;overscroll-behavior:contain}
+#${MENU_ID}{position:fixed;z-index:50;min-width:224px;max-width:290px;padding:6px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:var(--background-floating,#171020);color:var(--text-primary,#f4eeff);box-shadow:0 10px 28px rgba(0,0,0,.42),0 2px 6px rgba(0,0,0,.28);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.2;user-select:none;overscroll-behavior:contain}
 #${MENU_ID} *{box-sizing:border-box}
 #${MENU_ID} .kcm-group{padding:4px 0;border-bottom:1px solid rgba(255,255,255,.055)}
 #${MENU_ID} .kcm-group:last-child{border-bottom:0}
