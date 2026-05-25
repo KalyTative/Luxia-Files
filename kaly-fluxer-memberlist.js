@@ -1,7 +1,46 @@
+(function () {
+  "use strict";
+
+  var KALY_DIRECT_BOOT_VERSION = "kaly-direct-nginx-safe-one-boot-1.0.0";
+  var booted = false;
+  var timers = [];
+  var installedAt = Date.now();
+
+  function clearTimers() {
+    while (timers.length) {
+      clearTimeout(timers.pop());
+    }
+  }
+
+  function appLooksReady() {
+    if (!document.body) return false;
+
+    if (document.readyState === "complete") return true;
+
+    try {
+      if (document.querySelector("#root, #app, main, [role='main']")) return true;
+    } catch (error) {}
+
+    return false;
+  }
+
+  function boot(reason) {
+    if (booted) return false;
+    if (!document.body) return false;
+
+    booted = true;
+    clearTimers();
+
+    window.__KALY_MEMBERLIST_DIRECT_BOOT__.booted = true;
+    window.__KALY_MEMBERLIST_DIRECT_BOOT__.bootedAt = Date.now();
+    window.__KALY_MEMBERLIST_DIRECT_BOOT__.reason = reason || "manual";
+
+    console.log("[KalyMemberListDirectBoot] boot", KALY_DIRECT_BOOT_VERSION, reason || "manual");
+
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.26-body-inject-one-shot";
+  var VERSION = "console-6.8.27-direct-nginx-safe-one-boot";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -5888,7 +5927,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-member-click-router-api-direct-alt-native-1.1.0";
+  var VERSION = "kaly-member-click-router-api-direct-alt-native-1.1.1-direct-nginx-delay";
 
   if (window.__KALY_MERGED_MEMBER_CLICK_ROUTER__ && typeof window.__KALY_MERGED_MEMBER_CLICK_ROUTER__.stop === "function") {
     try {
@@ -9594,4 +9633,74 @@
   }
 
   console.log("[KalyContextMenu] clic droit membre actif", VERSION);
+})();
+
+  }
+
+  function schedule(ms, reason) {
+    timers.push(setTimeout(function () {
+      if (booted) return;
+
+      var run = function () {
+        if (booted) return;
+        boot(reason || ("timer-" + ms));
+      };
+
+      if (typeof window.requestIdleCallback === "function") {
+        window.requestIdleCallback(run, { timeout: 1400 });
+      } else {
+        setTimeout(run, 250);
+      }
+    }, ms));
+  }
+
+  window.__KALY_MEMBERLIST_DIRECT_BOOT__ = {
+    version: KALY_DIRECT_BOOT_VERSION,
+    booted: false,
+    installedAt: installedAt,
+    bootedAt: 0,
+    reason: "pending",
+    bootNow: function () {
+      return boot("manual");
+    },
+    dump: function () {
+      return {
+        version: KALY_DIRECT_BOOT_VERSION,
+        booted: booted,
+        installedAt: installedAt,
+        bootedAt: this.bootedAt,
+        reason: this.reason,
+        readyState: document.readyState,
+        hasBody: Boolean(document.body),
+        runtimePresent: Boolean(window.KalyFluxerMemberListFix),
+        runtimeVersion: window.KalyFluxerMemberListFix ? window.KalyFluxerMemberListFix.version : ""
+      };
+    },
+    stop: function () {
+      clearTimers();
+      if (window.KalyFluxerMemberListFix && typeof window.KalyFluxerMemberListFix.stop === "function") {
+        try {
+          window.KalyFluxerMemberListFix.stop();
+        } catch (error) {
+          console.warn("[KalyMemberListDirectBoot] stop runtime KO :", error);
+        }
+      }
+      delete window.__KALY_MEMBERLIST_DIRECT_BOOT__;
+    }
+  };
+
+  /*
+    Un seul chargement, un seul boot.
+    Le script peut être injecté dans le <head> avec defer, mais il attend window.load
+    puis une fenêtre idle. Ça évite de bloquer Fluxer pendant son montage React.
+  */
+  if (document.readyState === "complete") {
+    schedule(1200, "ready-complete-safe-one-boot");
+  } else {
+    window.addEventListener("load", function () {
+      schedule(1200, "window-load-safe-one-boot");
+    }, { once: true });
+  }
+
+  console.log("[KalyMemberListDirectBoot] attente boot unique", KALY_DIRECT_BOOT_VERSION);
 })();
