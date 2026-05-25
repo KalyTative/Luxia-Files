@@ -1,7 +1,7 @@
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.22-userprofile-buttons-fix";
+  var VERSION = "console-6.8.21-opaque-userprofile-modal";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -2894,7 +2894,7 @@
     style.id = "kaly-fluxer-memberlist-style";
 
     style.textContent = `
-#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:2147483000;box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:20;box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
 #kaly-fluxer-memberlist-fix[data-kaly-force-hidden="1"],html[data-kaly-ml-route-visible="0"] #kaly-fluxer-memberlist-fix{display:none!important;visibility:hidden!important;pointer-events:none!important}
 #kaly-fluxer-memberlist-fix *{box-sizing:border-box}
 #kaly-fluxer-memberlist-fix .kml-header{height:62px;padding:12px 14px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,5,18,.24)}
@@ -2920,7 +2920,7 @@
 .kml-bot{display:inline-block;margin-left:4px;padding:1px 4px;border-radius:4px;font-size:9px;font-weight:900;line-height:1.2;color:#fff;background:#7c3aed;vertical-align:1px}
 #kaly-fluxer-memberlist-fix .kml-empty,#kaly-fluxer-memberlist-fix .kml-error{margin:12px;padding:10px;border-radius:12px;font-size:12px;line-height:1.45;color:#d9cff2;background:rgba(0,0,0,.22)}
 #kaly-fluxer-memberlist-fix .kml-error{color:#ffd7d7;background:rgba(185,28,28,.24)}
-#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:2147483100;border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:30;border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 #kaly-fluxer-memberlist-popout .kml-popout-banner{height:74px;background:radial-gradient(circle at 20% 25%,rgba(168,85,247,.85),transparent 32%),linear-gradient(135deg,#4c1d95,#1e102f 72%)}
 #kaly-fluxer-memberlist-popout .kml-popout-body{position:relative;padding:48px 14px 14px}
 #kaly-fluxer-memberlist-popout .kml-popout-avatar{width:72px;height:72px;position:absolute;top:-36px;left:14px;border-radius:50%;background:#130b1f;border:5px solid #171020;overflow:hidden}
@@ -4534,7 +4534,7 @@
 #${ROOT_ID}{
   position:fixed;
   inset:0;
-  z-index:2147483500;
+  z-index:40;
   pointer-events:none;
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
@@ -4869,15 +4869,7 @@
   function closeCard() {
     var el = document.getElementById(ROOT_ID);
 
-    if (el) {
-      el.innerHTML = "";
-      el.removeAttribute("data-kfp-layer");
-      try {
-        delete el.__KALY_USERPROFILE_BUNDLE__;
-      } catch (errorDeleteBundle) {
-        el.__KALY_USERPROFILE_BUNDLE__ = null;
-      }
-    }
+    if (el) el.innerHTML = "";
   }
 
   function anchorPosition(event, anchor) {
@@ -5996,7 +5988,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.17-userprofile-buttons-delegated";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.16-layer-click-fix";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -7102,7 +7094,8 @@
     var style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-#${ROOT_ID}{position:fixed;inset:0;z-index:2147483500;pointer-events:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#${ROOT_ID}{position:fixed;inset:0;z-index:40;pointer-events:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#${ROOT_ID}[data-kfp-layer="userprofile"]{z-index:70;pointer-events:auto}
 #${ROOT_ID} *{box-sizing:border-box}
 #${ROOT_ID} .kfp-backdrop{position:absolute;inset:0;pointer-events:auto;background:transparent}
 #${ROOT_ID} .kfp-popout{position:absolute;pointer-events:auto;filter:drop-shadow(0 2px 0 rgba(0,0,0,.35)) drop-shadow(0 4px 8px rgba(0,0,0,.25)) drop-shadow(0 12px 24px rgba(0,0,0,.18))}
@@ -7171,7 +7164,11 @@
 
   function closeCard() {
     var el = document.getElementById(ROOT_ID);
-    if (el) el.innerHTML = "";
+    if (el) {
+      el.innerHTML = "";
+      el.removeAttribute("data-kfp-layer");
+      delete el.__KALY_USERPROFILE_BUNDLE__;
+    }
   }
 
   function anchorPosition(event, anchor) {
@@ -7534,9 +7531,9 @@
     var style = document.createElement("style");
     style.id = PROFILE_MODAL_STYLE_ID;
     style.textContent = `
-#${ROOT_ID} .kfp-userprofile-backdrop.modal-backdrop{position:fixed;inset:0;z-index:2147483600;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.86)!important;pointer-events:auto!important;opacity:1!important;backdrop-filter:none!important}
-#${ROOT_ID} .kfp-userprofile-layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:auto!important}
-#${ROOT_ID} .kfp-userprofile-modal{position:relative;width:min(600px,calc(100vw - 32px));max-height:calc(100svh - 48px);display:flex;flex-direction:column;overflow:hidden;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#15111f!important;background-color:#15111f!important;color:var(--text-primary,#f7f1ff);box-shadow:0 0 0 1px hsla(223,7%,20%,.08),0 8px 24px -4px rgba(0,0,0,.25),0 20px 48px -8px rgba(0,0,0,.2);pointer-events:auto;animation:kfpUserProfileIn .16s ease-out;isolation:isolate;opacity:1!important}
+#${ROOT_ID} .kfp-userprofile-backdrop.modal-backdrop{position:fixed;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.86)!important;pointer-events:auto!important;opacity:1!important;backdrop-filter:none!important}
+#${ROOT_ID} .kfp-userprofile-layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:none}
+#${ROOT_ID} .kfp-userprofile-modal{position:relative;z-index:1;width:min(600px,calc(100vw - 32px));max-height:calc(100svh - 48px);display:flex;flex-direction:column;overflow:hidden;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#15111f!important;background-color:#15111f!important;color:var(--text-primary,#f7f1ff);box-shadow:0 0 0 1px hsla(223,7%,20%,.08),0 8px 24px -4px rgba(0,0,0,.25),0 20px 48px -8px rgba(0,0,0,.2);pointer-events:auto!important;animation:kfpUserProfileIn .16s ease-out;isolation:isolate;opacity:1!important}
 @keyframes kfpUserProfileIn{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:scale(1)}}
 #${ROOT_ID} .kfp-upm-header{position:relative;height:248px;flex:0 0 auto;background:#110d1a!important;background-color:#110d1a!important;overflow:hidden;opacity:1!important}
 #${ROOT_ID} .kfp-upm-banner{position:absolute;inset:0 0 auto 0;height:210px;background:radial-gradient(circle at 24% 18%,color-mix(in srgb,var(--kfp-accent,#7c3aed) 78%,white 8%) 0,transparent 34%),linear-gradient(135deg,var(--kfp-accent,#7c3aed),#120a1d 82%);background-size:cover;background-position:center;overflow:hidden}
@@ -7583,7 +7580,7 @@
 #${ROOT_ID} .kfp-upm-button{height:36px;border:0;border-radius:999px;background:#6a3cb7;color:#fff;font-size:13px;font-weight:850;cursor:pointer;padding:0 14px;white-space:nowrap}
 #${ROOT_ID} .kfp-upm-button.secondary{background:rgba(18,13,26,.72);color:var(--text-primary,#f7f1ff);backdrop-filter:blur(10px)}
 #${ROOT_ID} .kfp-upm-button:hover{filter:brightness(1.08)}
-#${ROOT_ID} .kfp-userprofile-modal button,#${ROOT_ID} .kfp-userprofile-modal a{pointer-events:auto!important;position:relative;z-index:10}
+#${ROOT_ID} .kfp-userprofile-modal button,#${ROOT_ID} .kfp-userprofile-modal a{pointer-events:auto;position:relative;z-index:2}
 
 /* Kaly opaque grand profile patch: aucune variable Fluxer transparente ne doit traverser le modal. */
 #${ROOT_ID} .kfp-userprofile-backdrop.modal-backdrop,#${ROOT_ID} .kfp-userprofile-backdrop.modal-backdrop *{opacity:1}
@@ -7747,31 +7744,21 @@
 
   function bindUserProfileModalButtons(bundle) {
     var container = root();
-
-    /*
-      Les boutons du grand profil sont dans un HTML réécrit à chaque ouverture.
-      Les anciens addEventListener directs pouvaient sauter quand le modal était remplacé
-      ou quand la couche modal-backdrop interceptait le clic. On passe donc en délégation
-      sur le root : un seul handler, toujours vivant, et il ne s'active que si le grand
-      UserProfileModal est actuellement ouvert.
-    */
     container.__KALY_USERPROFILE_BUNDLE__ = bundle;
     container.setAttribute("data-kfp-layer", "userprofile");
 
     if (container.getAttribute("data-kfp-userprofile-delegated") !== "1") {
       container.setAttribute("data-kfp-userprofile-delegated", "1");
-
       container.addEventListener("click", async function (event) {
         if (!container.querySelector(".kfp-userprofile-backdrop")) return;
 
-        var target = event.target;
-        var action = target && target.closest
-          ? target.closest("[data-kfp-close],[data-kfp-debug],[data-kfp-copy],[data-kfp-tab],[data-kfp-main-action],[data-kfp-open-voice]")
+        var node = event.target && event.target.closest
+          ? event.target.closest("[data-kfp-close],[data-kfp-debug],[data-kfp-copy],[data-kfp-tab],[data-kfp-main-action]")
           : null;
 
-        if (!action) {
-          var insideModal = target && target.closest ? target.closest(".kfp-userprofile-modal") : null;
-          var insideOverlay = target && target.closest ? target.closest("[data-kfp-userprofile-overlay],.kfp-userprofile-backdrop") : null;
+        if (!node) {
+          var insideModal = event.target && event.target.closest ? event.target.closest(".kfp-userprofile-modal") : null;
+          var insideOverlay = event.target && event.target.closest ? event.target.closest("[data-kfp-userprofile-overlay],.kfp-userprofile-backdrop") : null;
 
           if (insideOverlay && !insideModal) {
             event.preventDefault();
@@ -7784,103 +7771,161 @@
         }
 
         var activeBundle = container.__KALY_USERPROFILE_BUNDLE__ || lastBundle || bundle;
-
         event.preventDefault();
         event.stopPropagation();
         event.stopImmediatePropagation();
 
-        if (action.matches("[data-kfp-close]")) {
+        if (node.matches("[data-kfp-close]")) {
           closeCard();
           return;
         }
 
-        if (action.matches("[data-kfp-debug]")) {
+        if (node.matches("[data-kfp-debug]")) {
           console.log("[KalyProfileCard] UserProfileModal modal-backdrop bundle :", activeBundle);
           return;
         }
 
-        if (action.matches("[data-kfp-copy]")) {
-          var key = action.getAttribute("data-kfp-copy") || "";
-
-          if (key === "id") {
-            copyToClipboard(activeBundle.id, action, "ID copié");
-            return;
-          }
-
-          if (key === "tag") {
-            copyToClipboard(activeBundle.tag || activeBundle.username || activeBundle.id, action, "Tag copié");
-            return;
-          }
-
-          copyToClipboard(action.textContent || "", action, "Copié");
+        if (node.matches("[data-kfp-copy]")) {
+          var key = node.getAttribute("data-kfp-copy") || "";
+          if (key === "id") copyToClipboard(activeBundle.id, node, "ID copié");
+          if (key === "tag") copyToClipboard(activeBundle.tag || activeBundle.username || activeBundle.id, node, "Tag copié");
           return;
         }
 
-        if (action.matches("[data-kfp-tab]")) {
-          var tabTarget = action.getAttribute("data-kfp-tab") || "overview";
-
+        if (node.matches("[data-kfp-tab]")) {
+          var target = node.getAttribute("data-kfp-tab") || "overview";
           Array.prototype.slice.call(container.querySelectorAll("[data-kfp-tab]")).forEach(function (tab) {
-            tab.setAttribute("data-active", tab === action ? "1" : "0");
+            tab.setAttribute("data-active", tab === node ? "1" : "0");
           });
-
           Array.prototype.slice.call(container.querySelectorAll("[data-kfp-panel]")).forEach(function (panel) {
-            panel.hidden = panel.getAttribute("data-kfp-panel") !== tabTarget;
+            panel.hidden = panel.getAttribute("data-kfp-panel") !== target;
           });
-
           return;
         }
 
-        if (action.matches("[data-kfp-open-voice]")) {
-          var channelId = action.getAttribute("data-kfp-open-voice") || "";
-
-          if (channelId) {
-            closeCard();
-            window.KALY_FLUXER_SPA_NAVIGATE("/channels/" + encodeURIComponent(getGuildId()) + "/" + encodeURIComponent(channelId));
-          } else {
-            console.warn("[KalyProfileCard] ID salon vocal introuvable :", activeBundle && activeBundle.voice);
-          }
-
-          return;
-        }
-
-        if (action.matches("[data-kfp-main-action]")) {
-          if (!activeBundle || !activeBundle.id) return;
-
+        if (node.matches("[data-kfp-main-action]")) {
           if (activeBundle.isSelf) {
             var settingsButton = document.querySelector('button[aria-label*="Paramètres"],button[aria-label*="paramètres"],button[aria-label*="Settings"],button[aria-label*="settings"],button[aria-label*="User Settings"]');
-
             if (settingsButton) {
               closeCard();
               settingsButton.click();
               return;
             }
-
             console.warn("[KalyProfileCard] bouton paramètres introuvable.");
             return;
           }
 
-          if (action.getAttribute("data-kfp-busy") === "1") return;
+          if (node.getAttribute("data-kfp-busy") === "1") return;
+          node.setAttribute("data-kfp-busy", "1");
+          node.textContent = "Ouverture…";
 
-          action.setAttribute("data-kfp-busy", "1");
-          action.textContent = "Ouverture…";
-
-          var ok = await openDm(activeBundle.id);
-
-          if (!ok) {
-            action.textContent = "Erreur DM";
-
+          try {
+            var ok = await openDm(activeBundle.id);
+            if (!ok) {
+              node.textContent = "Erreur DM";
+              setTimeout(function () {
+                node.textContent = "Message";
+                node.removeAttribute("data-kfp-busy");
+              }, 1200);
+            }
+          } catch (errorMain) {
+            console.error("[KalyProfileCard] action principale UserProfileModal KO :", errorMain);
+            node.textContent = "Erreur DM";
             setTimeout(function () {
-              action.removeAttribute("data-kfp-busy");
-              action.textContent = "Message";
+              node.textContent = "Message";
+              node.removeAttribute("data-kfp-busy");
             }, 1200);
           }
+        }
+      }, { capture: true, signal: controller.signal });
+    }
 
+    var overlay = container.querySelector("[data-kfp-userprofile-overlay]");
+    var modal = container.querySelector(".kfp-userprofile-modal");
+
+    if (overlay) {
+      overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+          event.preventDefault();
+          event.stopPropagation();
+          closeCard();
+        }
+      }, { signal: controller.signal });
+    }
+
+    if (modal) {
+      modal.addEventListener("click", function (event) {
+        event.stopPropagation();
+      }, { signal: controller.signal });
+    }
+
+    Array.prototype.slice.call(container.querySelectorAll("[data-kfp-close]")).forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeCard();
+      }, { signal: controller.signal });
+    });
+
+    var debugButton = container.querySelector("[data-kfp-debug]");
+    if (debugButton) {
+      debugButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("[KalyProfileCard] UserProfileModal modal-backdrop bundle :", bundle);
+      }, { signal: controller.signal });
+    }
+
+    Array.prototype.slice.call(container.querySelectorAll("[data-kfp-copy]")).forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var key = button.getAttribute("data-kfp-copy") || "";
+        if (key === "id") copyToClipboard(bundle.id, button, "ID copié");
+        if (key === "tag") copyToClipboard(bundle.tag || bundle.username || bundle.id, button, "Tag copié");
+      }, { signal: controller.signal });
+    });
+
+    Array.prototype.slice.call(container.querySelectorAll("[data-kfp-tab]")).forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var target = button.getAttribute("data-kfp-tab") || "overview";
+        Array.prototype.slice.call(container.querySelectorAll("[data-kfp-tab]")).forEach(function (tab) {
+          tab.setAttribute("data-active", tab === button ? "1" : "0");
+        });
+        Array.prototype.slice.call(container.querySelectorAll("[data-kfp-panel]")).forEach(function (panel) {
+          panel.hidden = panel.getAttribute("data-kfp-panel") !== target;
+        });
+      }, { signal: controller.signal });
+    });
+
+    var mainButton = container.querySelector("[data-kfp-main-action]");
+    if (mainButton) {
+      mainButton.addEventListener("click", async function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (bundle.isSelf) {
+          var settingsButton = document.querySelector('button[aria-label*="Paramètres"],button[aria-label*="paramètres"],button[aria-label*="Settings"],button[aria-label*="settings"],button[aria-label*="User Settings"]');
+          if (settingsButton) {
+            closeCard();
+            settingsButton.click();
+            return;
+          }
+          console.warn("[KalyProfileCard] bouton paramètres introuvable.");
           return;
         }
-      }, {
-        capture: true,
-        signal: controller.signal
-      });
+
+        mainButton.textContent = "Ouverture…";
+        var ok = await openDm(bundle.id);
+        if (!ok) {
+          mainButton.textContent = "Erreur DM";
+          setTimeout(function () {
+            mainButton.textContent = "Message";
+          }, 1200);
+        }
+      }, { signal: controller.signal });
     }
 
     activateAssetFallbacks(container);
@@ -7909,6 +7954,7 @@
       };
 
       var container = root();
+      container.setAttribute("data-kfp-layer", "userprofile");
       ensureUserProfileModalStyle();
       container.innerHTML = '<div class="modal-backdrop kfp-userprofile-backdrop"><div class="kfp-userprofile-layer"><div class="kfp-loading" style="position:relative;left:auto;top:auto">Chargement du UserProfileModal : ' + escapeHtml(localMember.displayName || localMember.username || localMember.id) + '</div></div></div>';
 
@@ -7929,6 +7975,7 @@
       lastError = null;
 
       ensureUserProfileModalStyle();
+      container.setAttribute("data-kfp-layer", "userprofile");
       container.innerHTML = userProfileModalMarkup(bundle);
       bindUserProfileModalButtons(bundle);
 
@@ -8289,6 +8336,8 @@
 
   function renderBundleAtPosition(bundle, pos) {
     var container = root();
+    container.removeAttribute("data-kfp-layer");
+    delete container.__KALY_USERPROFILE_BUNDLE__;
     container.innerHTML = cardMarkup(bundle, pos);
     clampFloatingElement(container, ".kfp-popout");
     bindGlobalButtons(bundle);
@@ -8461,6 +8510,8 @@
       closeCard();
       var style = document.getElementById(STYLE_ID);
       if (style) style.remove();
+      var modalStyle = document.getElementById(PROFILE_MODAL_STYLE_ID);
+      if (modalStyle) modalStyle.remove();
       var rootEl = document.getElementById(ROOT_ID);
       if (rootEl) rootEl.remove();
       delete window.KALY_FLUXER_PROFILECARD_API;
@@ -8810,7 +8861,7 @@
     var style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-#${MENU_ID}{position:fixed;z-index:2147483600;min-width:224px;max-width:290px;padding:6px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:var(--background-floating,#171020);color:var(--text-primary,#f4eeff);box-shadow:0 10px 28px rgba(0,0,0,.42),0 2px 6px rgba(0,0,0,.28);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.2;user-select:none;overscroll-behavior:contain}
+#${MENU_ID}{position:fixed;z-index:50;min-width:224px;max-width:290px;padding:6px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:var(--background-floating,#171020);color:var(--text-primary,#f4eeff);box-shadow:0 10px 28px rgba(0,0,0,.42),0 2px 6px rgba(0,0,0,.28);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.2;user-select:none;overscroll-behavior:contain}
 #${MENU_ID} *{box-sizing:border-box}
 #${MENU_ID} .kcm-group{padding:4px 0;border-bottom:1px solid rgba(255,255,255,.055)}
 #${MENU_ID} .kcm-group:last-child{border-bottom:0}
