@@ -1,7 +1,46 @@
+(function () {
+  "use strict";
+
+  var KALY_DIRECT_BOOT_VERSION = "kaly-direct-nginx-delayed-boot-1.0.0";
+  var booted = false;
+  var timers = [];
+  var installedAt = Date.now();
+
+  function clearTimers() {
+    while (timers.length) {
+      clearTimeout(timers.pop());
+    }
+  }
+
+  function appLooksReady() {
+    if (!document.body) return false;
+
+    if (document.readyState === "complete") return true;
+
+    try {
+      if (document.querySelector("#root, #app, main, [role='main']")) return true;
+    } catch (error) {}
+
+    return false;
+  }
+
+  function boot(reason) {
+    if (booted) return false;
+    if (!document.body) return false;
+
+    booted = true;
+    clearTimers();
+
+    window.__KALY_MEMBERLIST_DIRECT_BOOT__.booted = true;
+    window.__KALY_MEMBERLIST_DIRECT_BOOT__.bootedAt = Date.now();
+    window.__KALY_MEMBERLIST_DIRECT_BOOT__.reason = reason || "manual";
+
+    console.log("[KalyMemberListDirectBoot] boot", KALY_DIRECT_BOOT_VERSION, reason || "manual");
+
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.24-loader-one-shot-profile-direct";
+  var VERSION = "console-6.8.25-direct-nginx-delayed-boot";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -5888,7 +5927,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-member-click-router-api-direct-alt-native-1.1.0";
+  var VERSION = "kaly-member-click-router-api-direct-alt-native-1.1.1-direct-nginx-delay";
 
   if (window.__KALY_MERGED_MEMBER_CLICK_ROUTER__ && typeof window.__KALY_MERGED_MEMBER_CLICK_ROUTER__.stop === "function") {
     try {
@@ -9594,4 +9633,65 @@
   }
 
   console.log("[KalyContextMenu] clic droit membre actif", VERSION);
+})();
+
+  }
+
+  function schedule(ms, reason) {
+    timers.push(setTimeout(function () {
+      if (booted) return;
+
+      if (appLooksReady() || Date.now() - installedAt >= 3500) {
+        boot(reason || ("timer-" + ms));
+      }
+    }, ms));
+  }
+
+  window.__KALY_MEMBERLIST_DIRECT_BOOT__ = {
+    version: KALY_DIRECT_BOOT_VERSION,
+    booted: false,
+    installedAt: installedAt,
+    bootedAt: 0,
+    reason: "pending",
+    bootNow: function () {
+      return boot("manual");
+    },
+    dump: function () {
+      return {
+        version: KALY_DIRECT_BOOT_VERSION,
+        booted: booted,
+        installedAt: installedAt,
+        bootedAt: this.bootedAt,
+        reason: this.reason,
+        readyState: document.readyState,
+        hasBody: Boolean(document.body),
+        runtimePresent: Boolean(window.KalyFluxerMemberListFix),
+        runtimeVersion: window.KalyFluxerMemberListFix ? window.KalyFluxerMemberListFix.version : ""
+      };
+    },
+    stop: function () {
+      clearTimers();
+      if (window.KalyFluxerMemberListFix && typeof window.KalyFluxerMemberListFix.stop === "function") {
+        try {
+          window.KalyFluxerMemberListFix.stop();
+        } catch (error) {
+          console.warn("[KalyMemberListDirectBoot] stop runtime KO :", error);
+        }
+      }
+      delete window.__KALY_MEMBERLIST_DIRECT_BOOT__;
+    }
+  };
+
+  if (document.readyState === "complete") {
+    schedule(700, "ready-complete");
+  } else {
+    window.addEventListener("load", function () {
+      schedule(700, "window-load");
+    }, { once: true });
+  }
+
+  schedule(1600, "fallback-1600");
+  schedule(3200, "fallback-3200");
+
+  console.log("[KalyMemberListDirectBoot] attente montage Fluxer", KALY_DIRECT_BOOT_VERSION);
 })();
