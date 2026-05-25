@@ -1,7 +1,7 @@
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.23-userprofile-modal-layer-fix";
+  var VERSION = "console-6.8.24-loader-one-shot-profile-direct";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -5888,7 +5888,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-member-click-router-native-first-api-fallback-1.0.0";
+  var VERSION = "kaly-member-click-router-api-direct-alt-native-1.1.0";
 
   if (window.__KALY_MERGED_MEMBER_CLICK_ROUTER__ && typeof window.__KALY_MERGED_MEMBER_CLICK_ROUTER__.stop === "function") {
     try {
@@ -5899,22 +5899,28 @@
   var controller = new AbortController();
 
   async function openMember(button, event) {
-    var nativeOk = false;
+    var wantsNative = Boolean(event && event.altKey);
 
-    if (!event.altKey && window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__ && typeof window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton === "function") {
+    /*
+      Chargement externe via Nginx/GitHub : le bridge natif peut attendre jusqu'à ~1,6 s
+      avant de tomber en fallback. Résultat visible : premier clic profil qui semble
+      « recharger ». Par défaut on ouvre donc directement notre ProfileCard API.
+      Alt+clic garde l'ancien test natif si besoin de debug.
+    */
+    if (wantsNative && window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__ && typeof window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton === "function") {
       try {
-        nativeOk = await window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton(button);
+        var nativeOk = await window.__KALY_NATIVE_PROFILE_CLICK_BRIDGE__.openFromKalyButton(button);
+        if (nativeOk) return true;
       } catch (errorNative) {
-        console.warn("[KalyMemberRouter] vraie ProfileCard native KO, fallback API :", errorNative);
-        nativeOk = false;
+        console.warn("[KalyMemberRouter] ProfileCard native KO, fallback API :", errorNative);
       }
     }
 
-    if (!nativeOk && window.KALY_FLUXER_PROFILECARD_API && typeof window.KALY_FLUXER_PROFILECARD_API.openFromButton === "function") {
-      return window.KALY_FLUXER_PROFILECARD_API.openFromButton(button, event);
+    if (window.KALY_FLUXER_PROFILECARD_API && typeof window.KALY_FLUXER_PROFILECARD_API.openFromButton === "function") {
+      return window.KALY_FLUXER_PROFILECARD_API.openFromButton(button, event || {});
     }
 
-    return nativeOk;
+    return false;
   }
 
   function onClick(event) {
@@ -5987,7 +5993,7 @@
     };
   }
 
-  console.log("[KalyMemberRouter] actif", VERSION, "Alt+clic = fallback API direct");
+  console.log("[KalyMemberRouter] actif", VERSION, "clic = API direct, Alt+clic = test natif");
 })();
 
 /* -------------------------------------------------------------------------- */
@@ -5996,7 +6002,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.18-userprofile-layer-click-json-fix";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.19-profile-direct-no-first-native-wait";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
