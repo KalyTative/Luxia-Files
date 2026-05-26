@@ -1,7 +1,7 @@
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.25-loader-low-layer-profile-direct";
+  var VERSION = "console-6.8.25-memberlist-low-layer-hard-fix";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -2894,7 +2894,7 @@
     style.id = "kaly-fluxer-memberlist-style";
 
     style.textContent = `
-#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:var(--kaly-memberlist-z-index,5);box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:1!important;box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
 #kaly-fluxer-memberlist-fix[data-kaly-force-hidden="1"],html[data-kaly-ml-route-visible="0"] #kaly-fluxer-memberlist-fix{display:none!important;visibility:hidden!important;pointer-events:none!important}
 #kaly-fluxer-memberlist-fix *{box-sizing:border-box}
 #kaly-fluxer-memberlist-fix .kml-header{height:62px;padding:12px 14px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,5,18,.24)}
@@ -2920,7 +2920,7 @@
 .kml-bot{display:inline-block;margin-left:4px;padding:1px 4px;border-radius:4px;font-size:9px;font-weight:900;line-height:1.2;color:#fff;background:#7c3aed;vertical-align:1px}
 #kaly-fluxer-memberlist-fix .kml-empty,#kaly-fluxer-memberlist-fix .kml-error{margin:12px;padding:10px;border-radius:12px;font-size:12px;line-height:1.45;color:#d9cff2;background:rgba(0,0,0,.22)}
 #kaly-fluxer-memberlist-fix .kml-error{color:#ffd7d7;background:rgba(185,28,28,.24)}
-#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:var(--kaly-memberlist-popout-z-index,6);border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:2!important;border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 #kaly-fluxer-memberlist-popout .kml-popout-banner{height:74px;background:radial-gradient(circle at 20% 25%,rgba(168,85,247,.85),transparent 32%),linear-gradient(135deg,#4c1d95,#1e102f 72%)}
 #kaly-fluxer-memberlist-popout .kml-popout-body{position:relative;padding:48px 14px 14px}
 #kaly-fluxer-memberlist-popout .kml-popout-avatar{width:72px;height:72px;position:absolute;top:-36px;left:14px;border-radius:50%;background:#130b1f;border:5px solid #171020;overflow:hidden}
@@ -2950,6 +2950,7 @@
     panel.setAttribute("aria-label", "Liste membres corrigée");
 
     document.body.appendChild(panel);
+    panel.style.setProperty("z-index", "1", "important");
     state.panel = panel;
 
     return panel;
@@ -2997,6 +2998,7 @@
       '</div>';
 
     document.body.appendChild(popout);
+    popout.style.setProperty("z-index", "2", "important");
 
     var width = 310;
     var left = Math.max(12, Math.min(window.innerWidth - width - 12, rect.left - width - 10));
@@ -3615,9 +3617,28 @@
     }
   };
 
-  await refresh();
+  window.KalyFluxerMemberListFix.forceLowLayer = function () {
+    var panel = document.querySelector("#kaly-fluxer-memberlist-fix");
+    var popout = document.querySelector("#kaly-fluxer-memberlist-popout");
 
-  console.log("[KalyMemberList] menu complet restauré", VERSION);
+    if (panel) {
+      panel.style.setProperty("z-index", "1", "important");
+    }
+
+    if (popout) {
+      popout.style.setProperty("z-index", "2", "important");
+    }
+
+    return {
+      panel: panel ? window.getComputedStyle(panel).zIndex : "missing",
+      popout: popout ? window.getComputedStyle(popout).zIndex : "missing"
+    };
+  };
+
+  await refresh();
+  window.KalyFluxerMemberListFix.forceLowLayer();
+
+  console.log("[KalyMemberList] menu complet restauré", VERSION, "layer bas actif");
 })();
 
 /* -------------------------------------------------------------------------- */
