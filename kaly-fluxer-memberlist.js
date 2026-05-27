@@ -5186,7 +5186,7 @@
   function kfpOfficialFluxerTeamBadge(bundle) {
     if (!kfpHasStaffUserFlag(bundle)) return "";
 
-    var label = "Equipe Fluxer";
+    var label = "STAFF";
     var href = ORIGIN + "/marketing/careers";
 
     return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
@@ -8007,7 +8007,7 @@
   function kfpOfficialFluxerTeamBadge(bundle) {
     if (!kfpHasStaffUserFlag(bundle)) return "";
 
-    var label = "Equipe Fluxer";
+    var label = "STAFF";
     var href = ORIGIN + "/marketing/careers";
 
     return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
