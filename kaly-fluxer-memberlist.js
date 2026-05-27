@@ -3626,7 +3626,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.5-staff-hitbox";
+  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.6-staff-strict-user-flags";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var API_BASE = (localStorage.getItem("kaly_fluxer_memberlist_api_base") || ORIGIN + "/api/v1").replace(/\/+$/, "");
 
@@ -5072,9 +5072,16 @@
     }
   }
 
-  function kfpFlagValueHasStaff(value, depth) {
+  function kfpFlagValueHasStaff(value, depth, path, seen) {
     depth = depth || 0;
-    if (depth > 5 || value === undefined || value === null || value === "") return false;
+    path = path || "";
+
+    /*
+      STRICT : ce badge ne se base QUE sur User Flags / public_flags / flags.
+      Pas de rôle "Staff", pas de badge SVG déjà rendu, pas de nom "Équipe Fluxer",
+      pas de cache manuel. Les pancakes peuvent tenter une diversion, mais non.
+    */
+    if (depth > 6 || value === undefined || value === null || value === "") return false;
 
     if (typeof value === "number" || typeof value === "bigint") {
       return kfpNumericFlagHasStaff(value);
@@ -5089,12 +5096,17 @@
 
     if (Array.isArray(value)) {
       for (var i = 0; i < value.length; i += 1) {
-        if (kfpFlagValueHasStaff(value[i], depth + 1)) return true;
+        if (kfpFlagValueHasStaff(value[i], depth + 1, path + "[" + i + "]", seen)) return true;
       }
+
       return false;
     }
 
     if (value && typeof value === "object") {
+      if (!seen) seen = new WeakSet();
+      if (seen.has(value)) return false;
+      seen.add(value);
+
       var keys = Object.keys(value);
 
       for (var j = 0; j < keys.length; j += 1) {
@@ -5104,26 +5116,55 @@
         if ((normalizedKey === "staff" || normalizedKey === "userflagsstaff") && kfpFlagTruthy(value[key])) {
           return true;
         }
+      }
 
-        if (
-          normalizedKey === "name" ||
-          normalizedKey === "flag" ||
-          normalizedKey === "type" ||
-          normalizedKey === "label" ||
-          normalizedKey === "id" ||
-          normalizedKey === "value"
-        ) {
-          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
-        }
+      var direct = firstValue(
+        value.name,
+        value.flag,
+        value.type,
+        value.label,
+        value.key,
+        value.code,
+        value.id,
+        value.value,
+        ""
+      );
 
-        if (
-          normalizedKey === "flags" ||
-          normalizedKey === "publicflags" ||
-          normalizedKey === "userflags" ||
-          normalizedKey === "userflagnames" ||
-          normalizedKey === "userflagsnames"
-        ) {
-          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
+      if (direct !== "" && kfpFlagValueHasStaff(direct, depth + 1, path + ".direct", seen)) {
+        var enabled = firstValue(
+          value.enabled,
+          value.active,
+          value.visible,
+          value.available,
+          value.is_enabled,
+          value.isEnabled,
+          true
+        );
+
+        return kfpFlagTruthy(enabled);
+      }
+
+      var allowedContainers = {
+        flags: true,
+        publicflags: true,
+        userflags: true,
+        userflagnames: true,
+        userflagsnames: true,
+        items: true,
+        data: true,
+        values: true,
+        results: true,
+        list: true
+      };
+
+      for (var k = 0; k < keys.length; k += 1) {
+        var childKey = keys[k];
+        var normalizedChildKey = normalizeText(childKey);
+
+        if (!allowedContainers[normalizedChildKey]) continue;
+
+        if (kfpFlagValueHasStaff(value[childKey], depth + 1, path ? path + "." + childKey : childKey, seen)) {
+          return true;
         }
       }
     }
@@ -5136,17 +5177,24 @@
 
     var parts = bundle.parts || {};
     var root = bundle.rawProfile || parts.root || {};
+    var rootData = root.data || root.result || root.item || {};
     var user = parts.user || {};
     var userProfile = parts.userProfile || {};
     var localMember = bundle.localMember || {};
     var localRaw = localMember.raw || {};
     var localUser = localMember.userRaw || localMember.user || {};
     var userResponseJson = bundle.userResponse && bundle.userResponse.json ? bundle.userResponse.json : {};
+    var userResponseData = userResponseJson.data || userResponseJson.result || userResponseJson.item || {};
+    var userResponseUser = userResponseJson.user || userResponseData.user || {};
 
     return [
       bundle.flags,
-      bundle.userFlags,
+      bundle.public_flags,
       bundle.publicFlags,
+      bundle.user_flags,
+      bundle.userFlags,
+      bundle.user_flags_names,
+      bundle.userFlagsNames,
       bundle.userFlagCandidates,
 
       root.flags,
@@ -5157,6 +5205,14 @@
       root.user_flags_names,
       root.userFlagsNames,
 
+      rootData.flags,
+      rootData.public_flags,
+      rootData.publicFlags,
+      rootData.user_flags,
+      rootData.userFlags,
+      rootData.user_flags_names,
+      rootData.userFlagsNames,
+
       root.user && root.user.flags,
       root.user && root.user.public_flags,
       root.user && root.user.publicFlags,
@@ -5164,6 +5220,14 @@
       root.user && root.user.userFlags,
       root.user && root.user.user_flags_names,
       root.user && root.user.userFlagsNames,
+
+      rootData.user && rootData.user.flags,
+      rootData.user && rootData.user.public_flags,
+      rootData.user && rootData.user.publicFlags,
+      rootData.user && rootData.user.user_flags,
+      rootData.user && rootData.user.userFlags,
+      rootData.user && rootData.user.user_flags_names,
+      rootData.user && rootData.user.userFlagsNames,
 
       user.flags,
       user.public_flags,
@@ -5189,36 +5253,63 @@
       userResponseJson.user_flags_names,
       userResponseJson.userFlagsNames,
 
+      userResponseData.flags,
+      userResponseData.public_flags,
+      userResponseData.publicFlags,
+      userResponseData.user_flags,
+      userResponseData.userFlags,
+      userResponseData.user_flags_names,
+      userResponseData.userFlagsNames,
+
+      userResponseUser.flags,
+      userResponseUser.public_flags,
+      userResponseUser.publicFlags,
+      userResponseUser.user_flags,
+      userResponseUser.userFlags,
+      userResponseUser.user_flags_names,
+      userResponseUser.userFlagsNames,
+
       localMember.flags,
       localMember.public_flags,
       localMember.publicFlags,
       localMember.user_flags,
       localMember.userFlags,
+      localMember.user_flags_names,
+      localMember.userFlagsNames,
 
       localRaw.flags,
       localRaw.public_flags,
       localRaw.publicFlags,
       localRaw.user_flags,
       localRaw.userFlags,
+      localRaw.user_flags_names,
+      localRaw.userFlagsNames,
+
       localRaw.user && localRaw.user.flags,
       localRaw.user && localRaw.user.public_flags,
       localRaw.user && localRaw.user.publicFlags,
       localRaw.user && localRaw.user.user_flags,
       localRaw.user && localRaw.user.userFlags,
+      localRaw.user && localRaw.user.user_flags_names,
+      localRaw.user && localRaw.user.userFlagsNames,
 
       localUser.flags,
       localUser.public_flags,
       localUser.publicFlags,
       localUser.user_flags,
-      localUser.userFlags
+      localUser.userFlags,
+      localUser.user_flags_names,
+      localUser.userFlagsNames
     ];
   }
 
   function kfpHasStaffUserFlag(bundle) {
+    if (!bundle) return false;
+
     var candidates = kfpStaffFlagCandidates(bundle);
 
     for (var i = 0; i < candidates.length; i += 1) {
-      if (kfpFlagValueHasStaff(candidates[i], 0)) return true;
+      if (kfpFlagValueHasStaff(candidates[i], 0, "candidate[" + i + "]")) return true;
     }
 
     return false;
@@ -6381,7 +6472,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.24-staff-hitbox";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.25-staff-strict-user-flags";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -6415,7 +6506,7 @@
   var lastBundle = null;
   var lastError = null;
   var lastRequests = [];
-  var STAFF_FLAG_CACHE_KEY = "kaly_fluxer_staff_flag_cache_v1";
+  var STAFF_FLAG_CACHE_KEY = "kaly_fluxer_staff_flag_cache_v2_strict_user_flags";
   var STAFF_FLAG_OVERRIDE_KEY = "kaly_fluxer_staff_user_ids";
 
   function text(value) {
@@ -7905,19 +7996,29 @@
     depth = depth || 0;
     path = path || "";
 
-    if (depth > 8 || value === undefined || value === null || value === "") return false;
+    /*
+      STRICT : ce badge ne se base QUE sur User Flags / public_flags / flags.
+      Pas de rôle "Staff", pas de badge SVG déjà rendu, pas de nom "Équipe Fluxer",
+      pas de cache manuel. Les pancakes peuvent tenter une diversion, mais non.
+    */
+    if (depth > 6 || value === undefined || value === null || value === "") return false;
 
-    if (typeof value === "number" || typeof value === "bigint") return kfpNumericFlagHasStaff(value);
+    if (typeof value === "number" || typeof value === "bigint") {
+      return kfpNumericFlagHasStaff(value);
+    }
 
     if (typeof value === "string") {
       if (kfpNumericFlagHasStaff(value)) return true;
-      return kfpStringLooksLikeStaffBadge(value, path);
+
+      var normalized = normalizeText(value);
+      return normalized === "staff" || normalized === "userflagsstaff";
     }
 
     if (Array.isArray(value)) {
       for (var i = 0; i < value.length; i += 1) {
         if (kfpFlagValueHasStaff(value[i], depth + 1, path + "[" + i + "]", seen)) return true;
       }
+
       return false;
     }
 
@@ -7930,29 +8031,60 @@
 
       for (var j = 0; j < keys.length; j += 1) {
         var key = keys[j];
-        var nextPath = path ? path + "." + key : key;
         var normalizedKey = normalizeText(key);
-        var item = value[key];
 
-        if ((normalizedKey === "staff" || normalizedKey === "userflagsstaff") && kfpFlagTruthy(item)) return true;
+        if ((normalizedKey === "staff" || normalizedKey === "userflagsstaff") && kfpFlagTruthy(value[key])) {
+          return true;
+        }
+      }
 
-        if (
-          normalizedKey === "name" ||
-          normalizedKey === "flag" ||
-          normalizedKey === "type" ||
-          normalizedKey === "label" ||
-          normalizedKey === "id" ||
-          normalizedKey === "value" ||
-          normalizedKey === "url" ||
-          normalizedKey === "src" ||
-          normalizedKey === "icon" ||
-          normalizedKey === "asset" ||
-          normalizedKey === "image" ||
-          normalizedKey === "alt" ||
-          normalizedKey === "ariaLabel" ||
-          kfpPathCanContainOfficialBadge(nextPath)
-        ) {
-          if (kfpFlagValueHasStaff(item, depth + 1, nextPath, seen)) return true;
+      var direct = firstValue(
+        value.name,
+        value.flag,
+        value.type,
+        value.label,
+        value.key,
+        value.code,
+        value.id,
+        value.value,
+        ""
+      );
+
+      if (direct !== "" && kfpFlagValueHasStaff(direct, depth + 1, path + ".direct", seen)) {
+        var enabled = firstValue(
+          value.enabled,
+          value.active,
+          value.visible,
+          value.available,
+          value.is_enabled,
+          value.isEnabled,
+          true
+        );
+
+        return kfpFlagTruthy(enabled);
+      }
+
+      var allowedContainers = {
+        flags: true,
+        publicflags: true,
+        userflags: true,
+        userflagnames: true,
+        userflagsnames: true,
+        items: true,
+        data: true,
+        values: true,
+        results: true,
+        list: true
+      };
+
+      for (var k = 0; k < keys.length; k += 1) {
+        var childKey = keys[k];
+        var normalizedChildKey = normalizeText(childKey);
+
+        if (!allowedContainers[normalizedChildKey]) continue;
+
+        if (kfpFlagValueHasStaff(value[childKey], depth + 1, path ? path + "." + childKey : childKey, seen)) {
+          return true;
         }
       }
     }
@@ -7965,27 +8097,25 @@
 
     var parts = bundle.parts || {};
     var root = bundle.rawProfile || parts.root || {};
+    var rootData = root.data || root.result || root.item || {};
     var user = parts.user || {};
     var userProfile = parts.userProfile || {};
     var localMember = bundle.localMember || {};
     var localRaw = localMember.raw || {};
     var localUser = localMember.userRaw || localMember.user || {};
     var userResponseJson = bundle.userResponse && bundle.userResponse.json ? bundle.userResponse.json : {};
-    var probe = bundle.staffProbe || {};
+    var userResponseData = userResponseJson.data || userResponseJson.result || userResponseJson.item || {};
+    var userResponseUser = userResponseJson.user || userResponseData.user || {};
 
     return [
-      bundle.staffFlagProbeHit,
       bundle.flags,
-      bundle.userFlags,
+      bundle.public_flags,
       bundle.publicFlags,
+      bundle.user_flags,
+      bundle.userFlags,
+      bundle.user_flags_names,
+      bundle.userFlagsNames,
       bundle.userFlagCandidates,
-      bundle.badges,
-      bundle.userBadges,
-      bundle.profileBadges,
-      bundle.badgeCandidates,
-
-      probe.hasStaff,
-      probe.jsons,
 
       root.flags,
       root.public_flags,
@@ -7994,11 +8124,14 @@
       root.userFlags,
       root.user_flags_names,
       root.userFlagsNames,
-      root.badges,
-      root.user_badges,
-      root.userBadges,
-      root.profile_badges,
-      root.profileBadges,
+
+      rootData.flags,
+      rootData.public_flags,
+      rootData.publicFlags,
+      rootData.user_flags,
+      rootData.userFlags,
+      rootData.user_flags_names,
+      rootData.userFlagsNames,
 
       root.user && root.user.flags,
       root.user && root.user.public_flags,
@@ -8007,9 +8140,14 @@
       root.user && root.user.userFlags,
       root.user && root.user.user_flags_names,
       root.user && root.user.userFlagsNames,
-      root.user && root.user.badges,
-      root.user && root.user.user_badges,
-      root.user && root.user.userBadges,
+
+      rootData.user && rootData.user.flags,
+      rootData.user && rootData.user.public_flags,
+      rootData.user && rootData.user.publicFlags,
+      rootData.user && rootData.user.user_flags,
+      rootData.user && rootData.user.userFlags,
+      rootData.user && rootData.user.user_flags_names,
+      rootData.user && rootData.user.userFlagsNames,
 
       user.flags,
       user.public_flags,
@@ -8018,11 +8156,6 @@
       user.userFlags,
       user.user_flags_names,
       user.userFlagsNames,
-      user.badges,
-      user.user_badges,
-      user.userBadges,
-      user.profile_badges,
-      user.profileBadges,
 
       userProfile.flags,
       userProfile.public_flags,
@@ -8031,11 +8164,6 @@
       userProfile.userFlags,
       userProfile.user_flags_names,
       userProfile.userFlagsNames,
-      userProfile.badges,
-      userProfile.user_badges,
-      userProfile.userBadges,
-      userProfile.profile_badges,
-      userProfile.profileBadges,
 
       userResponseJson.flags,
       userResponseJson.public_flags,
@@ -8044,76 +8172,64 @@
       userResponseJson.userFlags,
       userResponseJson.user_flags_names,
       userResponseJson.userFlagsNames,
-      userResponseJson.badges,
-      userResponseJson.user_badges,
-      userResponseJson.userBadges,
-      userResponseJson.profile_badges,
-      userResponseJson.profileBadges,
-      userResponseJson.user && userResponseJson.user.flags,
-      userResponseJson.user && userResponseJson.user.public_flags,
-      userResponseJson.user && userResponseJson.user.publicFlags,
-      userResponseJson.user && userResponseJson.user.user_flags,
-      userResponseJson.user && userResponseJson.user.userFlags,
-      userResponseJson.user && userResponseJson.user.badges,
+
+      userResponseData.flags,
+      userResponseData.public_flags,
+      userResponseData.publicFlags,
+      userResponseData.user_flags,
+      userResponseData.userFlags,
+      userResponseData.user_flags_names,
+      userResponseData.userFlagsNames,
+
+      userResponseUser.flags,
+      userResponseUser.public_flags,
+      userResponseUser.publicFlags,
+      userResponseUser.user_flags,
+      userResponseUser.userFlags,
+      userResponseUser.user_flags_names,
+      userResponseUser.userFlagsNames,
 
       localMember.flags,
       localMember.public_flags,
       localMember.publicFlags,
       localMember.user_flags,
       localMember.userFlags,
-      localMember.badges,
-      localMember.user_badges,
-      localMember.userBadges,
+      localMember.user_flags_names,
+      localMember.userFlagsNames,
 
       localRaw.flags,
       localRaw.public_flags,
       localRaw.publicFlags,
       localRaw.user_flags,
       localRaw.userFlags,
-      localRaw.badges,
-      localRaw.user_badges,
-      localRaw.userBadges,
+      localRaw.user_flags_names,
+      localRaw.userFlagsNames,
+
       localRaw.user && localRaw.user.flags,
       localRaw.user && localRaw.user.public_flags,
       localRaw.user && localRaw.user.publicFlags,
       localRaw.user && localRaw.user.user_flags,
       localRaw.user && localRaw.user.userFlags,
-      localRaw.user && localRaw.user.badges,
+      localRaw.user && localRaw.user.user_flags_names,
+      localRaw.user && localRaw.user.userFlagsNames,
 
       localUser.flags,
       localUser.public_flags,
       localUser.publicFlags,
       localUser.user_flags,
       localUser.userFlags,
-      localUser.badges,
-      localUser.user_badges,
-      localUser.userBadges
+      localUser.user_flags_names,
+      localUser.userFlagsNames
     ];
   }
 
   function kfpHasStaffUserFlag(bundle) {
     if (!bundle) return false;
-    if (hasStaffOverride(bundle.id)) return true;
-    if (bundle.staffFlagProbeHit === true) return true;
 
     var candidates = kfpStaffFlagCandidates(bundle);
 
     for (var i = 0; i < candidates.length; i += 1) {
       if (kfpFlagValueHasStaff(candidates[i], 0, "candidate[" + i + "]")) return true;
-    }
-
-    /* Scan contrôlé : on ne valide que les chemins flag/badge, pas un rôle appelé Staff. */
-    var containers = [
-      bundle.rawProfile,
-      bundle.userResponse && bundle.userResponse.json,
-      bundle.parts && bundle.parts.user,
-      bundle.parts && bundle.parts.userProfile,
-      bundle.localMember && bundle.localMember.userRaw,
-      bundle.localMember && bundle.localMember.raw && bundle.localMember.raw.user
-    ];
-
-    for (var j = 0; j < containers.length; j += 1) {
-      if (kfpFlagValueHasStaff(containers[j], 0, "deep" + j)) return true;
     }
 
     return false;
@@ -8123,10 +8239,6 @@
     userId = text(userId);
     guildId = text(guildId || getGuildId());
     if (!userId) return { hasStaff: false, source: "missing-user-id", jsons: [] };
-
-    if (hasStaffOverride(userId)) {
-      return { hasStaff: true, source: "manual-override", jsons: [] };
-    }
 
     var cache = loadStaffFlagCache();
     var cached = cache[userId];
@@ -8152,8 +8264,21 @@
 
       if (response && response.json) {
         jsons.push(response.json);
-        if (kfpFlagValueHasStaff(response.json, 0, "probe." + paths[i])) {
-          cache[userId] = { hasStaff: true, updatedAt: now, jsons: jsons.slice(0, 2), requests: requests };
+
+        var probeBundle = {
+          flags: response.json.flags,
+          public_flags: response.json.public_flags,
+          publicFlags: response.json.publicFlags,
+          user_flags: response.json.user_flags,
+          userFlags: response.json.userFlags,
+          user_flags_names: response.json.user_flags_names,
+          userFlagsNames: response.json.userFlagsNames,
+          rawProfile: response.json,
+          userResponse: response
+        };
+
+        if (kfpHasStaffUserFlag(probeBundle)) {
+          cache[userId] = { hasStaff: true, updatedAt: now, jsons: jsons.slice(0, 2), requests: requests, source: paths[i] };
           saveStaffFlagCache(cache);
           return { hasStaff: true, source: paths[i], jsons: jsons, requests: requests };
         }
@@ -8178,6 +8303,10 @@
       var probe = await fetchStaffFlagProbe(bundle.id, getGuildId());
       bundle.staffProbe = probe;
       bundle.staffFlagProbeHit = Boolean(probe && probe.hasStaff);
+
+      if (bundle.staffFlagProbeHit && !kfpHasStaffUserFlag(bundle)) {
+        bundle.user_flags_names = ["STAFF"];
+      }
     } catch (error) {
       bundle.staffProbe = { hasStaff: false, source: "probe-error", error: text(error && error.message ? error.message : error) };
       bundle.staffFlagProbeHit = false;
@@ -9500,14 +9629,8 @@
       };
     },
     forceStaffBadge: function (nameOrId) {
-      var member = findMember(nameOrId);
-      var id = member ? member.id : text(nameOrId);
-      if (!id) return false;
-      setStaffOverride(id, true);
-      var cache = loadStaffFlagCache();
-      cache[id] = { hasStaff: true, updatedAt: Date.now(), source: "manual-override" };
-      saveStaffFlagCache(cache);
-      return true;
+      console.warn("[KalyProfileCard] forceStaffBadge est désactivé : le badge STAFF dépend uniquement de User Flags STAFF.");
+      return false;
     },
     clearStaffBadge: function (nameOrId) {
       var member = findMember(nameOrId);
