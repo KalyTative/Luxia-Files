@@ -1,7 +1,7 @@
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.24-loader-one-shot-profile-direct";
+  var VERSION = "console-6.8.25-loader-low-layer-profile-direct";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -2894,7 +2894,7 @@
     style.id = "kaly-fluxer-memberlist-style";
 
     style.textContent = `
-#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:2147483000;box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+#kaly-fluxer-memberlist-fix{position:fixed;top:${CONFIG.topOffset}px;right:0;bottom:0;width:${CONFIG.panelWidth}px;z-index:var(--kaly-memberlist-z-index,5);box-sizing:border-box;background:#241735;color:#eee8ff;border-left:1px solid rgba(255,255,255,.07);box-shadow:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
 #kaly-fluxer-memberlist-fix[data-kaly-force-hidden="1"],html[data-kaly-ml-route-visible="0"] #kaly-fluxer-memberlist-fix{display:none!important;visibility:hidden!important;pointer-events:none!important}
 #kaly-fluxer-memberlist-fix *{box-sizing:border-box}
 #kaly-fluxer-memberlist-fix .kml-header{height:62px;padding:12px 14px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,5,18,.24)}
@@ -2920,7 +2920,7 @@
 .kml-bot{display:inline-block;margin-left:4px;padding:1px 4px;border-radius:4px;font-size:9px;font-weight:900;line-height:1.2;color:#fff;background:#7c3aed;vertical-align:1px}
 #kaly-fluxer-memberlist-fix .kml-empty,#kaly-fluxer-memberlist-fix .kml-error{margin:12px;padding:10px;border-radius:12px;font-size:12px;line-height:1.45;color:#d9cff2;background:rgba(0,0,0,.22)}
 #kaly-fluxer-memberlist-fix .kml-error{color:#ffd7d7;background:rgba(185,28,28,.24)}
-#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:2147483100;border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#kaly-fluxer-memberlist-popout{position:fixed;width:310px;z-index:var(--kaly-memberlist-popout-z-index,6);border-radius:18px;overflow:hidden;color:#f5efff;background:#171020;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 72px rgba(0,0,0,.55);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 #kaly-fluxer-memberlist-popout .kml-popout-banner{height:74px;background:radial-gradient(circle at 20% 25%,rgba(168,85,247,.85),transparent 32%),linear-gradient(135deg,#4c1d95,#1e102f 72%)}
 #kaly-fluxer-memberlist-popout .kml-popout-body{position:relative;padding:48px 14px 14px}
 #kaly-fluxer-memberlist-popout .kml-popout-avatar{width:72px;height:72px;position:absolute;top:-36px;left:14px;border-radius:50%;background:#130b1f;border:5px solid #171020;overflow:hidden}
@@ -3626,7 +3626,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.1-spa-dm";
+  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.3-official-staff-badge";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var API_BASE = (localStorage.getItem("kaly_fluxer_memberlist_api_base") || ORIGIN + "/api/v1").replace(/\/+$/, "");
 
@@ -4642,18 +4642,34 @@
   border-radius:999px;
   background:var(--text-muted,#80848e);
 }
-#${ROOT_ID} .kfp-badges{
+#${ROOT_ID} .kfp-badges,
+#${ROOT_ID} .UserProfileBadges\.module__containerPopout___ZjBjOw{
   display:flex;
   justify-content:flex-end;
+  align-items:center;
+  gap:4px;
   min-height:24px;
   padding:0 14px;
   margin-top:-26px;
-  pointer-events:none;
+  pointer-events:auto;
 }
-#${ROOT_ID} .kfp-badge{
-  font-size:18px;
-  line-height:1;
-  filter:drop-shadow(0 2px 3px rgba(0,0,0,.45));
+#${ROOT_ID} .kfp-official-badge-link,
+#${ROOT_ID} .UserProfileBadges\.module__link___ZjBjOw{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  text-decoration:none;
+  pointer-events:auto;
+}
+#${ROOT_ID} .kfp-official-badge-img,
+#${ROOT_ID} .UserProfileBadges\.module__badgeDesktop___ZjBjOw{
+  display:block;
+  width:22px;
+  height:22px;
+  object-fit:contain;
 }
 #${ROOT_ID} .kfp-content{
   overflow:auto;
@@ -4943,6 +4959,70 @@
     }).join("");
   }
 
+  function kfpRoleDisplayName(role) {
+    return text(firstValue(
+      role && role.name,
+      role && role.title,
+      role && role.label,
+      role && role.id,
+      ""
+    )).trim();
+  }
+
+  function kfpFindFluxerTeamRole(bundle) {
+    var roles = [];
+
+    if (bundle && Array.isArray(bundle.roles)) {
+      roles = roles.concat(bundle.roles);
+    }
+
+    if (bundle && bundle.localMember && Array.isArray(bundle.localMember.roleObjects)) {
+      roles = roles.concat(bundle.localMember.roleObjects);
+    }
+
+    for (var i = 0; i < roles.length; i += 1) {
+      var role = roles[i] || {};
+      var name = kfpRoleDisplayName(role);
+      var normalized = normalizeText(name);
+
+      if (!normalized) continue;
+
+      if (
+        normalized === "equipefluxer" ||
+        normalized === "fluxerequipe" ||
+        normalized === "fluxerteam" ||
+        normalized === "teamfluxer" ||
+        normalized === "fluxerstaff" ||
+        normalized === "stafffluxer" ||
+        (normalized.indexOf("fluxer") !== -1 && (
+          normalized.indexOf("equipe") !== -1 ||
+          normalized.indexOf("team") !== -1 ||
+          normalized.indexOf("staff") !== -1
+        ))
+      ) {
+        return role;
+      }
+    }
+
+    return null;
+  }
+
+  function kfpOfficialFluxerTeamBadge(bundle) {
+    var fluxerTeamRole = kfpFindFluxerTeamRole(bundle);
+    if (!fluxerTeamRole) return "";
+
+    var label = kfpRoleDisplayName(fluxerTeamRole) || "Equipe Fluxer";
+    var href = ORIGIN + "/marketing/careers";
+
+    return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
+      '<img class="UserProfileBadges.module__badgeDesktop___ZjBjOw kfp-official-badge-img" alt="' + escapeHtml(label) + '" src="https://fluxerstatic.com/badges/staff.svg">' +
+      '</a>';
+  }
+
+  function badgeMarkup(bundle) {
+    return kfpOfficialFluxerTeamBadge(bundle);
+  }
+
   function bioSection(bundle) {
     if (!bundle.bio) return "";
 
@@ -5032,7 +5112,7 @@
       '</button>' +
       '</header>' +
 
-      '<div class="kfp-badges"><span class="kfp-badge">🦋</span></div>' +
+      '<div class="kfp-badges UserProfileBadges.module__containerPopout___ZjBjOw">' + badgeMarkup(bundle) + '</div>' +
 
       '<div class="kfp-content">' +
       '<div class="kfp-user-info">' +
@@ -6002,7 +6082,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.19-profile-direct-no-first-native-wait";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.21-official-staff-badge";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -7144,8 +7224,9 @@
 #${ROOT_ID} .kfp-img-fallback{width:80px;height:80px;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:linear-gradient(135deg,var(--kfp-accent,#7c3aed),#21152f);color:#fff;font-size:31px;font-weight:850}
 #${ROOT_ID} .kfp-status-container{position:absolute;right:2px;bottom:2px;display:flex;align-items:center;justify-content:center;width:18px;height:18px;padding:3px;border-radius:999px;background:var(--background-primary,#181025);pointer-events:none}
 #${ROOT_ID} .kfp-status-dot{width:12px;height:12px;border-radius:999px;background:var(--text-muted,#80848e)}
-#${ROOT_ID} .kfp-badges{display:flex;justify-content:flex-end;align-items:center;gap:4px;min-height:22px;padding:0 1rem;margin-top:-24px;pointer-events:none}
-#${ROOT_ID} .kfp-badge{display:inline-flex;align-items:center;justify-content:center;height:20px;min-width:20px;padding:0 5px;border-radius:999px;background:rgba(0,0,0,.34);color:#fff;font-size:11px;font-weight:850;line-height:1;box-shadow:0 2px 5px rgba(0,0,0,.3)}
+#${ROOT_ID} .kfp-badges,#${ROOT_ID} .UserProfileBadges\.module__containerPopout___ZjBjOw{display:flex;justify-content:flex-end;align-items:center;gap:4px;min-height:22px;padding:0 1rem;margin-top:-24px;pointer-events:auto}
+#${ROOT_ID} .kfp-official-badge-link,#${ROOT_ID} .UserProfileBadges\.module__link___ZjBjOw{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:999px;text-decoration:none;pointer-events:auto}
+#${ROOT_ID} .kfp-official-badge-img,#${ROOT_ID} .UserProfileBadges\.module__badgeDesktop___ZjBjOw{display:block;width:22px;height:22px;object-fit:contain}
 #${ROOT_ID} .kfp-content{display:flex;flex-direction:column;gap:.5rem;overflow:auto;padding-top:.5rem;padding-left:1rem;padding-right:1rem;scrollbar-width:thin;min-height:0}
 #${ROOT_ID} .kfp-user-info{user-select:text;-webkit-user-select:text}
 #${ROOT_ID} .kfp-name-row{display:flex;align-items:center;gap:.125rem;min-width:0}
@@ -7287,16 +7368,68 @@
     return '<div class="kfp-banner" style="background:' + gradient + '">' + img + '</div>';
   }
 
+  function kfpRoleDisplayName(role) {
+    return text(firstValue(
+      role && role.name,
+      role && role.title,
+      role && role.label,
+      role && role.id,
+      ""
+    )).trim();
+  }
+
+  function kfpFindFluxerTeamRole(bundle) {
+    var roles = [];
+
+    if (bundle && Array.isArray(bundle.roles)) {
+      roles = roles.concat(bundle.roles);
+    }
+
+    if (bundle && bundle.localMember && Array.isArray(bundle.localMember.roleObjects)) {
+      roles = roles.concat(bundle.localMember.roleObjects);
+    }
+
+    for (var i = 0; i < roles.length; i += 1) {
+      var role = roles[i] || {};
+      var name = kfpRoleDisplayName(role);
+      var normalized = normalizeText(name);
+
+      if (!normalized) continue;
+
+      if (
+        normalized === "equipefluxer" ||
+        normalized === "fluxerequipe" ||
+        normalized === "fluxerteam" ||
+        normalized === "teamfluxer" ||
+        normalized === "fluxerstaff" ||
+        normalized === "stafffluxer" ||
+        (normalized.indexOf("fluxer") !== -1 && (
+          normalized.indexOf("equipe") !== -1 ||
+          normalized.indexOf("team") !== -1 ||
+          normalized.indexOf("staff") !== -1
+        ))
+      ) {
+        return role;
+      }
+    }
+
+    return null;
+  }
+
+  function kfpOfficialFluxerTeamBadge(bundle) {
+    var fluxerTeamRole = kfpFindFluxerTeamRole(bundle);
+    if (!fluxerTeamRole) return "";
+
+    var label = kfpRoleDisplayName(fluxerTeamRole) || "Equipe Fluxer";
+    var href = ORIGIN + "/marketing/careers";
+
+    return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
+      '<img class="UserProfileBadges.module__badgeDesktop___ZjBjOw kfp-official-badge-img" alt="' + escapeHtml(label) + '" src="https://fluxerstatic.com/badges/staff.svg">' +
+      '</a>';
+  }
+
   function badgeMarkup(bundle) {
-    var badges = [];
-    if (bundle.bot) badges.push("BOT");
-    if (bundle.system) badges.push("SYS");
-    if (Number(bundle.premiumType || 0) > 0 || bundle.premiumSince || bundle.premiumLifetimeSequence) badges.push("✦");
-    if (bundle.connectedAccounts.length) badges.push("🔗 " + bundle.connectedAccounts.length);
-    if (!badges.length) return '<span class="kfp-badge">🦋</span>';
-    return badges.map(function (badge) {
-      return '<span class="kfp-badge">' + escapeHtml(badge) + '</span>';
-    }).join("");
+    return kfpOfficialFluxerTeamBadge(bundle);
   }
 
   function userInfoMarkup(bundle) {
@@ -7420,7 +7553,7 @@
       '<div class="kfp-avatar">' + avatarMarkup(bundle) + '<div class="kfp-status-container" role="img" aria-label="' + escapeHtml(statusLabel(bundle.status)) + '"><span class="kfp-status-dot" style="background:' + escapeHtml(statusColor(bundle.status)) + '"></span></div></div>' +
       '</button>' +
       '</header>' +
-      '<div class="kfp-badges">' + (bundle.isGlobalProfile ? '<span class="kfp-badge">GLOBAL</span>' : '') + badgeMarkup(bundle) + '</div>' +
+      '<div class="kfp-badges UserProfileBadges.module__containerPopout___ZjBjOw">' + badgeMarkup(bundle) + '</div>' +
       '<div class="kfp-content">' +
       userInfoMarkup(bundle) +
       customStatusSection(bundle) +
