@@ -6344,6 +6344,58 @@
     return out;
   }
 
+  function loadStaffFlagCache() {
+    try {
+      var raw = localStorage.getItem(STAFF_FLAG_CACHE_KEY);
+      var parsed = raw ? JSON.parse(raw) : {};
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function saveStaffFlagCache(cache) {
+    try {
+      localStorage.setItem(STAFF_FLAG_CACHE_KEY, JSON.stringify(cache || {}));
+    } catch (error) {}
+  }
+
+  function readStaffOverrideIds() {
+    var raw = text(localStorage.getItem(STAFF_FLAG_OVERRIDE_KEY) || "").trim();
+    if (!raw) return [];
+
+    try {
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return unique(parsed.map(text).filter(Boolean));
+    } catch (error) {}
+
+    return unique(raw.split(/[\s,;]+/).map(text).filter(Boolean));
+  }
+
+  function writeStaffOverrideIds(ids) {
+    try {
+      localStorage.setItem(STAFF_FLAG_OVERRIDE_KEY, JSON.stringify(unique((ids || []).map(text).filter(Boolean))));
+    } catch (error) {}
+  }
+
+  function hasStaffOverride(userId) {
+    userId = text(userId);
+    return readStaffOverrideIds().indexOf(userId) !== -1;
+  }
+
+  function setStaffOverride(userId, enabled) {
+    userId = text(userId);
+    if (!userId) return false;
+
+    var ids = readStaffOverrideIds().filter(function (id) {
+      return id !== userId;
+    });
+
+    if (enabled !== false) ids.push(userId);
+    writeStaffOverrideIds(ids);
+    return true;
+  }
+
   function parseCookie(name) {
     var escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     var match = document.cookie.match(new RegExp("(?:^|; )" + escaped + "=([^;]*)"));
