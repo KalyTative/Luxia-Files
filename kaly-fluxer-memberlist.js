@@ -6257,7 +6257,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.22-user-flags-staff-badge";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.23-staff-badge-deep-probe";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -6291,6 +6291,8 @@
   var lastBundle = null;
   var lastError = null;
   var lastRequests = [];
+  var STAFF_FLAG_CACHE_KEY = "kaly_fluxer_staff_flag_cache_v1";
+  var STAFF_FLAG_OVERRIDE_KEY = "kaly_fluxer_staff_user_ids";
 
   function text(value) {
     if (value === undefined || value === null) return "";
@@ -7639,9 +7641,8 @@
     if (value === true) return true;
     if (value === false || value === undefined || value === null) return false;
 
-    if (typeof value === "number") {
-      return Number.isFinite(value) && value !== 0;
-    }
+    if (typeof value === "number") return Number.isFinite(value) && value !== 0;
+    if (typeof value === "bigint") return value !== 0n;
 
     var raw = text(value).trim().toLowerCase();
     if (!raw || raw === "0" || raw === "false" || raw === "no" || raw === "non" || raw === "null" || raw === "undefined") return false;
@@ -7652,10 +7653,17 @@
   function kfpNumericFlagHasStaff(value) {
     if (value === undefined || value === null || value === "") return false;
 
+    /*
+      Fluxer peut exposer les flags en int, string ou BigInt-like.
+      STAFF est traité comme bit 0 quand un bitfield est réellement renvoyé.
+      Si le serveur masque les flags publics, cette détection ne peut rien inventer.
+    */
     if (typeof value === "number") {
       if (!Number.isFinite(value)) return false;
       return (Math.floor(value) & 1) === 1;
     }
+
+    if (typeof value === "bigint") return (value & 1n) === 1n;
 
     var raw = text(value).trim();
     if (!/^\d+$/.test(raw)) return false;
@@ -7668,38 +7676,83 @@
     }
   }
 
-  function kfpFlagValueHasStaff(value, depth) {
-    depth = depth || 0;
-    if (depth > 5 || value === undefined || value === null || value === "") return false;
+  function kfpPathCanContainOfficialBadge(path) {
+    var normalized = normalizeText(path || "");
 
-    if (typeof value === "number" || typeof value === "bigint") {
-      return kfpNumericFlagHasStaff(value);
+    return (
+      normalized.indexOf("flag") !== -1 ||
+      normalized.indexOf("badge") !== -1 ||
+      normalized.indexOf("profileeffect") !== -1 ||
+      normalized.indexOf("userprofile") !== -1 ||
+      normalized.indexOf("publicprofile") !== -1
+    );
+  }
+
+  function kfpStringLooksLikeStaffBadge(value, path) {
+    var raw = text(value).trim();
+    if (!raw) return false;
+
+    var lower = raw.toLowerCase();
+    var normalized = normalizeText(raw);
+    var pathOk = kfpPathCanContainOfficialBadge(path);
+
+    if (lower.indexOf("/badges/staff.svg") !== -1) return true;
+    if (lower.indexOf("badges/staff.svg") !== -1) return true;
+    if (lower.indexOf("staff.svg") !== -1 && pathOk) return true;
+
+    if (
+      normalized === "staff" ||
+      normalized === "userflagsstaff" ||
+      normalized === "equipefluxer" ||
+      normalized === "equipfluxer" ||
+      normalized === "fluxerstaff" ||
+      normalized === "stafffluxer" ||
+      normalized === "fluxerteam"
+    ) {
+      return pathOk;
     }
+
+    if (pathOk && normalized.indexOf("equipefluxer") !== -1) return true;
+    if (pathOk && normalized.indexOf("equipfluxer") !== -1) return true;
+    if (pathOk && normalized.indexOf("fluxerstaff") !== -1) return true;
+
+    return false;
+  }
+
+  function kfpFlagValueHasStaff(value, depth, path, seen) {
+    depth = depth || 0;
+    path = path || "";
+
+    if (depth > 8 || value === undefined || value === null || value === "") return false;
+
+    if (typeof value === "number" || typeof value === "bigint") return kfpNumericFlagHasStaff(value);
 
     if (typeof value === "string") {
       if (kfpNumericFlagHasStaff(value)) return true;
-
-      var normalized = normalizeText(value);
-      return normalized === "staff" || normalized === "userflagsstaff";
+      return kfpStringLooksLikeStaffBadge(value, path);
     }
 
     if (Array.isArray(value)) {
       for (var i = 0; i < value.length; i += 1) {
-        if (kfpFlagValueHasStaff(value[i], depth + 1)) return true;
+        if (kfpFlagValueHasStaff(value[i], depth + 1, path + "[" + i + "]", seen)) return true;
       }
       return false;
     }
 
     if (value && typeof value === "object") {
+      if (!seen) seen = new WeakSet();
+      if (seen.has(value)) return false;
+      seen.add(value);
+
       var keys = Object.keys(value);
 
       for (var j = 0; j < keys.length; j += 1) {
         var key = keys[j];
+        var nextPath = path ? path + "." + key : key;
         var normalizedKey = normalizeText(key);
+        var item = value[key];
 
-        if ((normalizedKey === "staff" || normalizedKey === "userflagsstaff") && kfpFlagTruthy(value[key])) {
-          return true;
-        }
+        if ((normalizedKey === "staff" || normalizedKey === "userflagsstaff") && kfpFlagTruthy(item)) return true;
 
         if (
           normalizedKey === "name" ||
@@ -7707,19 +7760,17 @@
           normalizedKey === "type" ||
           normalizedKey === "label" ||
           normalizedKey === "id" ||
-          normalizedKey === "value"
+          normalizedKey === "value" ||
+          normalizedKey === "url" ||
+          normalizedKey === "src" ||
+          normalizedKey === "icon" ||
+          normalizedKey === "asset" ||
+          normalizedKey === "image" ||
+          normalizedKey === "alt" ||
+          normalizedKey === "ariaLabel" ||
+          kfpPathCanContainOfficialBadge(nextPath)
         ) {
-          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
-        }
-
-        if (
-          normalizedKey === "flags" ||
-          normalizedKey === "publicflags" ||
-          normalizedKey === "userflags" ||
-          normalizedKey === "userflagnames" ||
-          normalizedKey === "userflagsnames"
-        ) {
-          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
+          if (kfpFlagValueHasStaff(item, depth + 1, nextPath, seen)) return true;
         }
       }
     }
@@ -7738,12 +7789,21 @@
     var localRaw = localMember.raw || {};
     var localUser = localMember.userRaw || localMember.user || {};
     var userResponseJson = bundle.userResponse && bundle.userResponse.json ? bundle.userResponse.json : {};
+    var probe = bundle.staffProbe || {};
 
     return [
+      bundle.staffFlagProbeHit,
       bundle.flags,
       bundle.userFlags,
       bundle.publicFlags,
       bundle.userFlagCandidates,
+      bundle.badges,
+      bundle.userBadges,
+      bundle.profileBadges,
+      bundle.badgeCandidates,
+
+      probe.hasStaff,
+      probe.jsons,
 
       root.flags,
       root.public_flags,
@@ -7752,6 +7812,11 @@
       root.userFlags,
       root.user_flags_names,
       root.userFlagsNames,
+      root.badges,
+      root.user_badges,
+      root.userBadges,
+      root.profile_badges,
+      root.profileBadges,
 
       root.user && root.user.flags,
       root.user && root.user.public_flags,
@@ -7760,6 +7825,9 @@
       root.user && root.user.userFlags,
       root.user && root.user.user_flags_names,
       root.user && root.user.userFlagsNames,
+      root.user && root.user.badges,
+      root.user && root.user.user_badges,
+      root.user && root.user.userBadges,
 
       user.flags,
       user.public_flags,
@@ -7768,6 +7836,11 @@
       user.userFlags,
       user.user_flags_names,
       user.userFlagsNames,
+      user.badges,
+      user.user_badges,
+      user.userBadges,
+      user.profile_badges,
+      user.profileBadges,
 
       userProfile.flags,
       userProfile.public_flags,
@@ -7776,6 +7849,11 @@
       userProfile.userFlags,
       userProfile.user_flags_names,
       userProfile.userFlagsNames,
+      userProfile.badges,
+      userProfile.user_badges,
+      userProfile.userBadges,
+      userProfile.profile_badges,
+      userProfile.profileBadges,
 
       userResponseJson.flags,
       userResponseJson.public_flags,
@@ -7784,40 +7862,146 @@
       userResponseJson.userFlags,
       userResponseJson.user_flags_names,
       userResponseJson.userFlagsNames,
+      userResponseJson.badges,
+      userResponseJson.user_badges,
+      userResponseJson.userBadges,
+      userResponseJson.profile_badges,
+      userResponseJson.profileBadges,
+      userResponseJson.user && userResponseJson.user.flags,
+      userResponseJson.user && userResponseJson.user.public_flags,
+      userResponseJson.user && userResponseJson.user.publicFlags,
+      userResponseJson.user && userResponseJson.user.user_flags,
+      userResponseJson.user && userResponseJson.user.userFlags,
+      userResponseJson.user && userResponseJson.user.badges,
 
       localMember.flags,
       localMember.public_flags,
       localMember.publicFlags,
       localMember.user_flags,
       localMember.userFlags,
+      localMember.badges,
+      localMember.user_badges,
+      localMember.userBadges,
 
       localRaw.flags,
       localRaw.public_flags,
       localRaw.publicFlags,
       localRaw.user_flags,
       localRaw.userFlags,
+      localRaw.badges,
+      localRaw.user_badges,
+      localRaw.userBadges,
       localRaw.user && localRaw.user.flags,
       localRaw.user && localRaw.user.public_flags,
       localRaw.user && localRaw.user.publicFlags,
       localRaw.user && localRaw.user.user_flags,
       localRaw.user && localRaw.user.userFlags,
+      localRaw.user && localRaw.user.badges,
 
       localUser.flags,
       localUser.public_flags,
       localUser.publicFlags,
       localUser.user_flags,
-      localUser.userFlags
+      localUser.userFlags,
+      localUser.badges,
+      localUser.user_badges,
+      localUser.userBadges
     ];
   }
 
   function kfpHasStaffUserFlag(bundle) {
+    if (!bundle) return false;
+    if (hasStaffOverride(bundle.id)) return true;
+    if (bundle.staffFlagProbeHit === true) return true;
+
     var candidates = kfpStaffFlagCandidates(bundle);
 
     for (var i = 0; i < candidates.length; i += 1) {
-      if (kfpFlagValueHasStaff(candidates[i], 0)) return true;
+      if (kfpFlagValueHasStaff(candidates[i], 0, "candidate[" + i + "]")) return true;
+    }
+
+    /* Scan contrôlé : on ne valide que les chemins flag/badge, pas un rôle appelé Staff. */
+    var containers = [
+      bundle.rawProfile,
+      bundle.userResponse && bundle.userResponse.json,
+      bundle.parts && bundle.parts.user,
+      bundle.parts && bundle.parts.userProfile,
+      bundle.localMember && bundle.localMember.userRaw,
+      bundle.localMember && bundle.localMember.raw && bundle.localMember.raw.user
+    ];
+
+    for (var j = 0; j < containers.length; j += 1) {
+      if (kfpFlagValueHasStaff(containers[j], 0, "deep" + j)) return true;
     }
 
     return false;
+  }
+
+  async function fetchStaffFlagProbe(userId, guildId) {
+    userId = text(userId);
+    guildId = text(guildId || getGuildId());
+    if (!userId) return { hasStaff: false, source: "missing-user-id", jsons: [] };
+
+    if (hasStaffOverride(userId)) {
+      return { hasStaff: true, source: "manual-override", jsons: [] };
+    }
+
+    var cache = loadStaffFlagCache();
+    var cached = cache[userId];
+    var now = Date.now();
+
+    if (cached && now - Number(cached.updatedAt || 0) < 5 * 60 * 1000) {
+      return { hasStaff: Boolean(cached.hasStaff), source: "cache", jsons: cached.jsons || [], cached: true };
+    }
+
+    var paths = unique([
+      "/users/" + encodeURIComponent(userId) + "/profile?" + new URLSearchParams({ guild_id: guildId, with_mutual_friends: "true", with_mutual_guilds: "true", with_user_flags: "true", include_flags: "true", include_badges: "true" }).toString(),
+      "/users/" + encodeURIComponent(userId) + "?" + new URLSearchParams({ with_user_flags: "true", include_flags: "true", include_badges: "true" }).toString(),
+      "/admin/users/" + encodeURIComponent(userId),
+      "/admin/users/" + encodeURIComponent(userId) + "/flags"
+    ]);
+
+    var jsons = [];
+    var requests = [];
+
+    for (var i = 0; i < paths.length; i += 1) {
+      var response = await requestJson("GET", paths[i]);
+      requests.push({ path: paths[i], ok: response && response.ok, status: response ? response.status : 0 });
+
+      if (response && response.json) {
+        jsons.push(response.json);
+        if (kfpFlagValueHasStaff(response.json, 0, "probe." + paths[i])) {
+          cache[userId] = { hasStaff: true, updatedAt: now, jsons: jsons.slice(0, 2), requests: requests };
+          saveStaffFlagCache(cache);
+          return { hasStaff: true, source: paths[i], jsons: jsons, requests: requests };
+        }
+      }
+    }
+
+    cache[userId] = { hasStaff: false, updatedAt: now, jsons: jsons.slice(0, 2), requests: requests };
+    saveStaffFlagCache(cache);
+    return { hasStaff: false, source: "probe-miss", jsons: jsons, requests: requests };
+  }
+
+  async function enrichStaffFlags(bundle) {
+    if (!bundle || !bundle.id) return bundle;
+
+    if (kfpHasStaffUserFlag(bundle)) {
+      bundle.staffFlagProbeHit = true;
+      bundle.staffProbe = bundle.staffProbe || { hasStaff: true, source: "bundle" };
+      return bundle;
+    }
+
+    try {
+      var probe = await fetchStaffFlagProbe(bundle.id, getGuildId());
+      bundle.staffProbe = probe;
+      bundle.staffFlagProbeHit = Boolean(probe && probe.hasStaff);
+    } catch (error) {
+      bundle.staffProbe = { hasStaff: false, source: "probe-error", error: text(error && error.message ? error.message : error) };
+      bundle.staffFlagProbeHit = false;
+    }
+
+    return bundle;
   }
 
   function kfpOfficialFluxerTeamBadge(bundle) {
@@ -8498,6 +8682,7 @@
         globalProfile: true
       });
 
+      await enrichStaffFlags(bundle);
       await enrichBundleMutualGuilds(bundle);
 
       lastBundle = bundle;
@@ -8910,6 +9095,7 @@
         globalProfile: true
       });
 
+      await enrichStaffFlags(bundle);
       await enrichBundleMutualGuilds(bundle);
 
       lastBundle = bundle;
@@ -8945,6 +9131,7 @@
       var userResponse = await fetchUser(member.id);
 
       var bundle = normalizeBundle(member, profileResponse, userResponse, { globalProfile: false });
+      await enrichStaffFlags(bundle);
       lastBundle = bundle;
       lastError = null;
 
@@ -9006,22 +9193,71 @@
 
       return true;
     },
-    fetch: function (nameOrId) {
+    fetch: async function (nameOrId) {
       var member = findMember(nameOrId);
-      if (!member) return Promise.resolve(null);
-      return fetchProfile(member.id, getGuildId()).then(function (response) {
-        return normalizeBundle(member, response, null, { globalProfile: false });
-      });
+      if (!member) return null;
+      var response = await fetchProfile(member.id, getGuildId());
+      var userResponse = await fetchUser(member.id);
+      var bundle = normalizeBundle(member, response, userResponse, { globalProfile: false });
+      await enrichStaffFlags(bundle);
+      return bundle;
     },
-    fetchGlobal: function (nameOrId) {
+    fetchGlobal: async function (nameOrId) {
       var member = findMember(nameOrId);
       var id = member ? member.id : text(nameOrId);
 
-      if (!id) return Promise.resolve(null);
+      if (!id) return null;
 
-      return fetchProfile(id, "").then(function (response) {
-        return normalizeBundle(member || { id: id }, response, null, { globalProfile: true });
-      });
+      var response = await fetchProfile(id, "");
+      var userResponse = await fetchUser(id);
+      var bundle = normalizeBundle(member || { id: id }, response, userResponse, { globalProfile: true });
+      await enrichStaffFlags(bundle);
+      return bundle;
+    },
+    debugStaffBadge: async function (nameOrId) {
+      var member = findMember(nameOrId);
+      var id = member ? member.id : text(nameOrId);
+      if (!id) return null;
+
+      var response = await fetchProfile(id, getGuildId());
+      var userResponse = await fetchUser(id);
+      var bundle = normalizeBundle(member || { id: id }, response, userResponse, { globalProfile: false });
+      await enrichStaffFlags(bundle);
+
+      return {
+        id: id,
+        hasStaff: kfpHasStaffUserFlag(bundle),
+        staffProbe: bundle.staffProbe,
+        staffFlagProbeHit: bundle.staffFlagProbeHit,
+        candidates: kfpStaffFlagCandidates(bundle),
+        requests: lastRequests.slice(),
+        rawProfile: bundle.rawProfile,
+        userResponse: bundle.userResponse && bundle.userResponse.json
+      };
+    },
+    forceStaffBadge: function (nameOrId) {
+      var member = findMember(nameOrId);
+      var id = member ? member.id : text(nameOrId);
+      if (!id) return false;
+      setStaffOverride(id, true);
+      var cache = loadStaffFlagCache();
+      cache[id] = { hasStaff: true, updatedAt: Date.now(), source: "manual-override" };
+      saveStaffFlagCache(cache);
+      return true;
+    },
+    clearStaffBadge: function (nameOrId) {
+      var member = findMember(nameOrId);
+      var id = member ? member.id : text(nameOrId);
+      if (!id) return false;
+      setStaffOverride(id, false);
+      var cache = loadStaffFlagCache();
+      delete cache[id];
+      saveStaffFlagCache(cache);
+      return true;
+    },
+    clearStaffBadgeCache: function () {
+      localStorage.removeItem(STAFF_FLAG_CACHE_KEY);
+      return true;
     },
     close: closeCard,
     stop: function () {
@@ -9060,7 +9296,9 @@
         lastBundle: lastBundle,
         lastBundleIsGlobal: lastBundle ? Boolean(lastBundle.isGlobalProfile) : false,
         lastError: lastError,
-        lastRequests: lastRequests.slice()
+        lastRequests: lastRequests.slice(),
+        staffCache: loadStaffFlagCache(),
+        staffOverrideIds: readStaffOverrideIds()
       };
     }
   };
@@ -9147,6 +9385,56 @@
       out.push(value);
     });
     return out;
+  }
+
+  function loadStaffFlagCache() {
+    try {
+      var raw = localStorage.getItem(STAFF_FLAG_CACHE_KEY);
+      var parsed = raw ? JSON.parse(raw) : {};
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function saveStaffFlagCache(cache) {
+    try {
+      localStorage.setItem(STAFF_FLAG_CACHE_KEY, JSON.stringify(cache || {}));
+    } catch (error) {}
+  }
+
+  function readStaffOverrideIds() {
+    var raw = text(localStorage.getItem(STAFF_FLAG_OVERRIDE_KEY) || "").trim();
+    if (!raw) return [];
+
+    try {
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return unique(parsed.map(text).filter(Boolean));
+    } catch (error) {}
+
+    return unique(raw.split(/[\s,;]+/).map(text).filter(Boolean));
+  }
+
+  function writeStaffOverrideIds(ids) {
+    localStorage.setItem(STAFF_FLAG_OVERRIDE_KEY, JSON.stringify(unique((ids || []).map(text).filter(Boolean))));
+  }
+
+  function hasStaffOverride(userId) {
+    userId = text(userId);
+    return readStaffOverrideIds().indexOf(userId) !== -1;
+  }
+
+  function setStaffOverride(userId, enabled) {
+    userId = text(userId);
+    if (!userId) return false;
+
+    var ids = readStaffOverrideIds().filter(function (id) {
+      return id !== userId;
+    });
+
+    if (enabled !== false) ids.push(userId);
+    writeStaffOverrideIds(ids);
+    return true;
   }
 
   function parseCookie(name) {
