@@ -3626,7 +3626,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.3-official-staff-badge";
+  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.4-user-flags-staff-badge";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var API_BASE = (localStorage.getItem("kaly_fluxer_memberlist_api_base") || ORIGIN + "/api/v1").replace(/\/+$/, "");
 
@@ -4511,6 +4511,45 @@
       status: status,
       roles: roles,
       voice: voice,
+      flags: firstValue(
+        parts.user.flags,
+        parts.user.public_flags,
+        parts.user.publicFlags,
+        parts.user.user_flags,
+        parts.user.userFlags,
+        parts.root.flags,
+        parts.root.public_flags,
+        parts.root.publicFlags,
+        parts.root.user_flags,
+        parts.root.userFlags,
+        localMember.flags,
+        localMember.public_flags,
+        localMember.publicFlags,
+        localMember.user_flags,
+        localMember.userFlags,
+        0
+      ),
+      userFlagCandidates: [
+        parts.user.flags,
+        parts.user.public_flags,
+        parts.user.publicFlags,
+        parts.user.user_flags,
+        parts.user.userFlags,
+        parts.root.flags,
+        parts.root.public_flags,
+        parts.root.publicFlags,
+        parts.root.user_flags,
+        parts.root.userFlags,
+        localMember.flags,
+        localMember.public_flags,
+        localMember.publicFlags,
+        localMember.user_flags,
+        localMember.userFlags,
+        localMember.raw && localMember.raw.user && localMember.raw.user.flags,
+        localMember.raw && localMember.raw.user && localMember.raw.user.user_flags,
+        localMember.userRaw && localMember.userRaw.flags,
+        localMember.userRaw && localMember.userRaw.user_flags
+      ],
       isSelf: isSelf(userId),
       localMember: localMember,
       response: profileResponse,
@@ -4959,59 +4998,195 @@
     }).join("");
   }
 
-  function kfpRoleDisplayName(role) {
-    return text(firstValue(
-      role && role.name,
-      role && role.title,
-      role && role.label,
-      role && role.id,
-      ""
-    )).trim();
+  function kfpFlagTruthy(value) {
+    if (value === true) return true;
+    if (value === false || value === undefined || value === null) return false;
+
+    if (typeof value === "number") {
+      return Number.isFinite(value) && value !== 0;
+    }
+
+    var raw = text(value).trim().toLowerCase();
+    if (!raw || raw === "0" || raw === "false" || raw === "no" || raw === "non" || raw === "null" || raw === "undefined") return false;
+
+    return true;
   }
 
-  function kfpFindFluxerTeamRole(bundle) {
-    var roles = [];
+  function kfpNumericFlagHasStaff(value) {
+    if (value === undefined || value === null || value === "") return false;
 
-    if (bundle && Array.isArray(bundle.roles)) {
-      roles = roles.concat(bundle.roles);
+    if (typeof value === "number") {
+      if (!Number.isFinite(value)) return false;
+      return (Math.floor(value) & 1) === 1;
     }
 
-    if (bundle && bundle.localMember && Array.isArray(bundle.localMember.roleObjects)) {
-      roles = roles.concat(bundle.localMember.roleObjects);
+    var raw = text(value).trim();
+    if (!/^\d+$/.test(raw)) return false;
+
+    try {
+      return (BigInt(raw) & 1n) === 1n;
+    } catch (errorBigInt) {
+      var n = Number(raw);
+      return Number.isFinite(n) && (Math.floor(n) & 1) === 1;
+    }
+  }
+
+  function kfpFlagValueHasStaff(value, depth) {
+    depth = depth || 0;
+    if (depth > 5 || value === undefined || value === null || value === "") return false;
+
+    if (typeof value === "number" || typeof value === "bigint") {
+      return kfpNumericFlagHasStaff(value);
     }
 
-    for (var i = 0; i < roles.length; i += 1) {
-      var role = roles[i] || {};
-      var name = kfpRoleDisplayName(role);
-      var normalized = normalizeText(name);
+    if (typeof value === "string") {
+      if (kfpNumericFlagHasStaff(value)) return true;
 
-      if (!normalized) continue;
+      var normalized = normalizeText(value);
+      return normalized === "staff" || normalized === "userflagsstaff";
+    }
 
-      if (
-        normalized === "equipefluxer" ||
-        normalized === "fluxerequipe" ||
-        normalized === "fluxerteam" ||
-        normalized === "teamfluxer" ||
-        normalized === "fluxerstaff" ||
-        normalized === "stafffluxer" ||
-        (normalized.indexOf("fluxer") !== -1 && (
-          normalized.indexOf("equipe") !== -1 ||
-          normalized.indexOf("team") !== -1 ||
-          normalized.indexOf("staff") !== -1
-        ))
-      ) {
-        return role;
+    if (Array.isArray(value)) {
+      for (var i = 0; i < value.length; i += 1) {
+        if (kfpFlagValueHasStaff(value[i], depth + 1)) return true;
+      }
+      return false;
+    }
+
+    if (value && typeof value === "object") {
+      var keys = Object.keys(value);
+
+      for (var j = 0; j < keys.length; j += 1) {
+        var key = keys[j];
+        var normalizedKey = normalizeText(key);
+
+        if ((normalizedKey === "staff" || normalizedKey === "userflagsstaff") && kfpFlagTruthy(value[key])) {
+          return true;
+        }
+
+        if (
+          normalizedKey === "name" ||
+          normalizedKey === "flag" ||
+          normalizedKey === "type" ||
+          normalizedKey === "label" ||
+          normalizedKey === "id" ||
+          normalizedKey === "value"
+        ) {
+          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
+        }
+
+        if (
+          normalizedKey === "flags" ||
+          normalizedKey === "publicflags" ||
+          normalizedKey === "userflags" ||
+          normalizedKey === "userflagnames" ||
+          normalizedKey === "userflagsnames"
+        ) {
+          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
+        }
       }
     }
 
-    return null;
+    return false;
+  }
+
+  function kfpStaffFlagCandidates(bundle) {
+    bundle = bundle || {};
+
+    var parts = bundle.parts || {};
+    var root = bundle.rawProfile || parts.root || {};
+    var user = parts.user || {};
+    var userProfile = parts.userProfile || {};
+    var localMember = bundle.localMember || {};
+    var localRaw = localMember.raw || {};
+    var localUser = localMember.userRaw || localMember.user || {};
+    var userResponseJson = bundle.userResponse && bundle.userResponse.json ? bundle.userResponse.json : {};
+
+    return [
+      bundle.flags,
+      bundle.userFlags,
+      bundle.publicFlags,
+      bundle.userFlagCandidates,
+
+      root.flags,
+      root.public_flags,
+      root.publicFlags,
+      root.user_flags,
+      root.userFlags,
+      root.user_flags_names,
+      root.userFlagsNames,
+
+      root.user && root.user.flags,
+      root.user && root.user.public_flags,
+      root.user && root.user.publicFlags,
+      root.user && root.user.user_flags,
+      root.user && root.user.userFlags,
+      root.user && root.user.user_flags_names,
+      root.user && root.user.userFlagsNames,
+
+      user.flags,
+      user.public_flags,
+      user.publicFlags,
+      user.user_flags,
+      user.userFlags,
+      user.user_flags_names,
+      user.userFlagsNames,
+
+      userProfile.flags,
+      userProfile.public_flags,
+      userProfile.publicFlags,
+      userProfile.user_flags,
+      userProfile.userFlags,
+      userProfile.user_flags_names,
+      userProfile.userFlagsNames,
+
+      userResponseJson.flags,
+      userResponseJson.public_flags,
+      userResponseJson.publicFlags,
+      userResponseJson.user_flags,
+      userResponseJson.userFlags,
+      userResponseJson.user_flags_names,
+      userResponseJson.userFlagsNames,
+
+      localMember.flags,
+      localMember.public_flags,
+      localMember.publicFlags,
+      localMember.user_flags,
+      localMember.userFlags,
+
+      localRaw.flags,
+      localRaw.public_flags,
+      localRaw.publicFlags,
+      localRaw.user_flags,
+      localRaw.userFlags,
+      localRaw.user && localRaw.user.flags,
+      localRaw.user && localRaw.user.public_flags,
+      localRaw.user && localRaw.user.publicFlags,
+      localRaw.user && localRaw.user.user_flags,
+      localRaw.user && localRaw.user.userFlags,
+
+      localUser.flags,
+      localUser.public_flags,
+      localUser.publicFlags,
+      localUser.user_flags,
+      localUser.userFlags
+    ];
+  }
+
+  function kfpHasStaffUserFlag(bundle) {
+    var candidates = kfpStaffFlagCandidates(bundle);
+
+    for (var i = 0; i < candidates.length; i += 1) {
+      if (kfpFlagValueHasStaff(candidates[i], 0)) return true;
+    }
+
+    return false;
   }
 
   function kfpOfficialFluxerTeamBadge(bundle) {
-    var fluxerTeamRole = kfpFindFluxerTeamRole(bundle);
-    if (!fluxerTeamRole) return "";
+    if (!kfpHasStaffUserFlag(bundle)) return "";
 
-    var label = kfpRoleDisplayName(fluxerTeamRole) || "Equipe Fluxer";
+    var label = "Equipe Fluxer";
     var href = ORIGIN + "/marketing/careers";
 
     return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
@@ -6082,7 +6257,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.21-official-staff-badge";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.22-user-flags-staff-badge";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -7182,7 +7357,99 @@
       voice: voice,
       bot: Boolean(firstValue(parts.user.bot, userJson.bot, localMember.bot, false)),
       system: Boolean(firstValue(parts.user.system, userJson.system, localMember.system, false)),
-      flags: firstValue(parts.user.flags, userJson.flags, 0),
+      flags: firstValue(
+        parts.user.flags,
+        parts.user.public_flags,
+        parts.user.publicFlags,
+        parts.user.user_flags,
+        parts.user.userFlags,
+        userJson.flags,
+        userJson.public_flags,
+        userJson.publicFlags,
+        userJson.user_flags,
+        userJson.userFlags,
+        profileJson.flags,
+        profileJson.public_flags,
+        profileJson.publicFlags,
+        profileJson.user_flags,
+        profileJson.userFlags,
+        localMember.flags,
+        localMember.public_flags,
+        localMember.publicFlags,
+        localMember.user_flags,
+        localMember.userFlags,
+        0
+      ),
+      userFlags: firstValue(
+        parts.user.user_flags,
+        parts.user.userFlags,
+        userJson.user_flags,
+        userJson.userFlags,
+        profileJson.user_flags,
+        profileJson.userFlags,
+        localMember.user_flags,
+        localMember.userFlags,
+        ""
+      ),
+      publicFlags: firstValue(
+        parts.user.public_flags,
+        parts.user.publicFlags,
+        userJson.public_flags,
+        userJson.publicFlags,
+        profileJson.public_flags,
+        profileJson.publicFlags,
+        localMember.public_flags,
+        localMember.publicFlags,
+        ""
+      ),
+      userFlagCandidates: [
+        parts.user.flags,
+        parts.user.public_flags,
+        parts.user.publicFlags,
+        parts.user.user_flags,
+        parts.user.userFlags,
+        parts.user.user_flags_names,
+        parts.user.userFlagsNames,
+        userJson.flags,
+        userJson.public_flags,
+        userJson.publicFlags,
+        userJson.user_flags,
+        userJson.userFlags,
+        userJson.user_flags_names,
+        userJson.userFlagsNames,
+        profileJson.flags,
+        profileJson.public_flags,
+        profileJson.publicFlags,
+        profileJson.user_flags,
+        profileJson.userFlags,
+        profileJson.user_flags_names,
+        profileJson.userFlagsNames,
+        profileJson.user && profileJson.user.flags,
+        profileJson.user && profileJson.user.public_flags,
+        profileJson.user && profileJson.user.publicFlags,
+        profileJson.user && profileJson.user.user_flags,
+        profileJson.user && profileJson.user.userFlags,
+        localMember.flags,
+        localMember.public_flags,
+        localMember.publicFlags,
+        localMember.user_flags,
+        localMember.userFlags,
+        localMember.raw && localMember.raw.flags,
+        localMember.raw && localMember.raw.public_flags,
+        localMember.raw && localMember.raw.publicFlags,
+        localMember.raw && localMember.raw.user_flags,
+        localMember.raw && localMember.raw.userFlags,
+        localMember.raw && localMember.raw.user && localMember.raw.user.flags,
+        localMember.raw && localMember.raw.user && localMember.raw.user.public_flags,
+        localMember.raw && localMember.raw.user && localMember.raw.user.publicFlags,
+        localMember.raw && localMember.raw.user && localMember.raw.user.user_flags,
+        localMember.raw && localMember.raw.user && localMember.raw.user.userFlags,
+        localMember.userRaw && localMember.userRaw.flags,
+        localMember.userRaw && localMember.userRaw.public_flags,
+        localMember.userRaw && localMember.userRaw.publicFlags,
+        localMember.userRaw && localMember.userRaw.user_flags,
+        localMember.userRaw && localMember.userRaw.userFlags
+      ],
       premiumType: firstValue(profileJson.premium_type, profileJson.premiumType, 0),
       premiumSince: firstValue(profileJson.premium_since, profileJson.premiumSince, ""),
       premiumLifetimeSequence: firstValue(profileJson.premium_lifetime_sequence, profileJson.premiumLifetimeSequence, ""),
@@ -7368,59 +7635,195 @@
     return '<div class="kfp-banner" style="background:' + gradient + '">' + img + '</div>';
   }
 
-  function kfpRoleDisplayName(role) {
-    return text(firstValue(
-      role && role.name,
-      role && role.title,
-      role && role.label,
-      role && role.id,
-      ""
-    )).trim();
+  function kfpFlagTruthy(value) {
+    if (value === true) return true;
+    if (value === false || value === undefined || value === null) return false;
+
+    if (typeof value === "number") {
+      return Number.isFinite(value) && value !== 0;
+    }
+
+    var raw = text(value).trim().toLowerCase();
+    if (!raw || raw === "0" || raw === "false" || raw === "no" || raw === "non" || raw === "null" || raw === "undefined") return false;
+
+    return true;
   }
 
-  function kfpFindFluxerTeamRole(bundle) {
-    var roles = [];
+  function kfpNumericFlagHasStaff(value) {
+    if (value === undefined || value === null || value === "") return false;
 
-    if (bundle && Array.isArray(bundle.roles)) {
-      roles = roles.concat(bundle.roles);
+    if (typeof value === "number") {
+      if (!Number.isFinite(value)) return false;
+      return (Math.floor(value) & 1) === 1;
     }
 
-    if (bundle && bundle.localMember && Array.isArray(bundle.localMember.roleObjects)) {
-      roles = roles.concat(bundle.localMember.roleObjects);
+    var raw = text(value).trim();
+    if (!/^\d+$/.test(raw)) return false;
+
+    try {
+      return (BigInt(raw) & 1n) === 1n;
+    } catch (errorBigInt) {
+      var n = Number(raw);
+      return Number.isFinite(n) && (Math.floor(n) & 1) === 1;
+    }
+  }
+
+  function kfpFlagValueHasStaff(value, depth) {
+    depth = depth || 0;
+    if (depth > 5 || value === undefined || value === null || value === "") return false;
+
+    if (typeof value === "number" || typeof value === "bigint") {
+      return kfpNumericFlagHasStaff(value);
     }
 
-    for (var i = 0; i < roles.length; i += 1) {
-      var role = roles[i] || {};
-      var name = kfpRoleDisplayName(role);
-      var normalized = normalizeText(name);
+    if (typeof value === "string") {
+      if (kfpNumericFlagHasStaff(value)) return true;
 
-      if (!normalized) continue;
+      var normalized = normalizeText(value);
+      return normalized === "staff" || normalized === "userflagsstaff";
+    }
 
-      if (
-        normalized === "equipefluxer" ||
-        normalized === "fluxerequipe" ||
-        normalized === "fluxerteam" ||
-        normalized === "teamfluxer" ||
-        normalized === "fluxerstaff" ||
-        normalized === "stafffluxer" ||
-        (normalized.indexOf("fluxer") !== -1 && (
-          normalized.indexOf("equipe") !== -1 ||
-          normalized.indexOf("team") !== -1 ||
-          normalized.indexOf("staff") !== -1
-        ))
-      ) {
-        return role;
+    if (Array.isArray(value)) {
+      for (var i = 0; i < value.length; i += 1) {
+        if (kfpFlagValueHasStaff(value[i], depth + 1)) return true;
+      }
+      return false;
+    }
+
+    if (value && typeof value === "object") {
+      var keys = Object.keys(value);
+
+      for (var j = 0; j < keys.length; j += 1) {
+        var key = keys[j];
+        var normalizedKey = normalizeText(key);
+
+        if ((normalizedKey === "staff" || normalizedKey === "userflagsstaff") && kfpFlagTruthy(value[key])) {
+          return true;
+        }
+
+        if (
+          normalizedKey === "name" ||
+          normalizedKey === "flag" ||
+          normalizedKey === "type" ||
+          normalizedKey === "label" ||
+          normalizedKey === "id" ||
+          normalizedKey === "value"
+        ) {
+          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
+        }
+
+        if (
+          normalizedKey === "flags" ||
+          normalizedKey === "publicflags" ||
+          normalizedKey === "userflags" ||
+          normalizedKey === "userflagnames" ||
+          normalizedKey === "userflagsnames"
+        ) {
+          if (kfpFlagValueHasStaff(value[key], depth + 1)) return true;
+        }
       }
     }
 
-    return null;
+    return false;
+  }
+
+  function kfpStaffFlagCandidates(bundle) {
+    bundle = bundle || {};
+
+    var parts = bundle.parts || {};
+    var root = bundle.rawProfile || parts.root || {};
+    var user = parts.user || {};
+    var userProfile = parts.userProfile || {};
+    var localMember = bundle.localMember || {};
+    var localRaw = localMember.raw || {};
+    var localUser = localMember.userRaw || localMember.user || {};
+    var userResponseJson = bundle.userResponse && bundle.userResponse.json ? bundle.userResponse.json : {};
+
+    return [
+      bundle.flags,
+      bundle.userFlags,
+      bundle.publicFlags,
+      bundle.userFlagCandidates,
+
+      root.flags,
+      root.public_flags,
+      root.publicFlags,
+      root.user_flags,
+      root.userFlags,
+      root.user_flags_names,
+      root.userFlagsNames,
+
+      root.user && root.user.flags,
+      root.user && root.user.public_flags,
+      root.user && root.user.publicFlags,
+      root.user && root.user.user_flags,
+      root.user && root.user.userFlags,
+      root.user && root.user.user_flags_names,
+      root.user && root.user.userFlagsNames,
+
+      user.flags,
+      user.public_flags,
+      user.publicFlags,
+      user.user_flags,
+      user.userFlags,
+      user.user_flags_names,
+      user.userFlagsNames,
+
+      userProfile.flags,
+      userProfile.public_flags,
+      userProfile.publicFlags,
+      userProfile.user_flags,
+      userProfile.userFlags,
+      userProfile.user_flags_names,
+      userProfile.userFlagsNames,
+
+      userResponseJson.flags,
+      userResponseJson.public_flags,
+      userResponseJson.publicFlags,
+      userResponseJson.user_flags,
+      userResponseJson.userFlags,
+      userResponseJson.user_flags_names,
+      userResponseJson.userFlagsNames,
+
+      localMember.flags,
+      localMember.public_flags,
+      localMember.publicFlags,
+      localMember.user_flags,
+      localMember.userFlags,
+
+      localRaw.flags,
+      localRaw.public_flags,
+      localRaw.publicFlags,
+      localRaw.user_flags,
+      localRaw.userFlags,
+      localRaw.user && localRaw.user.flags,
+      localRaw.user && localRaw.user.public_flags,
+      localRaw.user && localRaw.user.publicFlags,
+      localRaw.user && localRaw.user.user_flags,
+      localRaw.user && localRaw.user.userFlags,
+
+      localUser.flags,
+      localUser.public_flags,
+      localUser.publicFlags,
+      localUser.user_flags,
+      localUser.userFlags
+    ];
+  }
+
+  function kfpHasStaffUserFlag(bundle) {
+    var candidates = kfpStaffFlagCandidates(bundle);
+
+    for (var i = 0; i < candidates.length; i += 1) {
+      if (kfpFlagValueHasStaff(candidates[i], 0)) return true;
+    }
+
+    return false;
   }
 
   function kfpOfficialFluxerTeamBadge(bundle) {
-    var fluxerTeamRole = kfpFindFluxerTeamRole(bundle);
-    if (!fluxerTeamRole) return "";
+    if (!kfpHasStaffUserFlag(bundle)) return "";
 
-    var label = kfpRoleDisplayName(fluxerTeamRole) || "Equipe Fluxer";
+    var label = "Equipe Fluxer";
     var href = ORIGIN + "/marketing/careers";
 
     return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
@@ -8089,11 +8492,7 @@
       container.innerHTML = '<div class="modal-backdrop kfp-userprofile-backdrop"><div class="kfp-userprofile-layer"><div class="kfp-loading" style="position:relative;left:auto;top:auto">Chargement du UserProfileModal : ' + escapeHtml(localMember.displayName || localMember.username || localMember.id) + '</div></div></div>';
 
       var profileResponse = await fetchProfile(userId, "");
-      var userResponse = null;
-
-      if (!profileResponse || !profileResponse.ok || !profileResponse.json || !profileResponse.json.user) {
-        userResponse = await fetchUser(userId);
-      }
+      var userResponse = await fetchUser(userId);
 
       var bundle = normalizeBundle(localMember, profileResponse, userResponse, {
         globalProfile: true
@@ -8505,11 +8904,7 @@
         Le serveur renvoie alors user + user_profile, et le script ignore les champs serveur locaux.
       */
       var profileResponse = await fetchProfile(userId, "");
-      var userResponse = null;
-
-      if (!profileResponse || !profileResponse.ok || !profileResponse.json || !profileResponse.json.user) {
-        userResponse = await fetchUser(userId);
-      }
+      var userResponse = await fetchUser(userId);
 
       var bundle = normalizeBundle(localMember, profileResponse, userResponse, {
         globalProfile: true
@@ -8547,10 +8942,7 @@
       renderLoading(pos, member.displayName || member.username || member.id);
 
       var profileResponse = await fetchProfile(member.id, getGuildId());
-      var userResponse = null;
-      if (!profileResponse || !profileResponse.ok || !profileResponse.json || !profileResponse.json.user) {
-        userResponse = await fetchUser(member.id);
-      }
+      var userResponse = await fetchUser(member.id);
 
       var bundle = normalizeBundle(member, profileResponse, userResponse, { globalProfile: false });
       lastBundle = bundle;
