@@ -6472,7 +6472,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.25-staff-strict-user-flags";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.26-fast-profile-staff-strict";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -6506,6 +6506,7 @@
   var lastBundle = null;
   var lastError = null;
   var lastRequests = [];
+  var goodHeaders = null;
   var STAFF_FLAG_CACHE_KEY = "kaly_fluxer_staff_flag_cache_v2_strict_user_flags";
   var STAFF_FLAG_OVERRIDE_KEY = "kaly_fluxer_staff_user_ids";
 
@@ -6755,6 +6756,14 @@
     var apiBase = getApiBase();
     var url = path.indexOf("http") === 0 ? path : apiBase + path;
     var headersList = buildHeaderSets();
+
+    if (goodHeaders) {
+      var goodKey = JSON.stringify(goodHeaders);
+      headersList = [goodHeaders].concat(headersList.filter(function (headers) {
+        return JSON.stringify(headers) !== goodKey;
+      }));
+    }
+
     var last = null;
 
     for (var i = 0; i < headersList.length; i += 1) {
@@ -6792,7 +6801,10 @@
         lastRequests.push({ method: method, url: url, status: response.status, ok: response.ok, contentType: contentType });
         if (lastRequests.length > 25) lastRequests.shift();
 
-        if (response.ok && json !== null) return last;
+        if (response.ok && json !== null) {
+          goodHeaders = headersList[i];
+          return last;
+        }
       } catch (error) {
         last = {
           ok: false,
@@ -7824,8 +7836,10 @@
       el.removeAttribute("data-kfp-userprofile-delegated");
       try {
         delete el.__KALY_USERPROFILE_BUNDLE__;
+        delete el.__KALY_PROFILECARD_BUNDLE__;
       } catch (errorDeleteBundle) {
         el.__KALY_USERPROFILE_BUNDLE__ = null;
+        el.__KALY_PROFILECARD_BUNDLE__ = null;
       }
     }
   }
@@ -9068,14 +9082,23 @@
       ensureUserProfileModalStyle();
       container.innerHTML = '<div class="modal-backdrop kfp-userprofile-backdrop"><div class="kfp-userprofile-layer"><div class="kfp-loading" style="position:relative;left:auto;top:auto">Chargement du UserProfileModal : ' + escapeHtml(localMember.displayName || localMember.username || localMember.id) + '</div></div></div>';
 
-      var profileResponse = await fetchProfile(userId, "");
-      var userResponse = await fetchUser(userId);
+      var responses = await Promise.all([
+        fetchProfile(userId, ""),
+        fetchUser(userId)
+      ]);
+      var profileResponse = responses[0];
+      var userResponse = responses[1];
 
       var bundle = normalizeBundle(localMember, profileResponse, userResponse, {
         globalProfile: true
       });
 
-      await enrichStaffFlags(bundle);
+      applyCachedStaffFlag(bundle);
+      if (!kfpHasStaffUserFlag(bundle)) {
+        enrichStaffFlags(bundle).catch(function (error) {
+          console.warn("[KalyProfileCard] enrichissement STAFF modal async KO :", error);
+        });
+      }
       await enrichBundleMutualGuilds(bundle);
 
       lastBundle = bundle;
@@ -9442,10 +9465,68 @@
 
   function renderBundleAtPosition(bundle, pos) {
     var container = root();
+    container.__KALY_PROFILECARD_BUNDLE__ = bundle;
+    container.setAttribute("data-kfp-layer", "profilecard");
     container.innerHTML = cardMarkup(bundle, pos);
     clampFloatingElement(container, ".kfp-popout");
     bindGlobalButtons(bundle);
     return container;
+  }
+
+  function applyCachedStaffFlag(bundle) {
+    if (!bundle || !bundle.id || kfpHasStaffUserFlag(bundle)) return false;
+
+    var cache = loadStaffFlagCache();
+    var cached = cache[text(bundle.id)];
+    var now = Date.now();
+
+    if (!cached || now - Number(cached.updatedAt || 0) >= 5 * 60 * 1000) return false;
+
+    bundle.staffProbe = {
+      hasStaff: Boolean(cached.hasStaff),
+      source: "cache-fast",
+      cached: true
+    };
+    bundle.staffFlagProbeHit = Boolean(cached.hasStaff);
+
+    if (cached.hasStaff) {
+      bundle.user_flags_names = ["STAFF"];
+    }
+
+    return true;
+  }
+
+  function refreshRenderedStaffBadge(bundle) {
+    if (!bundle || !bundle.id) return false;
+
+    var container = root();
+    var active = container.__KALY_PROFILECARD_BUNDLE__;
+
+    if (active && text(active.id) !== text(bundle.id)) return false;
+
+    var badges = container.querySelector(".kfp-popout .kfp-badges");
+    if (!badges) return false;
+
+    badges.innerHTML = badgeMarkup(bundle);
+    bindBadgeTooltips(container);
+    return true;
+  }
+
+  function enrichStaffFlagsAfterRender(bundle) {
+    if (!bundle || !bundle.id) return;
+
+    if (kfpHasStaffUserFlag(bundle)) {
+      refreshRenderedStaffBadge(bundle);
+      return;
+    }
+
+    enrichStaffFlags(bundle).then(function (updated) {
+      if (!updated || text(updated.id) !== text(bundle.id)) return;
+      lastBundle = updated;
+      refreshRenderedStaffBadge(updated);
+    }).catch(function (error) {
+      console.warn("[KalyProfileCard] enrichissement STAFF async KO :", error);
+    });
   }
 
   async function openGlobalProfile(userId, pos) {
@@ -9481,20 +9562,25 @@
         Profil global officiel : pas de guild_id.
         Le serveur renvoie alors user + user_profile, et le script ignore les champs serveur locaux.
       */
-      var profileResponse = await fetchProfile(userId, "");
-      var userResponse = await fetchUser(userId);
+      var responses = await Promise.all([
+        fetchProfile(userId, ""),
+        fetchUser(userId)
+      ]);
+      var profileResponse = responses[0];
+      var userResponse = responses[1];
 
       var bundle = normalizeBundle(localMember, profileResponse, userResponse, {
         globalProfile: true
       });
 
-      await enrichStaffFlags(bundle);
+      applyCachedStaffFlag(bundle);
       await enrichBundleMutualGuilds(bundle);
 
       lastBundle = bundle;
       lastError = null;
 
       renderBundleAtPosition(bundle, pos);
+      enrichStaffFlagsAfterRender(bundle);
       console.log("[KalyProfileCard] profil global ouvert depuis avatar :", bundle);
 
       return true;
@@ -9520,15 +9606,20 @@
 
       renderLoading(pos, member.displayName || member.username || member.id);
 
-      var profileResponse = await fetchProfile(member.id, getGuildId());
-      var userResponse = await fetchUser(member.id);
+      var responses = await Promise.all([
+        fetchProfile(member.id, getGuildId()),
+        fetchUser(member.id)
+      ]);
+      var profileResponse = responses[0];
+      var userResponse = responses[1];
 
       var bundle = normalizeBundle(member, profileResponse, userResponse, { globalProfile: false });
-      await enrichStaffFlags(bundle);
+      applyCachedStaffFlag(bundle);
       lastBundle = bundle;
       lastError = null;
 
       renderBundleAtPosition(bundle, pos);
+      enrichStaffFlagsAfterRender(bundle);
       console.log("[KalyProfileCard] profil officiel fallback ouvert :", bundle);
       return true;
     } catch (error) {
@@ -9589,8 +9680,9 @@
     fetch: async function (nameOrId) {
       var member = findMember(nameOrId);
       if (!member) return null;
-      var response = await fetchProfile(member.id, getGuildId());
-      var userResponse = await fetchUser(member.id);
+      var responses = await Promise.all([fetchProfile(member.id, getGuildId()), fetchUser(member.id)]);
+      var response = responses[0];
+      var userResponse = responses[1];
       var bundle = normalizeBundle(member, response, userResponse, { globalProfile: false });
       await enrichStaffFlags(bundle);
       return bundle;
@@ -9601,8 +9693,9 @@
 
       if (!id) return null;
 
-      var response = await fetchProfile(id, "");
-      var userResponse = await fetchUser(id);
+      var responses = await Promise.all([fetchProfile(id, ""), fetchUser(id)]);
+      var response = responses[0];
+      var userResponse = responses[1];
       var bundle = normalizeBundle(member || { id: id }, response, userResponse, { globalProfile: true });
       await enrichStaffFlags(bundle);
       return bundle;
@@ -9612,8 +9705,9 @@
       var id = member ? member.id : text(nameOrId);
       if (!id) return null;
 
-      var response = await fetchProfile(id, getGuildId());
-      var userResponse = await fetchUser(id);
+      var responses = await Promise.all([fetchProfile(id, getGuildId()), fetchUser(id)]);
+      var response = responses[0];
+      var userResponse = responses[1];
       var bundle = normalizeBundle(member || { id: id }, response, userResponse, { globalProfile: false });
       await enrichStaffFlags(bundle);
 
