@@ -3626,7 +3626,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.4-user-flags-staff-badge";
+  var VERSION = "kaly-fluxer-profilecard-api-native-look-merged-10.0.5-staff-hitbox";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var API_BASE = (localStorage.getItem("kaly_fluxer_memberlist_api_base") || ORIGIN + "/api/v1").replace(/\/+$/, "");
 
@@ -4697,11 +4697,14 @@
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:22px;
-  height:22px;
+  width:36px;
+  height:36px;
+  margin:-7px;
   border-radius:999px;
   text-decoration:none;
   pointer-events:auto;
+  position:relative;
+  touch-action:manipulation;
 }
 #${ROOT_ID} .kfp-official-badge-img,
 #${ROOT_ID} .UserProfileBadges\.module__badgeDesktop___ZjBjOw{
@@ -4709,6 +4712,43 @@
   width:22px;
   height:22px;
   object-fit:contain;
+}
+#${ROOT_ID} .kfp-floating-tooltip{
+  position:fixed;
+  z-index:2147483647;
+  pointer-events:none;
+  padding:6px 8px;
+  border-radius:6px;
+  background:var(--background-floating,#111214);
+  color:#fff;
+  font-size:12px;
+  font-weight:850;
+  line-height:1;
+  letter-spacing:.01em;
+  white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.38);
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .08s ease,transform .08s ease;
+}
+#${ROOT_ID} .kfp-floating-tooltip[data-show="1"]{
+  opacity:1;
+  transform:translateY(0);
+}
+#${ROOT_ID} .kfp-floating-tooltip::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  margin-left:-5px;
+  border:5px solid transparent;
+}
+#${ROOT_ID} .kfp-floating-tooltip[data-placement="top"]::after{
+  bottom:-10px;
+  border-top-color:var(--background-floating,#111214);
+}
+#${ROOT_ID} .kfp-floating-tooltip[data-placement="bottom"]::after{
+  top:-10px;
+  border-bottom-color:var(--background-floating,#111214);
 }
 #${ROOT_ID} .kfp-content{
   overflow:auto;
@@ -4926,6 +4966,7 @@
 
     if (el) {
       el.innerHTML = "";
+      removeBadgeTooltip();
       el.removeAttribute("data-kfp-layer");
       try {
         delete el.__KALY_USERPROFILE_BUNDLE__;
@@ -5189,7 +5230,7 @@
     var label = "STAFF";
     var href = ORIGIN + "/marketing/careers";
 
-    return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
+    return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" data-kfp-tooltip="' + escapeHtml(label) + '">' +
       '<img class="UserProfileBadges.module__badgeDesktop___ZjBjOw kfp-official-badge-img" alt="' + escapeHtml(label) + '" src="https://fluxerstatic.com/badges/staff.svg">' +
       '</a>';
   }
@@ -5312,7 +5353,90 @@
       '</div>';
   }
 
+
+  function removeBadgeTooltip() {
+    var current = document.querySelector("#" + ROOT_ID + " .kfp-floating-tooltip");
+    if (current) current.remove();
+  }
+
+  function positionBadgeTooltip(anchor, tooltip) {
+    if (!anchor || !tooltip || !anchor.getBoundingClientRect) return;
+
+    var anchorRect = anchor.getBoundingClientRect();
+    var tooltipRect = tooltip.getBoundingClientRect();
+    var margin = 8;
+    var placement = "top";
+    var left = anchorRect.left + (anchorRect.width / 2) - (tooltipRect.width / 2);
+    var top = anchorRect.top - tooltipRect.height - 9;
+
+    if (top < margin) {
+      placement = "bottom";
+      top = anchorRect.bottom + 9;
+    }
+
+    left = Math.max(margin, Math.min(window.innerWidth - tooltipRect.width - margin, left));
+    top = Math.max(margin, Math.min(window.innerHeight - tooltipRect.height - margin, top));
+
+    tooltip.setAttribute("data-placement", placement);
+    tooltip.style.left = Math.round(left) + "px";
+    tooltip.style.top = Math.round(top) + "px";
+  }
+
+  function showBadgeTooltip(anchor) {
+    if (!anchor) return;
+
+    var label = text(anchor.getAttribute("data-kfp-tooltip") || anchor.getAttribute("aria-label") || "").trim();
+    if (!label) return;
+
+    removeBadgeTooltip();
+
+    var tooltip = document.createElement("div");
+    tooltip.className = "kfp-floating-tooltip";
+    tooltip.textContent = label;
+
+    root().appendChild(tooltip);
+    positionBadgeTooltip(anchor, tooltip);
+
+    requestAnimationFrame(function () {
+      positionBadgeTooltip(anchor, tooltip);
+      tooltip.setAttribute("data-show", "1");
+    });
+  }
+
+  function bindBadgeTooltips(scope) {
+    Array.prototype.slice.call((scope || root()).querySelectorAll("[data-kfp-tooltip]")).forEach(function (badge) {
+      if (badge.getAttribute("data-kfp-tooltip-bound") === "1") return;
+      badge.setAttribute("data-kfp-tooltip-bound", "1");
+
+      badge.addEventListener("pointerenter", function () {
+        showBadgeTooltip(badge);
+      }, { signal: controller.signal });
+
+      badge.addEventListener("pointerleave", function () {
+        removeBadgeTooltip();
+      }, { signal: controller.signal });
+
+      badge.addEventListener("mouseenter", function () {
+        showBadgeTooltip(badge);
+      }, { signal: controller.signal });
+
+      badge.addEventListener("mouseleave", function () {
+        removeBadgeTooltip();
+      }, { signal: controller.signal });
+
+      badge.addEventListener("focus", function () {
+        showBadgeTooltip(badge);
+      }, { signal: controller.signal });
+
+      badge.addEventListener("blur", function () {
+        removeBadgeTooltip();
+      }, { signal: controller.signal });
+    });
+  }
+
   function bindGlobalButtons(bundle) {
+    bindBadgeTooltips(root());
+
     Array.prototype.slice.call(root().querySelectorAll("[data-kfp-close]")).forEach(function (el) {
       el.addEventListener("click", function (event) {
         event.preventDefault();
@@ -6257,7 +6381,7 @@
 (function () {
   "use strict";
 
-  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.23-staff-badge-deep-probe";
+  var VERSION = "kaly-fluxer-profilecard-official-layout-11.0.24-staff-hitbox";
   var ORIGIN = location.origin.replace(/\/+$/, "");
   var ROOT_ID = "kaly-fluxer-native-look-profile-root";
   var STYLE_ID = "kaly-fluxer-native-look-profile-style";
@@ -7546,8 +7670,13 @@
 #${ROOT_ID} .kfp-status-container{position:absolute;right:2px;bottom:2px;display:flex;align-items:center;justify-content:center;width:18px;height:18px;padding:3px;border-radius:999px;background:var(--background-primary,#181025);pointer-events:none}
 #${ROOT_ID} .kfp-status-dot{width:12px;height:12px;border-radius:999px;background:var(--text-muted,#80848e)}
 #${ROOT_ID} .kfp-badges,#${ROOT_ID} .UserProfileBadges\.module__containerPopout___ZjBjOw{display:flex;justify-content:flex-end;align-items:center;gap:4px;min-height:22px;padding:0 1rem;margin-top:-24px;pointer-events:auto}
-#${ROOT_ID} .kfp-official-badge-link,#${ROOT_ID} .UserProfileBadges\.module__link___ZjBjOw{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:999px;text-decoration:none;pointer-events:auto}
+#${ROOT_ID} .kfp-official-badge-link,#${ROOT_ID} .UserProfileBadges\.module__link___ZjBjOw{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;margin:-7px;border-radius:999px;text-decoration:none;pointer-events:auto;position:relative;touch-action:manipulation}
 #${ROOT_ID} .kfp-official-badge-img,#${ROOT_ID} .UserProfileBadges\.module__badgeDesktop___ZjBjOw{display:block;width:22px;height:22px;object-fit:contain}
+#${ROOT_ID} .kfp-floating-tooltip{position:fixed;z-index:2147483647;pointer-events:none;padding:6px 8px;border-radius:6px;background:var(--background-floating,#111214);color:#fff;font-size:12px;font-weight:850;line-height:1;letter-spacing:.01em;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.38);opacity:0;transform:translateY(4px);transition:opacity .08s ease,transform .08s ease}
+#${ROOT_ID} .kfp-floating-tooltip[data-show="1"]{opacity:1;transform:translateY(0)}
+#${ROOT_ID} .kfp-floating-tooltip::after{content:"";position:absolute;left:50%;margin-left:-5px;border:5px solid transparent}
+#${ROOT_ID} .kfp-floating-tooltip[data-placement="top"]::after{bottom:-10px;border-top-color:var(--background-floating,#111214)}
+#${ROOT_ID} .kfp-floating-tooltip[data-placement="bottom"]::after{top:-10px;border-bottom-color:var(--background-floating,#111214)}
 #${ROOT_ID} .kfp-content{display:flex;flex-direction:column;gap:.5rem;overflow:auto;padding-top:.5rem;padding-left:1rem;padding-right:1rem;scrollbar-width:thin;min-height:0}
 #${ROOT_ID} .kfp-user-info{user-select:text;-webkit-user-select:text}
 #${ROOT_ID} .kfp-name-row{display:flex;align-items:center;gap:.125rem;min-width:0}
@@ -7599,6 +7728,7 @@
     var el = document.getElementById(ROOT_ID);
     if (el) {
       el.innerHTML = "";
+      removeBadgeTooltip();
       el.removeAttribute("data-kfp-layer");
       el.removeAttribute("data-kfp-userprofile-delegated");
       try {
@@ -8062,7 +8192,7 @@
     var label = "STAFF";
     var href = ORIGIN + "/marketing/careers";
 
-    return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" title="' + escapeHtml(label) + '">' +
+    return '<a class="UserProfileBadges.module__link___ZjBjOw kfp-official-badge-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" aria-haspopup="true" aria-expanded="false" aria-label="' + escapeHtml(label) + '" data-kfp-tooltip="' + escapeHtml(label) + '">' +
       '<img class="UserProfileBadges.module__badgeDesktop___ZjBjOw kfp-official-badge-img" alt="' + escapeHtml(label) + '" src="https://fluxerstatic.com/badges/staff.svg">' +
       '</a>';
   }
@@ -8236,8 +8366,90 @@
     ok();
   }
 
+
+  function removeBadgeTooltip() {
+    var current = document.querySelector("#" + ROOT_ID + " .kfp-floating-tooltip");
+    if (current) current.remove();
+  }
+
+  function positionBadgeTooltip(anchor, tooltip) {
+    if (!anchor || !tooltip || !anchor.getBoundingClientRect) return;
+
+    var anchorRect = anchor.getBoundingClientRect();
+    var tooltipRect = tooltip.getBoundingClientRect();
+    var margin = 8;
+    var placement = "top";
+    var left = anchorRect.left + (anchorRect.width / 2) - (tooltipRect.width / 2);
+    var top = anchorRect.top - tooltipRect.height - 9;
+
+    if (top < margin) {
+      placement = "bottom";
+      top = anchorRect.bottom + 9;
+    }
+
+    left = Math.max(margin, Math.min(window.innerWidth - tooltipRect.width - margin, left));
+    top = Math.max(margin, Math.min(window.innerHeight - tooltipRect.height - margin, top));
+
+    tooltip.setAttribute("data-placement", placement);
+    tooltip.style.left = Math.round(left) + "px";
+    tooltip.style.top = Math.round(top) + "px";
+  }
+
+  function showBadgeTooltip(anchor) {
+    if (!anchor) return;
+
+    var label = text(anchor.getAttribute("data-kfp-tooltip") || anchor.getAttribute("aria-label") || "").trim();
+    if (!label) return;
+
+    removeBadgeTooltip();
+
+    var tooltip = document.createElement("div");
+    tooltip.className = "kfp-floating-tooltip";
+    tooltip.textContent = label;
+
+    root().appendChild(tooltip);
+    positionBadgeTooltip(anchor, tooltip);
+
+    requestAnimationFrame(function () {
+      positionBadgeTooltip(anchor, tooltip);
+      tooltip.setAttribute("data-show", "1");
+    });
+  }
+
+  function bindBadgeTooltips(scope) {
+    Array.prototype.slice.call((scope || root()).querySelectorAll("[data-kfp-tooltip]")).forEach(function (badge) {
+      if (badge.getAttribute("data-kfp-tooltip-bound") === "1") return;
+      badge.setAttribute("data-kfp-tooltip-bound", "1");
+
+      badge.addEventListener("pointerenter", function () {
+        showBadgeTooltip(badge);
+      }, { signal: controller.signal });
+
+      badge.addEventListener("pointerleave", function () {
+        removeBadgeTooltip();
+      }, { signal: controller.signal });
+
+      badge.addEventListener("mouseenter", function () {
+        showBadgeTooltip(badge);
+      }, { signal: controller.signal });
+
+      badge.addEventListener("mouseleave", function () {
+        removeBadgeTooltip();
+      }, { signal: controller.signal });
+
+      badge.addEventListener("focus", function () {
+        showBadgeTooltip(badge);
+      }, { signal: controller.signal });
+
+      badge.addEventListener("blur", function () {
+        removeBadgeTooltip();
+      }, { signal: controller.signal });
+    });
+  }
+
   function bindGlobalButtons(bundle) {
     var container = root();
+    bindBadgeTooltips(container);
 
     Array.prototype.slice.call(container.querySelectorAll("[data-kfp-close]")).forEach(function (el) {
       el.addEventListener("click", function (event) {
