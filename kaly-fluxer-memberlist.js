@@ -1,7 +1,7 @@
 (async function () {
   "use strict";
 
-  var VERSION = "console-6.8.25-loader-low-layer-profile-direct";
+  var VERSION = "console-6.8.28-loader-memberlist-gif-preserve";
   var ORIGIN = location.origin;
 
   function installKalyFluxerSpaNavigator() {
@@ -50,7 +50,7 @@
 
   installKalyFluxerSpaNavigator();
 
-  var STORAGE_AVATAR = "kaly_fluxer_avatar_cache_v2_no_native_guess";
+  var STORAGE_AVATAR = "kaly_fluxer_avatar_cache_v5_memberlist_gif_preserve";
   var STORAGE_PRESENCE = "kaly_console_presence_cache_v1";
   var STORAGE_SELF_ID = "kaly_fluxer_self_member_id";
   var STORAGE_ROLE_MODE = "kaly_fluxer_memberlist_role_order_mode";
@@ -279,6 +279,27 @@
     }
   }
 
+  function isAllowedAvatarUrl(url) {
+    try {
+      var parsed = new URL(url, location.href);
+
+      if (parsed.origin === ORIGIN) return true;
+      if (parsed.protocol !== "https:") return false;
+
+      var host = parsed.hostname.toLowerCase();
+
+      return (
+        host === "fluxerstatic.com" ||
+        host.endsWith(".fluxerstatic.com") ||
+        host === "cdn.discordapp.com" ||
+        host.endsWith(".discordapp.com") ||
+        host.endsWith(".discordapp.net")
+      );
+    } catch (error) {
+      return false;
+    }
+  }
+
   function loadJson(key, fallback) {
     try {
       var raw = localStorage.getItem(key);
@@ -329,7 +350,7 @@
     panelWidth: 260,
     topOffset: 48,
     avatarTimeoutMs: 1200,
-    avatarCandidateLimit: 16,
+    avatarCandidateLimit: 64,
     debug: true
   };
 
@@ -2140,7 +2161,7 @@
     return out;
   }
 
-  function fileNameVariants(raw) {
+  function fileNameVariants(raw, forceAnimated) {
     var value = String(raw || "").trim();
     if (!value) return [];
 
@@ -2148,24 +2169,72 @@
     value = value.split("?")[0];
 
     var out = [];
+    var animated = Boolean(forceAnimated) || value.indexOf("a_") === 0 || /\.gif$/i.test(value);
+    var hasExtension = /\.(png|jpg|jpeg|webp|gif)$/i.test(value);
+    var stripped = value.replace(/(^|\/)a_([^\/]+)$/i, "$1$2");
+    var strippedWithExtension = value.replace(/(^|\/)a_([^\/]+?)(\.(png|jpg|jpeg|webp|gif))$/i, "$1$2$3");
 
-    if (/\.(png|jpg|jpeg|webp|gif)$/i.test(value)) {
-      out.push(value);
-      out.push(value + "?size=64");
-      out.push(value + "?size=128");
-      return uniq(out);
+    function pushBase(base, preferGif) {
+      if (!base) return;
+
+      base = String(base || "").replace(/^\/+/, "");
+      if (!base) return;
+
+      if (/\.(png|jpg|jpeg|webp|gif)$/i.test(base)) {
+        if (/\.gif$/i.test(base) || preferGif) {
+          out.push(base + "?size=64");
+          out.push(base + "?size=128");
+          out.push(base);
+          out.push(base.replace(/\.gif$/i, ".webp") + "?size=64");
+          out.push(base.replace(/\.gif$/i, ".webp"));
+          out.push(base.replace(/\.gif$/i, ".png") + "?size=64");
+          out.push(base.replace(/\.gif$/i, ".png"));
+        } else {
+          out.push(base + "?size=64");
+          out.push(base + "?size=128");
+          out.push(base);
+          out.push(base.replace(/\.(png|jpg|jpeg|webp)$/i, ".gif") + "?size=64");
+          out.push(base.replace(/\.(png|jpg|jpeg|webp)$/i, ".gif"));
+        }
+        return;
+      }
+
+      if (preferGif) {
+        out.push(base + ".gif?size=64");
+        out.push(base + ".gif?size=128");
+        out.push(base + ".gif");
+        out.push(base + ".webp?size=64");
+        out.push(base + ".webp");
+        out.push(base + ".png?size=64");
+        out.push(base + ".png");
+        out.push(base);
+      } else {
+        out.push(base + ".webp?size=64");
+        out.push(base + ".webp");
+        out.push(base + ".png?size=64");
+        out.push(base + ".png");
+        out.push(base + ".jpg?size=64");
+        out.push(base + ".jpg");
+        out.push(base + ".gif?size=64");
+        out.push(base + ".gif");
+        out.push(base);
+      }
     }
 
-    if (value.indexOf("a_") === 0) {
-      out.push(value + ".gif?size=64");
-      out.push(value + ".webp?size=64");
-      out.push(value + ".png?size=64");
-      out.push(value);
+    /*
+      Fluxer peut stocker un avatar animé avec le hash sans préfixe a_.
+      Exemple vu dans le réseau : a_87cd7488.gif -> 404, alors que le profil
+      sait souvent retomber sur 87cd7488.*. On teste donc le hash dépréfixé
+      avant le hash Discord-like. Sinon la member list reste avec une PFP vide.
+    */
+    if (value.indexOf("a_") === 0 || stripped !== value || strippedWithExtension !== value) {
+      pushBase(strippedWithExtension !== value ? strippedWithExtension : stripped, animated);
+    }
+
+    if (hasExtension) {
+      pushBase(value, animated);
     } else {
-      out.push(value + ".webp?size=64");
-      out.push(value + ".png?size=64");
-      out.push(value + ".jpg?size=64");
-      out.push(value);
+      pushBase(value, animated);
     }
 
     return uniq(out);
@@ -2184,15 +2253,66 @@
       url = CONFIG.mediaBase + "/" + rawPath.replace(/^\/+/, "");
     }
 
-    if (isSameOriginUrl(url)) candidates.push(url);
+    if (isAllowedAvatarUrl(url)) candidates.push(url);
   }
 
-  function addAvatarRoutes(candidates, userId, rawValue) {
+  function addAnimatedAvatarEndpointCandidates(candidates, userId, file) {
+    file = String(file || "").trim().replace(/^\/+/, "");
+    if (!userId || !file) return;
+
+    if (!/\.(png|jpg|jpeg|webp|gif)$/i.test(file)) {
+      file += ".gif";
+    }
+
+    if (!/\.gif$/i.test(file)) {
+      file = file.replace(/\.(png|jpg|jpeg|webp)$/i, ".gif");
+    }
+
+    var encodedUserId = encodeURIComponent(userId);
+    var encodedFile = encodeURIComponent(file);
+
+    [
+      "/avatars/" + encodedUserId + "/" + encodedFile + "?size=64&format=gif&quality=high&animated=true",
+      "/avatars/" + encodedUserId + "/" + encodedFile + "?size=128&format=gif&quality=high&animated=true",
+      "/avatars/" + encodedUserId + "/" + encodedFile + "?size=160&format=gif&quality=high&animated=true",
+      "/media/avatars/" + encodedUserId + "/" + encodedFile + "?size=64&format=gif&quality=high&animated=true",
+      "/media/avatars/" + encodedUserId + "/" + encodedFile + "?size=128&format=gif&quality=high&animated=true",
+      "/media/avatars/" + encodedUserId + "/" + encodedFile
+    ].forEach(function (candidate) {
+      addCandidate(candidates, candidate);
+    });
+  }
+
+  function addAvatarRoutes(candidates, userId, rawValue, forceAnimated) {
     if (!userId || !rawValue) return;
 
-    fileNameVariants(rawValue).forEach(function (variant) {
+    var rawFile = String(rawValue || "").trim().replace(/^\/+/, "").split("?")[0];
+    var rawLooksAnimated = Boolean(forceAnimated) || rawFile.indexOf("a_") === 0 || /\.gif$/i.test(rawFile);
+
+    /*
+      Priorité absolue aux vraies routes animées Fluxer.
+      La version précédente tombait sur un .webp valide avant d'essayer la route /avatars
+      avec animated=true. Résultat : PFP visible, mais plus animée. Là on force les GIF
+      en premier, puis seulement après on accepte les fallbacks statiques.
+    */
+    if (rawLooksAnimated) {
+      var originalGif = rawFile;
+      var strippedGif = rawFile.replace(/(^|\/)a_([^\/]+)/i, "$1$2");
+
+      addAnimatedAvatarEndpointCandidates(candidates, userId, originalGif);
+      if (strippedGif !== originalGif) {
+        addAnimatedAvatarEndpointCandidates(candidates, userId, strippedGif);
+      }
+    }
+
+    fileNameVariants(rawValue, forceAnimated).forEach(function (variant) {
       var file = variant.split("?")[0];
       var query = variant.indexOf("?") !== -1 ? "?" + variant.split("?")[1] : "";
+      var animatedVariant = rawLooksAnimated || /^a_/i.test(file) || /\.gif$/i.test(file);
+
+      if (animatedVariant && /\.gif$/i.test(file)) {
+        addAnimatedAvatarEndpointCandidates(candidates, userId, file);
+      }
 
       addCandidate(candidates, "avatars/" + encodeURIComponent(userId) + "/" + encodeURIComponent(file) + query);
       addCandidate(candidates, "avatar/" + encodeURIComponent(userId) + "/" + encodeURIComponent(file) + query);
@@ -2211,8 +2331,32 @@
     return "";
   }
 
+  function avatarValueLooksAnimated(value, path) {
+    var lowerPath = String(path || "").toLowerCase();
+
+    if (typeof value === "string") {
+      var raw = value.trim();
+      return raw.indexOf("a_") === 0 || /\.gif(\?|$)/i.test(raw) || lowerPath.indexOf("gif") !== -1 || lowerPath.indexOf("animated") !== -1;
+    }
+
+    if (value && typeof value === "object") {
+      return Boolean(firstValue(
+        value.animated,
+        value.is_animated,
+        value.isAnimated,
+        value.avatar_animated,
+        value.avatarAnimated,
+        value.gif,
+        false
+      )) || avatarValueLooksAnimated(firstValue(value.url, value.src, value.href, value.filename, value.file_name, value.fileName, value.name, value.hash, value.key, ""), lowerPath);
+    }
+
+    return false;
+  }
+
   function addAvatarValuesToCandidates(candidates, item, member) {
     var value = item.value;
+    var animated = avatarValueLooksAnimated(value, item.path);
 
     if (item.type === "string") {
       var raw = String(value || "").trim();
@@ -2221,7 +2365,7 @@
       if (/^https?:\/\//.test(raw) || raw.indexOf("/") === 0) {
         addCandidate(candidates, raw);
       } else {
-        addAvatarRoutes(candidates, member.id, raw);
+        addAvatarRoutes(candidates, member.id, raw, animated);
       }
 
       return;
@@ -2233,25 +2377,30 @@
       var filename = String(firstValue(value.filename, value.file_name, value.fileName, value.name, value.original_name, value.originalName, ""));
 
       if (direct) addCandidate(candidates, direct);
-      if (filename) addAvatarRoutes(candidates, member.id, filename);
-      if (fileId) addAvatarRoutes(candidates, member.id, fileId);
+      if (filename) addAvatarRoutes(candidates, member.id, filename, animated);
+      if (fileId) addAvatarRoutes(candidates, member.id, fileId, animated);
     }
   }
 
   function buildAvatarCandidates(memberRaw, userRaw, member) {
     var candidates = [];
+    var avatarValues = collectAvatarValues(memberRaw, "", []).concat(collectAvatarValues(userRaw, "", []));
+
+    member.avatarAnimated = avatarValues.some(function (item) {
+      return avatarValueLooksAnimated(item.value, item.path);
+    });
 
     var cached = state.avatarCache[member.id];
-    if (cached && isSameOriginUrl(cached)) candidates.push(cached);
+    if (cached && isAllowedAvatarUrl(cached)) candidates.push(cached);
 
     var nativeAvatar = matchNativeAvatar(member);
     if (nativeAvatar) candidates.push(nativeAvatar);
 
-    collectAvatarValues(memberRaw, "", []).concat(collectAvatarValues(userRaw, "", [])).forEach(function (item) {
+    avatarValues.forEach(function (item) {
       addAvatarValuesToCandidates(candidates, item, member);
     });
 
-    return uniq(candidates.filter(isSameOriginUrl));
+    return uniq(candidates.filter(isAllowedAvatarUrl));
   }
 
   function validateImageUrl(url) {
@@ -2263,12 +2412,14 @@
 
       var done = false;
       var img = new Image();
+      var isAnimatedCandidate = /\.gif(\?|$)/i.test(url) || /[?&]animated=true/i.test(url) || /\/a_[^\/]+/i.test(url);
+      var timeoutMs = isAnimatedCandidate ? Math.max(CONFIG.avatarTimeoutMs, 3200) : CONFIG.avatarTimeoutMs;
 
       var timer = setTimeout(function () {
         if (done) return;
         done = true;
         resolve("");
-      }, CONFIG.avatarTimeoutMs);
+      }, timeoutMs);
 
       img.onload = function () {
         if (done) return;
@@ -2291,12 +2442,48 @@
   async function resolveAvatarForMember(member) {
     var cached = state.avatarCache[member.id];
 
-    if (cached && isSameOriginUrl(cached)) {
-      member.avatarUrl = cached;
-      return cached;
+    if (
+      cached &&
+      member.avatarAnimated &&
+      !/\.gif(\?|$)/i.test(cached) &&
+      cached.indexOf("animated=true") === -1
+    ) {
+      delete state.avatarCache[member.id];
+      saveAvatarCache();
+      cached = "";
+    }
+
+    if (cached && isAllowedAvatarUrl(cached)) {
+      var cachedValid = await validateImageUrl(cached);
+
+      if (cachedValid) {
+        member.avatarUrl = cachedValid;
+        return cachedValid;
+      }
+
+      delete state.avatarCache[member.id];
+      saveAvatarCache();
+      member.avatarCandidates = (member.avatarCandidates || []).filter(function (url) {
+        return url !== cached;
+      });
     }
 
     var candidates = member.avatarCandidates || [];
+    var gifCandidates = [];
+    var otherCandidates = [];
+
+    candidates.forEach(function (candidate) {
+      if (/\.gif(\?|$)/i.test(candidate) || candidate.indexOf("animated=true") !== -1) {
+        gifCandidates.push(candidate);
+      } else {
+        otherCandidates.push(candidate);
+      }
+    });
+
+    if (member.avatarAnimated) {
+      candidates = uniq(gifCandidates.concat(otherCandidates));
+    }
+
     var limit = Math.min(candidates.length, CONFIG.avatarCandidateLimit);
 
     member.triedAvatarCandidates = candidates.slice(0, limit);
@@ -2426,7 +2613,7 @@
 
     member.avatarCandidates = buildAvatarCandidates(memberRaw, user, member);
 
-    if (state.avatarCache[id] && isSameOriginUrl(state.avatarCache[id])) {
+    if (state.avatarCache[id] && isAllowedAvatarUrl(state.avatarCache[id])) {
       member.avatarUrl = state.avatarCache[id];
     }
 
@@ -2723,7 +2910,7 @@
         member.presenceSource ||
         "";
 
-      if (state.avatarCache[member.id] && isSameOriginUrl(state.avatarCache[member.id])) {
+      if (state.avatarCache[member.id] && isAllowedAvatarUrl(state.avatarCache[member.id])) {
         member.avatarUrl = state.avatarCache[member.id];
       }
     });
@@ -2774,7 +2961,7 @@
         state.avatarCache[member.id] = previousAvatarUrls[member.id];
       }
 
-      if (!member.avatarUrl && state.avatarCache[member.id] && isSameOriginUrl(state.avatarCache[member.id])) {
+      if (!member.avatarUrl && state.avatarCache[member.id] && isAllowedAvatarUrl(state.avatarCache[member.id])) {
         member.avatarUrl = state.avatarCache[member.id];
       }
     });
