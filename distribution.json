@@ -438,12 +438,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 26350793,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/alexsmobs-1.22.9.jar",
-            "MD5": "504050d1f2e2c3019b6f53377ca354c6"
+            "MD5": "504050d1f2e2c3019b6f53377ca354c6",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/alexsmobs-1.22.9.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:almanac:1.0.2@jar",
+          "name": "Almanac",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 15906,
+            "MD5": "20f9b054f4caceebda02847c149901af",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/almanac-1.20.x-forge-1.0.2.jar"
+          },
+          "subModules": []
         },
         {
           "id": "squeek.appleskin:appleskin:2.5.1+mc1.20.1@jar",
@@ -451,12 +466,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 47428,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/appleskin-forge-mc1.20.1-2.5.1.jar",
-            "MD5": "dae63cea9c951dda542a4005ceef3953"
+            "MD5": "dae63cea9c951dda542a4005ceef3953",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/appleskin-forge-mc1.20.1-2.5.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "dev.architectury:architectury:9.2.14@jar",
@@ -464,12 +480,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 580602,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/architectury-9.2.14-forge.jar",
-            "MD5": "76b40d407b6bf0257dd1dab6d3d395d5"
+            "MD5": "76b40d407b6bf0257dd1dab6d3d395d5",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/architectury-9.2.14-forge.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "de.mennomax:astikorcarts:1.1.8@jar",
@@ -477,12 +494,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 231706,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/astikorcarts-1.20.1-1.1.8.jar",
-            "MD5": "0165d0921a96ee41880446af6182fffe"
+            "MD5": "0165d0921a96ee41880446af6182fffe",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/astikorcarts-1.20.1-1.1.8.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "net.blay09.mods:balm:7.3.38@jar",
@@ -490,12 +508,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 591398,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/balm-forge-1.20.1-7.3.38-all.jar",
-            "MD5": "2ff18975f2b4d0570f8eeeae85b66e42"
+            "MD5": "2ff18975f2b4d0570f8eeeae85b66e42",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/balm-forge-1.20.1-7.3.38-all.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "net.pandarix:betterarcheology:1.2.1-1.20.1@jar",
@@ -503,25 +522,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 982838,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/betterarcheology-1.2.1-1.20.1.jar",
-            "MD5": "44d12515764cd4202481b73b82626aae"
+            "MD5": "44d12515764cd4202481b73b82626aae",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/betterarcheology-1.2.1-1.20.1.jar"
           },
           "required": {
             "value": false
-          }
-        },
-        {
-          "id": "me.treyruffy:betterf3:7.0.2@jar",
-          "name": "BetterF3",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 468517,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/BetterF3-7.0.2-Forge-1.20.1.jar",
-            "MD5": "7411ae023390cf6b148f05a6b685279f"
           },
-          "required": {
-            "value": false
-          }
+          "subModules": []
         },
         {
           "id": "com.ldtteam.blockui.mod:blockui:1.20.1-1.0.194-snapshot@jar",
@@ -529,12 +536,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 391051,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/blockui-1.20.1-1.0.194-snapshot.jar",
-            "MD5": "e57b48456f8e95127d91e41cf9a9c481"
+            "MD5": "e57b48456f8e95127d91e41cf9a9c481",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/blockui-1.20.1-1.0.194-snapshot.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:bloodmoon:1.4.1-forge-1.20.1@jar",
+          "name": "Bloodmoon Update",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 2130452,
+            "MD5": "5d12a251c687eecd18ad35dd9900a238",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/bloodmoon-1.20.1-1.4.1-forge-1.20.1.jar"
+          },
+          "subModules": []
         },
         {
           "id": "net.darkhax:bookshelf:20.2.15@jar",
@@ -542,12 +564,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 343925,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Bookshelf-Forge-1.20.1-20.2.15.jar",
-            "MD5": "984cc53b314436f57e3bf72b8a1ba62b"
+            "MD5": "984cc53b314436f57e3bf72b8a1ba62b",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Bookshelf-Forge-1.20.1-20.2.15.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.mrcrayfish.furniture:cfm:7.0.0-pre36@jar",
@@ -555,12 +578,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2613393,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/cfm-forge-1.20.1-7.0.0-pre36.jar",
-            "MD5": "faf78627dad9c9c04e7a4fa8992c54dc"
+            "MD5": "faf78627dad9c9c04e7a4fa8992c54dc",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cfm-forge-1.20.1-7.0.0-pre36.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:chairapi:1@jar",
+          "name": "ChairAPI",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 8988,
+            "MD5": "18e276b56fbe80e62d604077b14f5219",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/chairapi-2.0.6.jar"
+          },
+          "subModules": []
         },
         {
           "id": "com.github.alexthe666:citadel:2.6.3@jar",
@@ -568,12 +606,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 3185275,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/citadel-2.6.3-1.20.1.jar",
-            "MD5": "da80c09b998d829b6d580e5be76dcc7b"
+            "MD5": "da80c09b998d829b6d580e5be76dcc7b",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/citadel-2.6.3-1.20.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "generated.forgemod:citresewn:1.2.2+1.20.1@jar",
@@ -581,25 +620,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 395586,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/citresewn-1.2.2+1.20.1.jar",
-            "MD5": "e7cd058b8f1866b8b599abdcc830b109"
+            "MD5": "e7cd058b8f1866b8b599abdcc830b109",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/citresewn-1.2.2+1.20.1.jar"
           },
           "required": {
             "value": false
-          }
-        },
-        {
-          "id": "dev.terminalmc:clientsort:2.2.1+1.20.1@jar",
-          "name": "ClientSort",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 944710,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/clientsort-forge-2.2.1+1.20.1.jar",
-            "MD5": "70a352b2d9e18847fb914e7c44e46c43"
           },
-          "required": {
-            "value": false
-          }
+          "subModules": []
         },
         {
           "id": "me.shedaniel.clothconfig:cloth_config:11.1.136@jar",
@@ -607,12 +634,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1181413,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/cloth-config-11.1.136-forge.jar",
-            "MD5": "ca5de5acbcb4a30c010aa6953bd7ef53"
+            "MD5": "ca5de5acbcb4a30c010aa6953bd7ef53",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cloth-config-11.1.136-forge.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:clumps:1.20.1-12.0.0.4@jar",
+          "name": "Clumps",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 20300,
+            "MD5": "7a71806a1167d866608fc2e8c7d62041",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Clumps-forge-1.20.1-12.0.0.4.jar"
+          },
+          "subModules": []
         },
         {
           "id": "net.darkhax.coins:coinsje:13.0.4@jar",
@@ -620,12 +662,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 45105,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Coins-Forge-1.20.1-13.0.4.jar",
-            "MD5": "9426ef5924c6d9423908fa05a10b5e14"
+            "MD5": "9426ef5924c6d9423908fa05a10b5e14",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Coins-Forge-1.20.1-13.0.4.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.natamus:collective:8.13@jar",
@@ -633,12 +676,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 665169,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/collective-1.20.1-8.13.jar",
-            "MD5": "abe112af460bf8befe26605a5e4c4248"
+            "MD5": "abe112af460bf8befe26605a5e4c4248",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/collective-1.20.1-8.13.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.blamejared:controlling:12.0.2@jar",
@@ -646,12 +690,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 115280,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Controlling-forge-1.20.1-12.0.2.jar",
-            "MD5": "dc94fc03e516d96aad393b26910c81ad"
+            "MD5": "dc94fc03e516d96aad393b26910c81ad",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Controlling-forge-1.20.1-12.0.2.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:coroutil:1.20.1-1.3.7@jar",
+          "name": "CoroUtil",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 64187,
+            "MD5": "6fb9ccbe8c05c1da61c224d1127e9643",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/coroutil-forge-1.20.1-1.3.7.jar"
+          },
+          "subModules": []
         },
         {
           "id": "net.mcreator:cosmic:1.0.0@jar",
@@ -659,12 +718,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 18227,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/cosmic-1.0.0-forge-1.20.1.jar",
-            "MD5": "893d3a104f7ced1563e3242fa4227f0c"
+            "MD5": "893d3a104f7ced1563e3242fa4227f0c",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/cosmic-1.0.0-forge-1.20.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "tech.thatgravyboat:creeperoverhaul:3.0.2@jar",
@@ -672,12 +732,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1456860,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/creeperoverhaul-3.0.2-forge.jar",
-            "MD5": "a8fb93fffba5a25b8444f4a2d5da2601"
+            "MD5": "a8fb93fffba5a25b8444f4a2d5da2601",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/creeperoverhaul-3.0.2-forge.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "top.theillusivec4:curios:5.14.1+1.20.1@jar",
@@ -685,25 +746,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 398066,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/curios-forge-5.14.1+1.20.1.jar",
-            "MD5": "2fdcc97cbc66c4b2492b407c792e7159"
+            "MD5": "2fdcc97cbc66c4b2492b407c792e7159",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/curios-forge-5.14.1+1.20.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
-          "id": "de.geheimagentnr1:dimensionteleport:2.0.1@jar",
-          "name": "Dimension Teleport",
+          "id": "generated.forgemod:dimensionrules:1.0.1@jar",
+          "name": "Dimension Rules",
           "type": "ForgeMod",
-          "artifact": {
-            "size": 163183,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/DimensionTeleport-1.20.1-2.0.1.jar",
-            "MD5": "7d1ef51eb2326a0189232e5e2f421c23"
-          },
           "required": {
             "value": false
-          }
+          },
+          "artifact": {
+            "size": 38840,
+            "MD5": "2d250081455ec072ba9b76fbb5c58c5a",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/dimension-rules-forge-1.0.1%20(1).jar"
+          },
+          "subModules": []
         },
         {
           "id": "com.ldtteam.domumornamentum:domum_ornamentum:1.20.1-1.0.300-snapshot@jar",
@@ -711,12 +774,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1172058,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/domum_ornamentum-1.20.1-1.0.300-snapshot-universal.jar",
-            "MD5": "7735c7df2f1631fac6f491a236c2fa36"
+            "MD5": "7735c7df2f1631fac6f491a236c2fa36",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/domum_ornamentum-1.20.1-1.0.300-snapshot-universal.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.github.kay9:dragonmounts:1.2.3-beta@jar",
@@ -724,25 +788,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 575353,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dragonmounts-1.20.1-1.2.3-beta.jar",
-            "MD5": "aac585764d7566831dda81b05b2a35e7"
+            "MD5": "aac585764d7566831dda81b05b2a35e7",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/dragonmounts-1.20.1-1.2.3-beta.jar"
           },
           "required": {
             "value": false
-          }
-        },
-        {
-          "id": "net.lostluma.dynamic_fps.impl:dynamic_fps:3.11.4@jar",
-          "name": "Dynamic FPS",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 402345,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/dynamic-fps-3.11.4+minecraft-1.20.0-forge.jar",
-            "MD5": "f8df69d0af455b6f47acb88ab747d1a3"
           },
-          "required": {
-            "value": false
-          }
+          "subModules": []
         },
         {
           "id": "com.elenai:elenaidodge2:1.1@jar",
@@ -750,25 +802,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 302493,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/elenaidodge2-1.1.jar",
-            "MD5": "abbf0ebf4a2707bc20c1ffa12f27516c"
+            "MD5": "abbf0ebf4a2707bc20c1ffa12f27516c",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/elenaidodge2-1.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
-          "id": "me.jellysquid.mods.sodium.client:embeddium:0.3.31+mc1.20.1@jar",
-          "name": "Embeddium",
+          "id": "generated.forgemod:enchantmentdisabletag:2.0.3+1.20.1@jar",
+          "name": "Enchantment Disable Tag",
           "type": "ForgeMod",
-          "artifact": {
-            "size": 1320675,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/embeddium-0.3.31+mc1.20.1.jar",
-            "MD5": "1dfb2ee49ce9ad5d484ff3eea0d628b7"
-          },
           "required": {
             "value": false
-          }
+          },
+          "artifact": {
+            "size": 197420,
+            "MD5": "1964f9f0bd7c6a076c7b40bd3524944d",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/enchantmentdisabletag-forge-2.0.3+1.20.1.jar.bak"
+          },
+          "subModules": []
         },
         {
           "id": "tech.alexnijjar:endermanoverhaul:1.0.4@jar",
@@ -776,12 +830,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1208062,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/endermanoverhaul-forge-1.20.1-1.0.4.jar",
-            "MD5": "992f4f6fad129c6ff47b33b0365d485a"
+            "MD5": "992f4f6fad129c6ff47b33b0365d485a",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/endermanoverhaul-forge-1.20.1-1.0.4.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.magistuarmory:magistuarmory:10.11@jar",
@@ -789,25 +844,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2913733,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/epic-knights-1.20.1-forge-10.11.jar",
-            "MD5": "3d52d9849bbfd1fa8f721995bc696c92"
+            "MD5": "3d52d9849bbfd1fa8f721995bc696c92",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/epic-knights-1.20.1-forge-10.11.jar"
           },
           "required": {
             "value": false
-          }
-        },
-        {
-          "id": "generated.forgemod:fabric:api-0.92.7+1.20.1@jar",
-          "name": "Fabric",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 2107977,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/fabric-api-0.92.7+1.20.1.jar",
-            "MD5": "789c66d62c1ef077c457a10191d7df23"
           },
-          "required": {
-            "value": false
-          }
+          "subModules": []
         },
         {
           "id": "vectorwing.farmersdelight:farmersdelight:1.20.1-1.2.11@jar",
@@ -815,38 +858,41 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 2963127,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/FarmersDelight-1.20.1-1.2.11.jar",
-            "MD5": "50a4531d1ec39a9d314d48ac79f15271"
+            "MD5": "50a4531d1ec39a9d314d48ac79f15271",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/FarmersDelight-1.20.1-1.2.11.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.elenai:feathers:1.1@jar",
           "name": "Feathers",
           "type": "ForgeMod",
           "artifact": {
-            "size": 124984,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/feathers-1.1.jar",
-            "MD5": "5e796b140b9fd8d7daaf19a7872e22bd"
+            "size": 124759,
+            "MD5": "840df4b3b1c89e8ae0a66d024e1f31b3",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/feathers-1.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
-          "id": "generated.forgemod:forgeconfigapiport:v8.0.3-1.20.1-Fabric@jar",
-          "name": "ForgeConfigAPIPort",
+          "id": "generated.forgemod:ferritecore:6.0.1-forge@jar",
+          "name": "Ferrite Core",
           "type": "ForgeMod",
-          "artifact": {
-            "size": 396628,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/ForgeConfigAPIPort-v8.0.3-1.20.1-Fabric.jar",
-            "MD5": "17d4d761778f33c006551cf9ecc78798"
-          },
           "required": {
             "value": false
-          }
+          },
+          "artifact": {
+            "size": 123034,
+            "MD5": "f52f538207a4829d7060550092ce2383",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/ferritecore-6.0.1-forge.jar"
+          },
+          "subModules": []
         },
         {
           "id": "software.bernie.example:geckolib:4.8.3@jar",
@@ -854,12 +900,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1039047,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/geckolib-forge-1.20.1-4.8.3.jar",
-            "MD5": "60b7bce466abc60377785bf3dc84974c"
+            "MD5": "60b7bce466abc60377785bf3dc84974c",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/geckolib-forge-1.20.1-4.8.3.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "de.maxhenkel:gravestone:1.20.1-1.0.35@jar",
@@ -867,12 +914,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 317181,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/gravestone-forge-1.20.1-1.0.35.jar",
-            "MD5": "c9a1a01c302368ed43270ceebb2c2251"
+            "MD5": "c9a1a01c302368ed43270ceebb2c2251",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/gravestone-forge-1.20.1-1.0.35.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "tallestegg.guardvillagers:guardvillagers:1.20.1-1.6.17@jar",
@@ -880,12 +928,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 204742,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/guardvillagers-1.20.1-1.6.17.jar",
-            "MD5": "cf7fd3b5e768f2c2f557430f954775ac"
+            "MD5": "cf7fd3b5e768f2c2f557430f954775ac",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/guardvillagers-1.20.1-1.6.17.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:hidenametag:1.9.1.1@jar",
+          "name": "HideNametag",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 8722,
+            "MD5": "f6da76b5f9783682748f03178c21eb89",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/hidenametag-1.9.1.1.jar"
+          },
+          "subModules": []
         },
         {
           "id": "github.pitbox46:horsecombatcontrols:1.20.1-1.0.3@jar",
@@ -893,12 +956,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 24107,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/horsecombatcontrols-1.20.1-1.0.3.jar",
-            "MD5": "e04e672256bdf3e3531397af15c39569"
+            "MD5": "e04e672256bdf3e3531397af15c39569",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/horsecombatcontrols-1.20.1-1.0.3.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "immersive_melodies:immersive_melodies:0.6.0+1.20.1@jar",
@@ -906,12 +970,27 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 5517578,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/immersive_melodies-0.6.0+1.20.1-forge.jar",
-            "MD5": "9b2903b86fbc565a3996b2d1fd78eb0d"
+            "MD5": "9b2903b86fbc565a3996b2d1fd78eb0d",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/immersive_melodies-0.6.0+1.20.1-forge.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:ironchests:5.0.2@jar",
+          "name": "Iron Chests: Restocked",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 492203,
+            "MD5": "b8c2836e89d7754987aba3f452502575",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/ironchests-5.0.2-forge.jar"
+          },
+          "subModules": []
         },
         {
           "id": "snownee.jade:jade:11.13.2+forge@jar",
@@ -919,12 +998,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 552486,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Jade-1.20.1-Forge-11.13.2.jar",
-            "MD5": "7c349670f77fd64b9e9854c4a8d82fcc"
+            "MD5": "7c349670f77fd64b9e9854c4a8d82fcc",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Jade-1.20.1-Forge-11.13.2.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "mezz.jei:jei:15.20.0.129@jar",
@@ -932,12 +1012,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1409642,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/jei-1.20.1-forge-15.20.0.129.jar",
-            "MD5": "a5192227a15e0fe0e367828b32c1f472"
+            "MD5": "a5192227a15e0fe0e367828b32c1f472",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/jei-1.20.1-forge-15.20.0.129.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "jeresources:jeresources:1.4.0.247@jar",
@@ -945,12 +1026,83 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 276231,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/JustEnoughResources-1.20.1-1.4.0.247.jar",
-            "MD5": "413f7d427a16254ec8e08f78094a206d"
+            "MD5": "413f7d427a16254ec8e08f78094a206d",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/JustEnoughResources-1.20.1-1.4.0.247.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:doapi:1.2.15@jar",
+          "name": "[Let's Do] API",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 1440591,
+            "MD5": "82d392dd5ef6064d8988592a35b3b403",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/letsdo-API-forge-1.2.15-forge.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:bakery:1.1.15@jar",
+          "name": "[Let's Do] Bakery",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 1539376,
+            "MD5": "c1ea271f8ea61df80a37010e32d9e08f",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/letsdo-bakery-forge-1.1.15.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:brewery:2.0.6@jar",
+          "name": "[Let's Do] Brewery",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 2048413,
+            "MD5": "4acf34c0821b41d5a640b94e69672798",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/letsdo-brewery-forge-2.0.6.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:farm_and_charm:1.0.14@jar",
+          "name": "[Let's Do] Farm & Charm",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 2328624,
+            "MD5": "6278fb984da2ca60498fd4c78675524a",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/letsdo-farm_and_charm-forge-1.0.14.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:vinery:1.4.41@jar",
+          "name": "[Let's Do] Vinery",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 2041283,
+            "MD5": "bf692e0100772cfa90b9878a38c1f28a",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/letsdo-vinery-forge-1.4.41.jar"
+          },
+          "subModules": []
         },
         {
           "id": "noobanidus.mods:lootr:0.7.35.94@jar",
@@ -958,12 +1110,55 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 463485,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/lootr-forge-1.20-0.7.35.94.jar",
-            "MD5": "56dd6966de4ba641cf00ef5b9ce8d2d7"
+            "MD5": "56dd6966de4ba641cf00ef5b9ce8d2d7",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/lootr-forge-1.20-0.7.35.94.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:memoryleakfix:1.1.5@jar",
+          "name": "Memory Leak Fix",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 227925,
+            "MD5": "5dd9149414ca375ceab146242c6e84ab",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/memoryleakfix-forge-1.17+-1.1.5.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:mobtimizations:1.20.1-1.0.1@jar",
+          "name": "Mobtimizations",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 27943,
+            "MD5": "3360194a369a9d36b2870ccd195b410f",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/mobtimizations-forge-1.20.1-1.0.1.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:modernfix:5.27.50+mc1.20.1@jar",
+          "name": "ModernFix",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 979326,
+            "MD5": "6238f7e9167e553f752cbb4996342560",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/modernfix-forge-5.27.50+mc1.20.1.jar"
+          },
+          "subModules": []
         },
         {
           "id": "generated.forgemod:modmenu:7.2.2@jar",
@@ -971,12 +1166,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 721366,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/modmenu-7.2.2.jar",
-            "MD5": "2629511a2d3b141d9f2a24dc9685637e"
+            "MD5": "2629511a2d3b141d9f2a24dc9685637e",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/modmenu-7.2.2.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "yalter.mousetweaks:mousetweaks:2.25.1@jar",
@@ -984,25 +1180,41 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 76237,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/MouseTweaks-forge-mc1.20.1-2.25.1.jar",
-            "MD5": "ce4b5bbb9ef6a7905c458ab599ef4cb2"
+            "MD5": "ce4b5bbb9ef6a7905c458ab599ef4cb2",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/MouseTweaks-forge-mc1.20.1-2.25.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
-          "id": "net.irisshaders.iris:oculus:1.8.0@jar",
-          "name": "Oculus",
+          "id": "generated.forgemod:enchantblocker:1.0@jar",
+          "name": "Enchant Blocker",
           "type": "ForgeMod",
-          "artifact": {
-            "size": 2851119,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/oculus-mc1.20.1-1.8.0.jar",
-            "MD5": "1dd891634ac21591b5a692471f112572"
-          },
           "required": {
             "value": false
-          }
+          },
+          "artifact": {
+            "size": 6150,
+            "MD5": "df5ac5fc4df70c8aaacc5769456e3cdc",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Nopechant.jar.disabled"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:novacraftmod:1.3.9@jar",
+          "name": "NovaCraft-Mod",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 47834,
+            "MD5": "cc102a5437fbb03180ba969cd6c1c3fb",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/novacraftmod-1.3.9.jar"
+          },
+          "subModules": []
         },
         {
           "id": "fuzs.overflowingbars:overflowingbars:8.0.1@jar",
@@ -1010,12 +1222,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 73689,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/OverflowingBars-v8.0.1-1.20.1-Forge.jar",
-            "MD5": "6152710c2ddbd371b91eb7c44aee6167"
+            "MD5": "6152710c2ddbd371b91eb7c44aee6167",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/OverflowingBars-v8.0.1-1.20.1-Forge.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.illusivesoulworks:polymorph:0.49.10+1.20.1@jar",
@@ -1023,12 +1236,41 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 299601,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/polymorph-forge-0.49.10+1.20.1.jar",
-            "MD5": "8e93675b33a89243d27f272f84e88338"
+            "MD5": "8e93675b33a89243d27f272f84e88338",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/polymorph-forge-0.49.10+1.20.1.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:portablemobs:1.2.0@jar",
+          "name": "Portable Mobs",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 95595,
+            "MD5": "17616b9a58ad25942c4cb87b077d73f9",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/portablemobs-1.2.0-forge-mc1.20.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:pcf:1.2.5@jar",
+          "name": "ProxyCompatibleForge",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 694607,
+            "MD5": "3455cab4e3fa99c13130855aaf3e08f4",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/proxy-compatible-forge-1.2.5.jar"
+          },
+          "subModules": []
         },
         {
           "id": "fuzs.puzzleslib.impl:puzzleslib:8.1.33@jar",
@@ -1036,12 +1278,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1342987,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/PuzzlesLib-v8.1.33-1.20.1-Forge.jar",
-            "MD5": "19f23e3040eaadc7c30ae38f5a3dec68"
+            "MD5": "19f23e3040eaadc7c30ae38f5a3dec68",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/PuzzlesLib-v8.1.33-1.20.1-Forge.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.teamresourceful:resourcefulconfig:2.1.3@jar",
@@ -1049,12 +1292,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 136923,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/resourcefulconfig-forge-1.20.1-2.1.3.jar",
-            "MD5": "947463b04c043937cd24506842f737a3"
+            "MD5": "947463b04c043937cd24506842f737a3",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/resourcefulconfig-forge-1.20.1-2.1.3.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.teamresourceful:resourcefullib:2.1.29@jar",
@@ -1062,12 +1306,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 432753,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/resourcefullib-forge-1.20.1-2.1.29.jar",
-            "MD5": "a040c6cc86f653fddf280ff3af9068f0"
+            "MD5": "a040c6cc86f653fddf280ff3af9068f0",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/resourcefullib-forge-1.20.1-2.1.29.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.blamejared:searchables:1.0.3@jar",
@@ -1075,51 +1320,69 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 77732,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/Searchables-forge-1.20.1-1.0.3.jar",
-            "MD5": "68fb3fa702de7e10194c5b8a3d25b5b0"
+            "MD5": "68fb3fa702de7e10194c5b8a3d25b5b0",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/Searchables-forge-1.20.1-1.0.3.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
-          "id": "net.p3pp3rf1y:sophisticatedbackpacks:3.24.30.1614@jar",
-          "name": "Sophisticated Backpacks",
+          "id": "generated.forgemod:smallships:2.0.0-b1.4@jar",
+          "name": "Small Ships",
           "type": "ForgeMod",
-          "artifact": {
-            "size": 1013858,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedbackpacks-1.20.1-3.24.30.1614.jar",
-            "MD5": "cd0b94ac7afdc7d2332c9fe520feb131"
-          },
           "required": {
             "value": false
-          }
+          },
+          "artifact": {
+            "size": 1816687,
+            "MD5": "c52bf453f18b87f43cae36acf628eb60",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/smallships-forge-1.20.1-2.0.0-b1.4.jar"
+          },
+          "subModules": []
         },
         {
-          "id": "net.p3pp3rf1y:sophisticatedcore:1.3.12.1578@jar",
-          "name": "Sophisticated Core",
+          "id": "generated.forgemod:spark:1.10.53@jar",
+          "name": "spark",
           "type": "ForgeMod",
-          "artifact": {
-            "size": 1423513,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/sophisticatedcore-1.20.1-1.3.12.1578.jar",
-            "MD5": "cea978593d8a1b3f8d18bf843e3ac862"
-          },
           "required": {
             "value": false
-          }
+          },
+          "artifact": {
+            "size": 3114590,
+            "MD5": "95dcd3b5400cc5eb5d0478a744e6ef98",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/spark-1.10.53-forge.jar"
+          },
+          "subModules": []
         },
         {
-          "id": "net.spudacious5705.shops:spudaciousshops:1.10.2-forge-1.20.1@jar",
+          "id": "generated.forgemod:spudaciousshops:1.2@jar",
           "name": "Spud's Shops",
           "type": "ForgeMod",
-          "artifact": {
-            "size": 943555,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/spudaciousshops-1.10.2-forge-1.20.1.jar",
-            "MD5": "a64b10de40b82e3e812abcb313751d15"
-          },
           "required": {
             "value": false
-          }
+          },
+          "artifact": {
+            "size": 938016,
+            "MD5": "658cc737c92714f79096b177e0503c14",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/spudaciousshops-1.2.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:starlight:1.1.2+forge.1cda73c@jar",
+          "name": "Starlight",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 110583,
+            "MD5": "da99a054428fb62342b6767b993c4c8d",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/starlight-1.1.2+forge.1cda73c.jar"
+          },
+          "subModules": []
         },
         {
           "id": "com.ldtteam:structurize:1.20.1-1.0.809-snapshot@jar",
@@ -1127,12 +1390,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 1124544,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/structurize-1.20.1-1.0.809-snapshot.jar",
-            "MD5": "7b88d909a17882628b1f679de6888326"
+            "MD5": "7b88d909a17882628b1f679de6888326",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/structurize-1.20.1-1.0.809-snapshot.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.supermartijn642.configlib:supermartijn642configlib:1.1.8@jar",
@@ -1140,12 +1404,41 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 206584,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/supermartijn642configlib-1.1.8-forge-mc1.20.jar",
-            "MD5": "cbece61946d4e059e90806c19dd66082"
+            "MD5": "cbece61946d4e059e90806c19dd66082",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/supermartijn642configlib-1.1.8-forge-mc1.20.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:supermartijn642corelib:1.1.21@jar",
+          "name": "SuperMartijn642's Core Lib",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 554977,
+            "MD5": "eb67e7fea407250cfa9fcf897f9b63b9",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/supermartijn642corelib-1.1.21-forge-mc1.20.1.jar"
+          },
+          "subModules": []
+        },
+        {
+          "id": "generated.forgemod:treechop:0.18.8@jar",
+          "name": "HT's TreeChop",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 517162,
+            "MD5": "cb12be5d9e1ac3d3ca43b46436c8fc1e",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/TreeChop-1.20.1-forge-0.19.0.jar"
+          },
+          "subModules": []
         },
         {
           "id": "com.natamus:villagernames:8.2@jar",
@@ -1153,12 +1446,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 55867,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/villagernames-1.20.1-8.2.jar",
-            "MD5": "116bdb24c9615bd4fa63aac066257496"
+            "MD5": "116bdb24c9615bd4fa63aac066257496",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/villagernames-1.20.1-8.2.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "de.maxhenkel.voicechat:voicechat:1.20.1-2.6.14@jar",
@@ -1166,12 +1460,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 4895899,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/voicechat-forge-1.20.1-2.6.14.jar",
-            "MD5": "b666d0e41401eb860db28363f67b7f7f"
+            "MD5": "b666d0e41401eb860db28363f67b7f7f",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/voicechat-forge-1.20.1-2.6.14.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "net.blay09.mods:waystones:14.1.20@jar",
@@ -1179,12 +1474,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 533739,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/waystones-forge-1.20.1-14.1.20.jar",
-            "MD5": "d093567eb50c8e8af0958c66ed17968b"
+            "MD5": "d093567eb50c8e8af0958c66ed17968b",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/waystones-forge-1.20.1-14.1.20.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         },
         {
           "id": "com.sk89q:worldedit:7.2.15+6463-5ca4dff@jar",
@@ -1192,38 +1488,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 5825402,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/worldedit-mod-7.2.15.jar",
-            "MD5": "bd0e7cff7896348faab92e43300d0639"
+            "MD5": "bd0e7cff7896348faab92e43300d0639",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/worldedit-mod-7.2.15.jar"
           },
           "required": {
             "value": false
-          }
-        },
-        {
-          "id": "xaero.minimap:xaerominimap:25.3.10@jar",
-          "name": "Xaero's Minimap",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 2146522,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/xaerominimap-forge-1.20.1-25.3.10.jar",
-            "MD5": "2847dc482588772ec551a5b5112dc686"
           },
-          "required": {
-            "value": false
-          }
-        },
-        {
-          "id": "xaero.map:xaeroworldmap:1.40.11@jar",
-          "name": "Xaero's World Map",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 1388342,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/xaeroworldmap-forge-1.20.1-1.40.11.jar",
-            "MD5": "d8624a1b587fbcd28d8f5dc5b13399d4"
-          },
-          "required": {
-            "value": false
-          }
+          "subModules": []
         },
         {
           "id": "com.yungnickyoung.minecraft:yungsapi:1.20-Forge-4.0.6@jar",
@@ -1231,12 +1502,13 @@
           "type": "ForgeMod",
           "artifact": {
             "size": 370524,
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/servers/Orion-1.20.1/forgemods/optionalon/YungsApi-1.20-Forge-4.0.6.jar",
-            "MD5": "fe79f43dba8edbb8ede99f4e358e5b0c"
+            "MD5": "fe79f43dba8edbb8ede99f4e358e5b0c",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/YungsApi-1.20-Forge-4.0.6.jar"
           },
           "required": {
             "value": false
-          }
+          },
+          "subModules": []
         }
       ]
     }

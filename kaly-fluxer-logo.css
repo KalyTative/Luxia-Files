@@ -2350,3 +2350,219 @@ html body .AuthLayout\.module__logo___XzNiND::before {
 
   pointer-events: none !important;
 }
+
+/* =========================
+   Kaly - Graphic polish V4.3.39
+   Objectif : rendre Fluxer plus premium sans repeindre la baraque au rouleau.
+   - surfaces plus lisibles
+   - halo discret façon logo Fluxer
+   - messages / salons / membres plus propres
+   - scrollbars et sélections plus doux
+   ========================= */
+
+:root {
+  --kaly-polish-line: rgba(240, 189, 255, 0.18);
+  --kaly-polish-line-soft: rgba(240, 189, 255, 0.09);
+  --kaly-polish-veil: rgba(8, 5, 13, 0.44);
+  --kaly-polish-card: rgba(24, 16, 37, 0.82);
+  --kaly-polish-card-hover: rgba(37, 24, 56, 0.9);
+  --kaly-polish-glow: 0 0 34px rgba(137, 86, 232, 0.18);
+  --kaly-polish-glow-hot: 0 0 30px rgba(240, 189, 255, 0.18);
+}
+
+::selection {
+  color: #ffffff !important;
+  background: rgba(227, 133, 255, 0.34) !important;
+  text-shadow: none !important;
+}
+
+html {
+  scrollbar-color: #5a3483 #08050d !important;
+}
+
+*::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+*::-webkit-scrollbar-track {
+  background:
+    linear-gradient(180deg, rgba(8, 5, 13, 0.92), rgba(15, 9, 24, 0.92)) !important;
+  border-radius: 999px !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, rgba(111, 63, 193, 0.82), rgba(67, 33, 131, 0.92)) !important;
+  border: 2px solid #08050d !important;
+  border-radius: 999px !important;
+  box-shadow: inset 0 0 0 1px rgba(240, 189, 255, 0.12) !important;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, rgba(227, 133, 255, 0.9), rgba(111, 63, 193, 0.95)) !important;
+}
+
+/* Grand fond : plus profond, avec une vraie aura Fluxer mais sans violet fluo Lidl. */
+html body {
+  background:
+    radial-gradient(circle at 9% 8%, rgba(240, 189, 255, 0.13), transparent 20rem),
+    radial-gradient(circle at 91% 0%, rgba(137, 86, 232, 0.18), transparent 28rem),
+    radial-gradient(circle at 50% 100%, rgba(73, 36, 128, 0.16), transparent 30rem),
+    linear-gradient(135deg, #050309 0%, #100a19 46%, #07040d 100%) !important;
+}
+
+/* Surfaces principales : contour fin + profondeur, pas de soupe transparente. */
+html body :is(
+  [class*="Chat" i],
+  [class*="Messages" i],
+  [class*="MessageList" i],
+  [class*="ChannelList" i],
+  [class*="MemberList" i],
+  [class*="MemberSidebar" i],
+  [class*="Sidebar" i],
+  [class*="Panel" i],
+  [class*="Surface" i]
+) {
+  border-color: var(--kaly-polish-line-soft) !important;
+}
+
+html body :is(
+  [class*="Chat" i],
+  [class*="MessageList" i],
+  [class*="ChannelList" i],
+  [class*="MemberList" i],
+  [class*="MemberSidebar" i]
+) {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    inset 0 0 0 1px rgba(240, 189, 255, 0.035) !important;
+}
+
+/* Headers / barres du haut : petit liseré premium pour séparer proprement. */
+html body :is(
+  header,
+  [class*="Header" i],
+  [class*="Toolbar" i],
+  [class*="TopBar" i]
+) {
+  background:
+    linear-gradient(180deg, rgba(18, 11, 29, 0.98), rgba(10, 6, 16, 0.94)) !important;
+  border-bottom: 1px solid rgba(240, 189, 255, 0.10) !important;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+}
+
+/* Messages : lecture plus douce, hover propre, mention moins aggro. */
+html body :is([class*="Message" i], [class*="message" i]) {
+  border-radius: 12px !important;
+}
+
+html body :is([class*="Message" i], [class*="message" i]):hover {
+  background:
+    linear-gradient(90deg, rgba(240, 189, 255, 0.055), rgba(137, 86, 232, 0.035), transparent 82%) !important;
+  box-shadow: inset 3px 0 0 rgba(240, 189, 255, 0.20) !important;
+}
+
+html body :is([class*="mentioned" i], [class*="Mentioned" i], [class*="mention" i][class*="message" i]) {
+  background:
+    linear-gradient(90deg, rgba(227, 133, 255, 0.13), rgba(73, 36, 128, 0.12), rgba(18, 13, 27, 0.02)) !important;
+  box-shadow:
+    inset 3px 0 0 rgba(240, 189, 255, 0.42),
+    0 0 22px rgba(227, 133, 255, 0.08) !important;
+}
+
+/* Inputs : effet bijou discret, pas grille-pain RGB. */
+html body :is(input, textarea, select):focus {
+  box-shadow:
+    0 0 0 2px rgba(240, 189, 255, 0.16),
+    0 0 32px rgba(137, 86, 232, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Boutons : plus tactiles, plus propres. */
+html body button:not(:disabled):hover {
+  filter: saturate(1.08) brightness(1.04) !important;
+}
+
+html body button[type="submit"],
+html body button[data-primary="true"] {
+  background:
+    linear-gradient(135deg, #432183 0%, #6f3fc1 45%, #e385ff 140%) !important;
+  box-shadow:
+    0 12px 32px rgba(111, 63, 193, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -10px 22px rgba(8, 5, 13, 0.18) !important;
+}
+
+/* Salons / membres : petits états visuels nets sans toucher au texte. */
+html body :is(
+  [class*="ChannelItemSurface" i],
+  [class*="channelItemSurface" i],
+  [class*="MemberListItem" i],
+  [class*="memberListItem" i]
+) {
+  border-radius: 12px !important;
+}
+
+html body :is(
+  [class*="ChannelItemSurface" i],
+  [class*="channelItemSurface" i],
+  [class*="MemberListItem" i],
+  [class*="memberListItem" i]
+):hover {
+  background:
+    linear-gradient(90deg, rgba(240, 189, 255, 0.08), rgba(111, 63, 193, 0.08), rgba(24, 16, 37, 0.34)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 189, 255, 0.08),
+    0 6px 18px rgba(0, 0, 0, 0.14) !important;
+}
+
+/* Avatar / logo : touche Fluxer, un halo blanc-violet propre au lieu du vieux rond plat. */
+html body :is(
+  [class*="BaseAvatar" i],
+  [class*="Avatar" i]
+) img,
+html body :is(
+  [class*="BaseAvatar" i],
+  [class*="Avatar" i]
+) image {
+  filter:
+    drop-shadow(0 0 10px rgba(240, 189, 255, 0.12))
+    drop-shadow(0 8px 18px rgba(0, 0, 0, 0.25)) !important;
+}
+
+html body .AuthLayout\.module__logo___XzNiND,
+html body svg.SplashScreen\.module__icon___ZTBkMm,
+html body :is(
+  [class*="GuildListDMItem" i][class*="fullSize" i],
+  [class*="BaseAvatar" i][class*="container" i]
+) {
+  filter:
+    drop-shadow(0 0 13px rgba(240, 189, 255, 0.12))
+    drop-shadow(0 10px 22px rgba(0, 0, 0, 0.30)) !important;
+}
+
+/* Code / markdown : un peu plus net pour les pavés techniques. */
+html body :is(code, pre) {
+  background: #07040d !important;
+  border-color: rgba(240, 189, 255, 0.10) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025) !important;
+}
+
+html body blockquote {
+  border-left-color: rgba(240, 189, 255, 0.38) !important;
+  background:
+    linear-gradient(90deg, rgba(240, 189, 255, 0.075), rgba(18, 13, 27, 0.42)) !important;
+}
+
+/* Le petit label beta reste discret mais mieux posé. */
+html body::after {
+  color: rgba(247, 241, 255, 0.72) !important;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(240, 189, 255, 0.24) !important;
+}
+
