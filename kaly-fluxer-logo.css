@@ -2566,3 +2566,376 @@ html body::after {
     0 0 10px rgba(240, 189, 255, 0.24) !important;
 }
 
+/* =========================
+   Kaly / Molly - Fluxer global integration V4.4.0
+   Scope: desktop Fluxer cosmetic override, loaded after the base theme.
+   Intent: Molly dark-violet glass, cleaner auth, calmer micro panel, safer app surfaces.
+   Rollback: restore the timestamped .backup-before-molly-global-polish-* file.
+   ========================= */
+
+:root {
+  --molly-bg-void: #050309;
+  --molly-bg-0: #07040d;
+  --molly-bg-1: #120d1b;
+  --molly-bg-2: #1b1228;
+  --molly-panel: rgba(27, 18, 40, 0.86);
+  --molly-panel-solid: #181025;
+  --molly-panel-soft: rgba(33, 22, 48, 0.78);
+  --molly-panel-hover: rgba(47, 29, 72, 0.74);
+  --molly-violet-700: #492480;
+  --molly-violet-500: #6f3fc1;
+  --molly-violet-400: #8956e8;
+  --molly-pink-300: #e385ff;
+  --molly-pink-200: #f0bdff;
+  --molly-green-300: #7ef0bc;
+  --molly-danger: #ff7d96;
+  --molly-text: rgba(250, 244, 255, 0.96);
+  --molly-text-soft: rgba(230, 214, 246, 0.76);
+  --molly-text-muted: rgba(198, 178, 220, 0.62);
+  --molly-line: rgba(240, 189, 255, 0.16);
+  --molly-line-soft: rgba(240, 189, 255, 0.085);
+  --molly-line-hot: rgba(227, 133, 255, 0.34);
+  --molly-glow-violet: rgba(137, 86, 232, 0.24);
+  --molly-glow-pink: rgba(227, 133, 255, 0.18);
+  --molly-shadow-panel:
+    0 18px 50px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(240, 189, 255, 0.08);
+  --molly-shadow-lift:
+    0 16px 38px rgba(0, 0, 0, 0.26),
+    0 0 34px rgba(137, 86, 232, 0.12);
+  --molly-radius-sm: 10px;
+  --molly-radius-md: 14px;
+  --molly-radius-lg: 22px;
+}
+
+html body {
+  background:
+    radial-gradient(circle at 18% 8%, rgba(227, 133, 255, 0.16), transparent 24rem),
+    radial-gradient(circle at 84% 4%, rgba(137, 86, 232, 0.18), transparent 28rem),
+    radial-gradient(circle at 52% 108%, rgba(111, 63, 193, 0.18), transparent 30rem),
+    linear-gradient(135deg, var(--molly-bg-void) 0%, var(--molly-bg-1) 45%, var(--molly-bg-0) 100%) !important;
+  color: var(--molly-text) !important;
+}
+
+html body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at 50% 40%, black, transparent 74%);
+  opacity: 0.42;
+}
+
+html #root,
+html [class*="App.module__appContainer" i] {
+  position: relative;
+  z-index: 1;
+}
+
+/* Auth/login: le vieux split noir + fond food icons devient un vrai écran Molly, pas une pancarte dans un fast-food possédé. */
+html :is([class*="AuthLayout.module__characterBackground" i], [class*="AuthLayout.module__container" i]) {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(240, 189, 255, 0.18), transparent 18rem),
+    radial-gradient(circle at 78% 26%, rgba(111, 63, 193, 0.23), transparent 24rem),
+    linear-gradient(135deg, #160c24 0%, #32155f 42%, #13091f 100%) !important;
+}
+
+html [class*="AuthLayout.module__characterBackground" i]::before {
+  opacity: 0.32 !important;
+  filter: saturate(0.9) blur(0.2px) !important;
+}
+
+html [class*="AuthLayout.module__card" i] {
+  overflow: hidden !important;
+  border: 1px solid rgba(240, 189, 255, 0.18) !important;
+  border-radius: 24px !important;
+  background:
+    linear-gradient(135deg, rgba(12, 7, 19, 0.94), rgba(24, 16, 38, 0.90)) !important;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.44),
+    0 0 0 1px rgba(255, 255, 255, 0.035),
+    0 0 70px rgba(137, 86, 232, 0.16) !important;
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+html [class*="AuthLayout.module__card" i]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 50%, rgba(227, 133, 255, 0.11), transparent 20rem),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03), transparent 42%, rgba(240, 189, 255, 0.035));
+}
+
+html [class*="AuthLayout.module__leftSplit" i] {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(240, 189, 255, 0.14), transparent 10rem),
+    linear-gradient(180deg, rgba(7, 4, 13, 0.10), rgba(7, 4, 13, 0.28)) !important;
+}
+
+html [class*="AuthLayout.module__formSide" i] {
+  background:
+    linear-gradient(180deg, rgba(7, 4, 13, 0.42), rgba(18, 13, 27, 0.30)) !important;
+  border-left: 1px solid rgba(240, 189, 255, 0.10) !important;
+}
+
+html [class*="LoginPage.module__title" i] {
+  color: var(--molly-text) !important;
+  letter-spacing: -0.03em !important;
+  text-shadow: 0 0 22px rgba(240, 189, 255, 0.16) !important;
+}
+
+html :is(input, textarea, select, [contenteditable="true"]),
+html [class*="FormSurface.module__surface" i] {
+  background:
+    linear-gradient(180deg, rgba(7, 4, 13, 0.76), rgba(18, 13, 27, 0.74)) !important;
+  border: 1px solid rgba(240, 189, 255, 0.12) !important;
+  color: var(--molly-text) !important;
+  border-radius: 13px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 8px 22px rgba(0, 0, 0, 0.14) !important;
+}
+
+html :is(input, textarea, select, [contenteditable="true"]):focus,
+html [class*="FormSurface.module__surface" i]:focus-within {
+  border-color: rgba(240, 189, 255, 0.36) !important;
+  box-shadow:
+    0 0 0 3px rgba(137, 86, 232, 0.20),
+    0 0 34px rgba(227, 133, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  outline: none !important;
+}
+
+html [class*="Button.module__primary" i],
+html button[type="submit"] {
+  background:
+    linear-gradient(135deg, #492480 0%, #6f3fc1 48%, #e385ff 125%) !important;
+  border: 1px solid rgba(240, 189, 255, 0.22) !important;
+  color: #fff !important;
+  box-shadow:
+    0 14px 34px rgba(111, 63, 193, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    inset 0 -12px 24px rgba(7, 4, 13, 0.20) !important;
+}
+
+html [class*="Button.module__secondary" i] {
+  background: rgba(12, 7, 19, 0.34) !important;
+  border: 1px solid rgba(240, 189, 255, 0.13) !important;
+  color: var(--molly-text-soft) !important;
+}
+
+html :is(a, [class*="link" i]) {
+  color: var(--molly-pink-200) !important;
+}
+
+html :is(a, [class*="link" i]):hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 18px rgba(227, 133, 255, 0.30) !important;
+}
+
+/* App globale: surfaces plus cohérentes, sans arracher les états unread/muted de Fluxer. */
+html :is(
+  [class*="Sidebar" i],
+  [class*="Guild" i],
+  [class*="ChannelList" i],
+  [class*="MemberList" i],
+  [class*="MemberSidebar" i],
+  [class*="Panel" i],
+  [class*="Modal" i],
+  [class*="Popover" i],
+  [class*="Menu" i]
+) {
+  border-color: var(--molly-line-soft) !important;
+}
+
+html :is(header, [class*="Header" i], [class*="TopBar" i], [class*="Toolbar" i]) {
+  background:
+    linear-gradient(180deg, rgba(18, 13, 27, 0.94), rgba(7, 4, 13, 0.84)) !important;
+  border-bottom: 1px solid rgba(240, 189, 255, 0.10) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22) !important;
+}
+
+html :is(
+  [class*="ChannelItemSurface" i],
+  [class*="channelItemSurface" i],
+  [class*="MemberListItem" i],
+  [class*="memberListItem" i],
+  [role="listitem"]
+) {
+  border-radius: var(--molly-radius-sm) !important;
+}
+
+html :is(
+  [class*="ChannelItemSurface" i],
+  [class*="channelItemSurface" i],
+  [class*="MemberListItem" i],
+  [class*="memberListItem" i]
+):hover {
+  background:
+    linear-gradient(90deg, rgba(240, 189, 255, 0.075), rgba(111, 63, 193, 0.075), rgba(24, 16, 37, 0.22)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 189, 255, 0.08),
+    0 8px 18px rgba(0, 0, 0, 0.16) !important;
+}
+
+html :is([aria-selected="true"], [class*="selected" i], [class*="active" i]) {
+  --molly-selected-bg: linear-gradient(90deg, rgba(111, 63, 193, 0.30), rgba(227, 133, 255, 0.12));
+}
+
+html :is([class*="ChannelItemSurface" i], [class*="channelItemSurface" i])[aria-selected="true"],
+html [aria-selected="true"] :is([class*="ChannelItemSurface" i], [class*="channelItemSurface" i]) {
+  background: var(--molly-selected-bg) !important;
+  box-shadow: inset 3px 0 0 rgba(240, 189, 255, 0.50) !important;
+}
+
+html :is([class*="Message" i], [class*="message" i]) {
+  border-radius: var(--molly-radius-md) !important;
+}
+
+html :is([class*="Message" i], [class*="message" i]):hover {
+  background:
+    linear-gradient(90deg, rgba(240, 189, 255, 0.045), rgba(137, 86, 232, 0.030), transparent 86%) !important;
+  box-shadow: inset 3px 0 0 rgba(240, 189, 255, 0.17) !important;
+}
+
+html :is([class*="Mention" i], [class*="mention" i]) {
+  border-radius: 7px !important;
+}
+
+html :is(code, pre) {
+  background: rgba(7, 4, 13, 0.82) !important;
+  border: 1px solid rgba(240, 189, 255, 0.12) !important;
+  border-radius: 10px !important;
+}
+
+html blockquote {
+  border-left-color: rgba(240, 189, 255, 0.42) !important;
+  background:
+    linear-gradient(90deg, rgba(240, 189, 255, 0.075), rgba(18, 13, 27, 0.36)) !important;
+}
+
+/* Micro panel: intégré, compact, moins posé comme un meuble Ikea au milieu du login. */
+html #kaly-console-mic-panel {
+  width: min(342px, calc(100vw - 28px)) !important;
+  max-height: min(430px, calc(100vh - 32px)) !important;
+  right: 18px !important;
+  bottom: 18px !important;
+  left: auto !important;
+  top: auto !important;
+  color: var(--molly-text) !important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(227, 133, 255, 0.15), transparent 10rem),
+    linear-gradient(180deg, rgba(18, 13, 27, 0.92), rgba(7, 4, 13, 0.90)) !important;
+  border: 1px solid rgba(240, 189, 255, 0.22) !important;
+  border-radius: 18px !important;
+  box-shadow:
+    0 22px 64px rgba(0, 0, 0, 0.46),
+    0 0 42px rgba(137, 86, 232, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.065) !important;
+  backdrop-filter: blur(18px) saturate(1.18) !important;
+  overflow: hidden !important;
+  z-index: 2147483000 !important;
+}
+
+html body[data-kaly-route="auth"] #kaly-console-mic-panel {
+  display: none !important;
+}
+
+html #kaly-console-mic-panel > div:first-child {
+  border-bottom: 1px solid rgba(240, 189, 255, 0.10) !important;
+  margin: -2px -2px 12px !important;
+  padding: 13px 16px 12px !important;
+  background: linear-gradient(90deg, rgba(111, 63, 193, 0.18), rgba(227, 133, 255, 0.07)) !important;
+}
+
+html #kaly-console-mic-panel button {
+  border: 1px solid rgba(240, 189, 255, 0.16) !important;
+  border-radius: 12px !important;
+}
+
+html #kaly-console-mic-panel button:hover {
+  border-color: rgba(240, 189, 255, 0.34) !important;
+  box-shadow: 0 0 22px rgba(227, 133, 255, 0.12) !important;
+}
+
+html #kaly-console-mic-panel input[type="range"] {
+  accent-color: var(--molly-pink-300) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+html #kaly-console-mic-pill {
+  right: 18px !important;
+  bottom: 18px !important;
+  left: auto !important;
+  top: auto !important;
+  color: #fff !important;
+  background:
+    linear-gradient(135deg, rgba(73, 36, 128, 0.96), rgba(137, 86, 232, 0.92), rgba(227, 133, 255, 0.82)) !important;
+  border: 1px solid rgba(240, 189, 255, 0.30) !important;
+  border-radius: 999px !important;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.34),
+    0 0 30px rgba(227, 133, 255, 0.18) !important;
+}
+
+/* Mode mobile/tablette desktop fallback: ne pas transformer l'écran en Tetris maudit. */
+@media (max-width: 860px) {
+  html [class*="AuthLayout.module__card" i] {
+    width: calc(100vw - 28px) !important;
+    min-height: auto !important;
+    border-radius: 20px !important;
+  }
+
+  html [class*="AuthLayout.module__leftSplit" i] {
+    display: none !important;
+  }
+
+  html [class*="AuthLayout.module__formSide" i] {
+    border-left: 0 !important;
+  }
+
+  html #kaly-console-mic-panel {
+    display: none !important;
+  }
+}
+
+/* =========================
+   Kaly / Molly - Fluxer hotfix V4.4.1
+   Fix: mic pill must stay a compact floating pill, not a cursed vertical obelisk.
+   ========================= */
+html #kaly-console-mic-pill {
+  position: fixed !important;
+  inset: auto 18px 18px auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: auto !important;
+  min-width: 96px !important;
+  max-width: calc(100vw - 32px) !important;
+  height: 42px !important;
+  min-height: 0 !important;
+  max-height: 42px !important;
+  padding: 0 16px !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  transform: none !important;
+  writing-mode: horizontal-tb !important;
+}
+
+html body[data-kaly-route="auth"] #kaly-console-mic-pill {
+  opacity: 0.82 !important;
+}
+
+html body[data-kaly-route="auth"] #kaly-console-mic-pill:hover {
+  opacity: 1 !important;
+}
+
