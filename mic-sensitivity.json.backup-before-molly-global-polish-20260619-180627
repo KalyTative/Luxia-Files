@@ -1,0 +1,1183 @@
+(() => {
+  "use strict";
+
+  /*
+   * Kaly Fluxer Mic Sensitivity
+   * Fichier prévu pour injection serveur.
+   *
+   * IMPORTANT :
+   * - Même si tu appelles ce fichier .json, son contenu est du JavaScript.
+   * - Nginx doit le servir en application/javascript.
+   * - Injection recommandée sans defer, avant le bundle Fluxer.
+   */
+
+  const CONFIG = {
+    enabled: true,
+    threshold: 0.020,
+    closedGain: 0,
+    openGain: 1,
+    inputGain: 1,
+    inputGainMin: 1,
+    inputGainMax: 4,
+    inputGainStep: 0.05,
+    attackTime: 0.004,
+    releaseTime: 0.240,
+    gateCloseRatio: 0.62,
+    gateHoldTime: 0.280,
+    levelSmoothing: 0.35,
+    analyserSmoothing: 0.25,
+    echoCancellation: true,
+    noiseSuppression: true,
+    autoGainControl: false,
+    forceDisableNativeAgc: true,
+    nativeAgcStartupScanMs: 12000,
+    nativeAgcScanIntervalMs: 500,
+    nativeAgcUiLabels: [
+      "Contrôle automatique du gain",
+      "Controle automatique du gain",
+      "Automatic gain control",
+      "Auto gain control",
+      "AGC"
+    ],
+    autoMode: {
+      minThreshold: 0.008,
+      maxThreshold: 0.080,
+      multiplier: 3.2,
+      offset: 0.004
+    }
+  };
+
+  const PANEL_ID = "kaly-console-mic-panel";
+  const PILL_ID = "kaly-console-mic-pill";
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    console.error("[KalyMic] getUserMedia indisponible.");
+    return;
+  }
+
+  if (window.__KALY_MIC_SERVER_PATCHED__) {
+    console.warn("[KalyMic] Patch déjà installé.");
+
+    if (window.KalyMicSensitivity && typeof window.KalyMicSensitivity.showPanel === "function") {
+      window.KalyMicSensitivity.showPanel();
+    }
+
+    return;
+  }
+
+  window.__KALY_MIC_SERVER_PATCHED__ = true;
+
+  const originalGetUserMedia =
+    window.__KALY_ORIGINAL_GET_USER_MEDIA__ ||
+    navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+
+  window.__KALY_ORIGINAL_GET_USER_MEDIA__ = originalGetUserMedia;
+
+  installNativeAgcDisabler();
+
+  const state = {
+    threshold: CONFIG.threshold,
+    inputGain: CONFIG.inputGain,
+    auto: false,
+    lastLevel: 0,
+    speaking: false,
+    gateOpen: false,
+    lastSpeechAt: 0,
+    processors: new Set(),
+    callbacks: new Set(),
+    noiseSamples: []
+  };
+
+  const ui = {
+    mounted: false,
+    panel: null,
+    pill: null,
+    status: null,
+    levelText: null,
+    thresholdText: null,
+    inputGainText: null,
+    slider: null,
+    inputGainSlider: null,
+    bar: null,
+    marker: null,
+    autoButton: null,
+    autoKnob: null
+  };
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function css(element, rules) {
+    if (!element) return element;
+
+    for (const [property, value] of Object.entries(rules)) {
+      element.style.setProperty(property, String(value), "important");
+    }
+
+    return element;
+  }
+
+  function createElement(tag, text, rules) {
+    const element = document.createElement(tag);
+
+    if (text !== undefined && text !== null) {
+      element.textContent = text;
+    }
+
+    if (rules) {
+      css(element, rules);
+    }
+
+    return element;
+  }
+
+  function normalizeText(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  function isNativeAgcLabelText(value) {
+    const normalized = normalizeText(value);
+
+    if (!normalized) return false;
+
+    return CONFIG.nativeAgcUiLabels.some((label) => {
+      const normalizedLabel = normalizeText(label);
+      return normalizedLabel && normalized.includes(normalizedLabel);
+    });
+  }
+
+  function forceNativeAgcInObject(value, depth = 0) {
+    if (!value || typeof value !== "object" || depth > 8) {
+      return false;
+    }
+
+    let changed = false;
+
+    for (const [key, childValue] of Object.entries(value)) {
+      const normalizedKey = normalizeText(key).replace(/ /g, "");
+
+      if (
+        normalizedKey === "autogaincontrol" ||
+        normalizedKey === "automaticgaincontrol" ||
+        normalizedKey === "enableautogaincontrol" ||
+        normalizedKey === "gaincontrol"
+      ) {
+        if (value[key] !== false) {
+          value[key] = false;
+          changed = true;
+        }
+
+        continue;
+      }
+
+      if (childValue && typeof childValue === "object") {
+        changed = forceNativeAgcInObject(childValue, depth + 1) || changed;
+      }
+    }
+
+    return changed;
+  }
+
+  function disableStoredNativeAgc() {
+    if (!CONFIG.forceDisableNativeAgc) return 0;
+    if (!window.localStorage) return 0;
+
+    let changedCount = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+
+      if (!key) continue;
+
+      const normalizedKey = normalizeText(key).replace(/ /g, "");
+      const rawValue = localStorage.getItem(key);
+
+      if (
+        (normalizedKey === "autogaincontrol" ||
+          normalizedKey === "automaticgaincontrol" ||
+          normalizedKey === "enableautogaincontrol") &&
+        /^(true|1|on|enabled)$/i.test(String(rawValue || ""))
+      ) {
+        localStorage.setItem(key, "false");
+        changedCount++;
+        continue;
+      }
+
+      if (!rawValue || (!/gain/i.test(key) && !/autoGain|automaticGain|gainControl/i.test(rawValue))) {
+        continue;
+      }
+
+      try {
+        const parsed = JSON.parse(rawValue);
+
+        if (forceNativeAgcInObject(parsed)) {
+          localStorage.setItem(key, JSON.stringify(parsed));
+          changedCount++;
+        }
+      } catch {}
+    }
+
+    if (changedCount > 0) {
+      console.info(`[KalyMic] AGC natif désactivé dans localStorage: ${changedCount} entrée(s).`);
+    }
+
+    return changedCount;
+  }
+
+  function readSwitchState(element) {
+    if (!element) return null;
+
+    if (element.matches('input[type="checkbox"]')) {
+      return Boolean(element.checked);
+    }
+
+    const ariaChecked = element.getAttribute("aria-checked");
+
+    if (ariaChecked === "true") return true;
+    if (ariaChecked === "false") return false;
+
+    const dataState = element.getAttribute("data-state");
+
+    if (dataState === "checked" || dataState === "on" || dataState === "open") return true;
+    if (dataState === "unchecked" || dataState === "off" || dataState === "closed") return false;
+
+    const ariaPressed = element.getAttribute("aria-pressed");
+
+    if (ariaPressed === "true") return true;
+    if (ariaPressed === "false") return false;
+
+    return null;
+  }
+
+  function findNativeAgcSwitches() {
+    const matches = [];
+    const seen = new Set();
+    const textNodes = Array.from(
+      document.querySelectorAll("label, div, span, p, button, section, article")
+    ).filter((element) => isNativeAgcLabelText(element.textContent));
+
+    for (const labelElement of textNodes) {
+      let scope = labelElement;
+
+      for (let depth = 0; scope && depth < 7; depth++) {
+        const switches = Array.from(
+          scope.querySelectorAll(
+            'button[role="switch"], [role="switch"], input[type="checkbox"], button[aria-checked], [data-state="checked"], [data-state="unchecked"]'
+          )
+        );
+
+        for (const switchElement of switches) {
+          if (seen.has(switchElement)) continue;
+          seen.add(switchElement);
+          matches.push(switchElement);
+        }
+
+        if (matches.length > 0) break;
+        scope = scope.parentElement;
+      }
+    }
+
+    return matches;
+  }
+
+  function disableNativeAgcFromDom(reason = "scan") {
+    if (!CONFIG.forceDisableNativeAgc) return 0;
+
+    let disabledCount = 0;
+    const switches = findNativeAgcSwitches();
+
+    for (const switchElement of switches) {
+      const state = readSwitchState(switchElement);
+
+      if (state !== true) {
+        continue;
+      }
+
+      try {
+        switchElement.click();
+        disabledCount++;
+      } catch (error) {
+        console.warn("[KalyMic] Impossible de désactiver l'AGC natif via l'UI.", error);
+      }
+    }
+
+    if (disabledCount > 0) {
+      console.info(`[KalyMic] AGC natif Fluxer désactivé (${reason}): ${disabledCount} switch.`);
+    }
+
+    return disabledCount;
+  }
+
+  function forceAudioConstraints(constraints) {
+    if (!constraints || typeof constraints !== "object") {
+      return constraints;
+    }
+
+    return {
+      ...constraints,
+      autoGainControl: false
+    };
+  }
+
+  function installNativeAgcDisabler() {
+    if (!CONFIG.forceDisableNativeAgc) return;
+
+    disableStoredNativeAgc();
+    disableNativeAgcFromDom("startup");
+
+    if (window.MediaStreamTrack && MediaStreamTrack.prototype.applyConstraints) {
+      const originalApplyConstraints =
+        window.__KALY_ORIGINAL_APPLY_CONSTRAINTS__ ||
+        MediaStreamTrack.prototype.applyConstraints;
+
+      window.__KALY_ORIGINAL_APPLY_CONSTRAINTS__ = originalApplyConstraints;
+
+      if (!window.__KALY_APPLY_CONSTRAINTS_AGC_PATCHED__) {
+        window.__KALY_APPLY_CONSTRAINTS_AGC_PATCHED__ = true;
+
+        MediaStreamTrack.prototype.applyConstraints = function patchedApplyConstraints(constraints = {}) {
+          if (this && this.kind === "audio" && constraints && typeof constraints === "object") {
+            return originalApplyConstraints.call(this, forceAudioConstraints(constraints));
+          }
+
+          return originalApplyConstraints.call(this, constraints);
+        };
+      }
+    }
+
+    const startedAt = performance.now();
+    const startupInterval = window.setInterval(() => {
+      disableStoredNativeAgc();
+      disableNativeAgcFromDom("startup interval");
+
+      if (performance.now() - startedAt > CONFIG.nativeAgcStartupScanMs) {
+        window.clearInterval(startupInterval);
+      }
+    }, CONFIG.nativeAgcScanIntervalMs);
+
+    const mountObserver = () => {
+      if (!document.documentElement || window.__KALY_NATIVE_AGC_OBSERVER__) return;
+
+      window.__KALY_NATIVE_AGC_OBSERVER__ = new MutationObserver(() => {
+        disableNativeAgcFromDom("dom observer");
+      });
+
+      window.__KALY_NATIVE_AGC_OBSERVER__.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", mountObserver, { once: true });
+    } else {
+      mountObserver();
+    }
+  }
+
+  function computeRms(buffer) {
+    let sum = 0;
+
+    for (let i = 0; i < buffer.length; i++) {
+      const sample = buffer[i];
+      sum += sample * sample;
+    }
+
+    return Math.sqrt(sum / Math.max(buffer.length, 1));
+  }
+
+  function notify() {
+    const payload = {
+      level: state.lastLevel,
+      threshold: state.threshold,
+      inputGain: state.inputGain,
+      speaking: state.speaking,
+      auto: state.auto,
+      activeProcessors: state.processors.size
+    };
+
+    for (const callback of state.callbacks) {
+      try {
+        callback(payload);
+      } catch (error) {
+        console.warn("[KalyMic] Callback erreur:", error);
+      }
+    }
+  }
+
+  function updateAutoThreshold(level, speaking) {
+    if (!state.auto) return;
+
+    if (!speaking || level < state.threshold * 0.85) {
+      state.noiseSamples.push(level);
+
+      if (state.noiseSamples.length > 140) {
+        state.noiseSamples.shift();
+      }
+    }
+
+    if (state.noiseSamples.length < 18) return;
+
+    const sorted = [...state.noiseSamples].sort((a, b) => a - b);
+    const medianNoise = sorted[Math.floor(sorted.length * 0.5)];
+
+    const nextThreshold = clamp(
+      medianNoise * CONFIG.autoMode.multiplier + CONFIG.autoMode.offset,
+      CONFIG.autoMode.minThreshold,
+      CONFIG.autoMode.maxThreshold
+    );
+
+    state.threshold = clamp(
+      state.threshold * 0.88 + nextThreshold * 0.12,
+      0.005,
+      0.080
+    );
+  }
+
+  async function processMicrophoneStream(inputStream) {
+    const audioTracks = inputStream.getAudioTracks();
+
+    if (audioTracks.length === 0) {
+      return inputStream;
+    }
+
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) {
+      console.error("[KalyMic] AudioContext indisponible.");
+      return inputStream;
+    }
+
+    const audioContext = new AudioContextClass();
+
+    try {
+      await audioContext.resume();
+    } catch {}
+
+    const sourceStream = new MediaStream(audioTracks);
+    const source = audioContext.createMediaStreamSource(sourceStream);
+
+    const analyser = audioContext.createAnalyser();
+    analyser.fftSize = 2048;
+    analyser.smoothingTimeConstant = CONFIG.analyserSmoothing;
+
+    const gateGain = audioContext.createGain();
+    gateGain.gain.value = CONFIG.closedGain;
+
+    const inputGainNode = audioContext.createGain();
+    inputGainNode.gain.value = state.inputGain;
+
+    const destination = audioContext.createMediaStreamDestination();
+
+    source.connect(analyser);
+    source.connect(gateGain);
+    gateGain.connect(inputGainNode);
+    inputGainNode.connect(destination);
+
+    const buffer = new Float32Array(analyser.fftSize);
+
+    const processor = {
+      audioContext,
+      source,
+      analyser,
+      gateGain,
+      inputGainNode,
+      destination,
+      intervalId: null,
+      stopped: false
+    };
+
+    processor.intervalId = window.setInterval(() => {
+      if (processor.stopped) return;
+
+      analyser.getFloatTimeDomainData(buffer);
+
+      const rms = computeRms(buffer);
+      const now = performance.now();
+      const smoothing = clamp(CONFIG.levelSmoothing, 0, 0.95);
+
+      state.lastLevel = state.lastLevel * smoothing + rms * (1 - smoothing);
+
+      const openThreshold = state.threshold;
+      const closeThreshold = state.threshold * CONFIG.gateCloseRatio;
+
+      if (state.lastLevel >= openThreshold) {
+        state.gateOpen = true;
+        state.lastSpeechAt = now;
+      } else if (
+        state.gateOpen &&
+        state.lastLevel < closeThreshold &&
+        now - state.lastSpeechAt > CONFIG.gateHoldTime * 1000
+      ) {
+        state.gateOpen = false;
+      }
+
+      const shouldOpen = state.gateOpen;
+      state.speaking = shouldOpen;
+
+      updateAutoThreshold(state.lastLevel, shouldOpen);
+
+      const targetGain = shouldOpen ? CONFIG.openGain : CONFIG.closedGain;
+      const timeConstant = shouldOpen ? CONFIG.attackTime : CONFIG.releaseTime;
+
+      try {
+        gateGain.gain.setTargetAtTime(
+          targetGain,
+          audioContext.currentTime,
+          timeConstant
+        );
+      } catch {}
+
+      updatePanel();
+      notify();
+    }, 30);
+
+    state.processors.add(processor);
+
+    const outputAudioTrack = destination.stream.getAudioTracks()[0];
+    const originalStop = outputAudioTrack.stop.bind(outputAudioTrack);
+
+    function cleanup() {
+      if (processor.stopped) return;
+
+      processor.stopped = true;
+      window.clearInterval(processor.intervalId);
+
+      for (const track of audioTracks) {
+        try {
+          track.stop();
+        } catch {}
+      }
+
+      try {
+        source.disconnect();
+      } catch {}
+
+      try {
+        analyser.disconnect();
+      } catch {}
+
+      try {
+        gateGain.disconnect();
+      } catch {}
+
+      try {
+        inputGainNode.disconnect();
+      } catch {}
+
+      try {
+        audioContext.close();
+      } catch {}
+
+      state.processors.delete(processor);
+      updatePanel();
+      notify();
+    }
+
+    outputAudioTrack.stop = () => {
+      cleanup();
+      originalStop();
+    };
+
+    for (const track of audioTracks) {
+      track.addEventListener("ended", cleanup, { once: true });
+    }
+
+    console.info("[KalyMic] Noise gate actif.", {
+      threshold: state.threshold,
+      closedGain: CONFIG.closedGain,
+      openGain: CONFIG.openGain,
+      inputGain: state.inputGain
+    });
+
+    return new MediaStream([
+      outputAudioTrack,
+      ...inputStream.getVideoTracks()
+    ]);
+  }
+
+  navigator.mediaDevices.getUserMedia = async function patchedGetUserMedia(constraints = {}) {
+    const wantsAudio = Boolean(constraints.audio);
+
+    if (!wantsAudio || !CONFIG.enabled) {
+      return originalGetUserMedia(constraints);
+    }
+
+    const originalAudioConstraints =
+      typeof constraints.audio === "object" ? constraints.audio : {};
+
+    const patchedConstraints = {
+      ...constraints,
+      audio: forceAudioConstraints({
+        ...originalAudioConstraints,
+        echoCancellation: CONFIG.echoCancellation,
+        noiseSuppression: CONFIG.noiseSuppression,
+        autoGainControl: CONFIG.autoGainControl
+      })
+    };
+
+    const inputStream = await originalGetUserMedia(patchedConstraints);
+
+    try {
+      return await processMicrophoneStream(inputStream);
+    } catch (error) {
+      console.error("[KalyMic] Traitement micro échoué, flux original conservé.", error);
+      return inputStream;
+    }
+  };
+
+  function setThreshold(value, disableAuto) {
+    state.threshold = clamp(Number(value), 0.005, 0.080);
+
+    if (disableAuto) {
+      state.auto = false;
+      state.noiseSamples = [];
+    }
+
+    updatePanel();
+    notify();
+
+    console.info("[KalyMic] Seuil:", state.threshold);
+  }
+
+  function setInputGain(value) {
+    state.inputGain = clamp(
+      Number(value),
+      CONFIG.inputGainMin,
+      CONFIG.inputGainMax
+    );
+
+    for (const processor of state.processors) {
+      if (!processor.inputGainNode || !processor.audioContext) continue;
+
+      try {
+        processor.inputGainNode.gain.cancelScheduledValues(processor.audioContext.currentTime);
+        processor.inputGainNode.gain.setValueAtTime(
+          state.inputGain,
+          processor.audioContext.currentTime
+        );
+      } catch {}
+    }
+
+    updatePanel();
+    notify();
+
+    console.info("[KalyMic] Gain d'entrée:", state.inputGain);
+  }
+
+  function setAuto(value) {
+    state.auto = Boolean(value);
+    state.noiseSamples = [];
+    updatePanel();
+    notify();
+
+    console.info("[KalyMic] Auto:", state.auto);
+  }
+
+  function updatePanel() {
+    if (!ui.mounted) return;
+
+    const level = Number(state.lastLevel || 0);
+    const threshold = Number(state.threshold || CONFIG.threshold);
+    const inputGain = Number(state.inputGain || CONFIG.inputGain);
+    const speaking = Boolean(state.speaking);
+    const active = state.processors.size > 0;
+
+    ui.levelText.textContent = level.toFixed(4);
+    ui.thresholdText.textContent = threshold.toFixed(3);
+    ui.slider.value = threshold.toFixed(3);
+
+    if (ui.inputGainText) {
+      ui.inputGainText.textContent = `×${inputGain.toFixed(2)}`;
+    }
+
+    if (ui.inputGainSlider) {
+      ui.inputGainSlider.value = inputGain.toFixed(2);
+    }
+
+    const levelPercent = clamp((level / 0.080) * 100, 0, 100);
+    const thresholdPercent = clamp(((threshold - 0.005) / (0.080 - 0.005)) * 100, 0, 100);
+
+    css(ui.bar, {
+      "width": `${levelPercent}%`,
+      "background": speaking
+        ? "linear-gradient(90deg, #22c55e, #a3e635)"
+        : "linear-gradient(90deg, #7c3aed, #a78bfa)"
+    });
+
+    css(ui.marker, {
+      "left": `${thresholdPercent}%`
+    });
+
+    if (!active) {
+      ui.status.textContent = "En attente du flux micro…";
+      css(ui.status, { "color": "#a78bfa" });
+    } else if (speaking) {
+      ui.status.textContent = "Voix détectée";
+      css(ui.status, { "color": "#22c55e" });
+    } else {
+      ui.status.textContent = "Silence / bruit ignoré";
+      css(ui.status, { "color": "#a78bfa" });
+    }
+
+    if (state.auto) {
+      ui.slider.disabled = true;
+      css(ui.autoButton, { "background": "#7c3aed" });
+      css(ui.autoKnob, { "transform": "translateX(20px)" });
+    } else {
+      ui.slider.disabled = false;
+      css(ui.autoButton, { "background": "#4b5563" });
+      css(ui.autoKnob, { "transform": "translateX(0)" });
+    }
+  }
+
+  function mountPanel() {
+    if (ui.mounted) return;
+
+    document.getElementById(PANEL_ID)?.remove();
+    document.getElementById(PILL_ID)?.remove();
+
+    const panel = createElement("div", null, {
+      "position": "fixed",
+      "right": "24px",
+      "top": "88px",
+      "z-index": "2147483647",
+      "width": "350px",
+      "box-sizing": "border-box",
+      "padding": "16px",
+      "border-radius": "18px",
+      "background": "rgba(18, 14, 28, 0.97)",
+      "border": "1px solid rgba(139, 92, 246, 0.60)",
+      "box-shadow": "0 18px 60px rgba(0, 0, 0, 0.70)",
+      "color": "#f5f3ff",
+      "font-family": "Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+      "font-size": "14px",
+      "backdrop-filter": "blur(14px)",
+      "user-select": "none",
+      "pointer-events": "auto"
+    });
+
+    panel.id = PANEL_ID;
+
+    const header = createElement("div", null, {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "space-between",
+      "gap": "12px",
+      "margin-bottom": "14px",
+      "cursor": "grab"
+    });
+
+    const titleBox = createElement("div");
+
+    const title = createElement("div", "Sensibilité micro", {
+      "font-size": "15px",
+      "font-weight": "800",
+      "line-height": "1.2",
+      "color": "#ffffff"
+    });
+
+    const status = createElement("div", "En attente du flux micro…", {
+      "margin-top": "3px",
+      "font-size": "12px",
+      "color": "#a78bfa"
+    });
+
+    titleBox.append(title, status);
+
+    const closeButton = createElement("button", "×", {
+      "width": "30px",
+      "height": "30px",
+      "border": "0",
+      "border-radius": "999px",
+      "background": "#2b243a",
+      "color": "#ffffff",
+      "cursor": "pointer",
+      "font-size": "18px",
+      "font-weight": "800",
+      "line-height": "30px"
+    });
+    closeButton.type = "button";
+
+    header.append(titleBox, closeButton);
+
+    const row1 = createElement("div", null, {
+      "display": "flex",
+      "justify-content": "space-between",
+      "align-items": "center",
+      "gap": "12px",
+      "margin-bottom": "7px",
+      "font-size": "12px",
+      "color": "#ddd6fe"
+    });
+
+    const levelLabel = createElement("span", "Niveau micro");
+    const levelText = createElement("span", "0.0000");
+
+    row1.append(levelLabel, levelText);
+
+    const meter = createElement("div", null, {
+      "position": "relative",
+      "height": "10px",
+      "overflow": "hidden",
+      "border-radius": "999px",
+      "background": "#29293a"
+    });
+
+    const bar = createElement("div", null, {
+      "width": "0%",
+      "height": "100%",
+      "border-radius": "999px",
+      "background": "linear-gradient(90deg, #7c3aed, #a78bfa)",
+      "transition": "width 80ms linear"
+    });
+
+    const marker = createElement("div", null, {
+      "position": "absolute",
+      "top": "-4px",
+      "left": "20%",
+      "width": "2px",
+      "height": "18px",
+      "background": "#ffffff",
+      "opacity": "0.95"
+    });
+
+    meter.append(bar, marker);
+
+    const row2 = createElement("div", null, {
+      "display": "flex",
+      "justify-content": "space-between",
+      "align-items": "center",
+      "gap": "12px",
+      "margin-top": "14px",
+      "margin-bottom": "7px",
+      "font-size": "12px",
+      "color": "#ddd6fe"
+    });
+
+    const thresholdLabel = createElement("span", "Seuil d’activation");
+    const thresholdText = createElement("span", "0.020");
+
+    row2.append(thresholdLabel, thresholdText);
+
+    const slider = createElement("input", null, {
+      "width": "100%",
+      "cursor": "pointer",
+      "accent-color": "#7c3aed"
+    });
+    slider.type = "range";
+    slider.min = "0.005";
+    slider.max = "0.080";
+    slider.step = "0.001";
+    slider.value = String(CONFIG.threshold);
+
+    const gainRow = createElement("div", null, {
+      "display": "flex",
+      "justify-content": "space-between",
+      "align-items": "center",
+      "gap": "12px",
+      "margin-top": "14px",
+      "margin-bottom": "7px",
+      "font-size": "12px",
+      "color": "#ddd6fe"
+    });
+
+    const gainLabel = createElement("span", "Gain d’entrée");
+    const gainText = createElement("span", `×${CONFIG.inputGain.toFixed(2)}`);
+
+    gainRow.append(gainLabel, gainText);
+
+    const gainSlider = createElement("input", null, {
+      "width": "100%",
+      "cursor": "pointer",
+      "accent-color": "#f97316"
+    });
+    gainSlider.type = "range";
+    gainSlider.min = String(CONFIG.inputGainMin);
+    gainSlider.max = String(CONFIG.inputGainMax);
+    gainSlider.step = String(CONFIG.inputGainStep);
+    gainSlider.value = String(CONFIG.inputGain);
+
+    const autoRow = createElement("div", null, {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "space-between",
+      "gap": "12px",
+      "margin-top": "12px",
+      "padding": "10px 11px",
+      "border-radius": "13px",
+      "background": "rgba(39, 31, 58, 0.80)",
+      "border": "1px solid rgba(139, 92, 246, 0.28)",
+      "color": "#ddd6fe",
+      "font-size": "12px"
+    });
+
+    const autoText = createElement("span", "Déterminer automatiquement");
+
+    const autoButton = createElement("button", null, {
+      "position": "relative",
+      "width": "44px",
+      "height": "24px",
+      "border": "0",
+      "border-radius": "999px",
+      "background": "#4b5563",
+      "cursor": "pointer",
+      "padding": "0"
+    });
+    autoButton.type = "button";
+
+    const autoKnob = createElement("span", null, {
+      "position": "absolute",
+      "top": "3px",
+      "left": "3px",
+      "width": "18px",
+      "height": "18px",
+      "border-radius": "999px",
+      "background": "#ffffff",
+      "transition": "transform 140ms ease"
+    });
+
+    autoButton.append(autoKnob);
+    autoRow.append(autoText, autoButton);
+
+    const buttons = createElement("div", null, {
+      "display": "flex",
+      "gap": "8px",
+      "margin-top": "14px"
+    });
+
+    function presetButton(label, value) {
+      const button = createElement("button", label, {
+        "flex": "1",
+        "padding": "9px 10px",
+        "border-radius": "11px",
+        "border": "1px solid rgba(139, 92, 246, 0.45)",
+        "background": "#242436",
+        "color": "#ffffff",
+        "cursor": "pointer",
+        "font-size": "12px",
+        "font-weight": "700"
+      });
+
+      button.type = "button";
+      button.addEventListener("click", () => setThreshold(value, true));
+
+      return button;
+    }
+
+    buttons.append(
+      presetButton("Sensible", 0.012),
+      presetButton("Normal", 0.020),
+      presetButton("Strict", 0.040)
+    );
+
+    const help = createElement("div", "Si la jauge reste à zéro : coupe/rallume ton micro ou quitte/rejoins le vocal.", {
+      "margin-top": "12px",
+      "color": "#a1a1aa",
+      "font-size": "11px",
+      "line-height": "1.35"
+    });
+
+    panel.append(header, row1, meter, row2, slider, gainRow, gainSlider, autoRow, buttons, help);
+
+    const pill = createElement("button", "🎙️ Mic", {
+      "position": "fixed",
+      "right": "24px",
+      "top": "88px",
+      "z-index": "2147483647",
+      "display": "none",
+      "align-items": "center",
+      "gap": "8px",
+      "padding": "10px 13px",
+      "border-radius": "999px",
+      "border": "1px solid rgba(139, 92, 246, 0.55)",
+      "background": "rgba(18, 14, 28, 0.97)",
+      "color": "#ffffff",
+      "box-shadow": "0 18px 60px rgba(0, 0, 0, 0.55)",
+      "cursor": "pointer",
+      "font-family": "Inter, system-ui, sans-serif",
+      "font-size": "13px",
+      "font-weight": "800"
+    });
+    pill.id = PILL_ID;
+    pill.type = "button";
+
+    const root = document.body || document.documentElement;
+    root.append(panel, pill);
+
+    ui.mounted = true;
+    ui.panel = panel;
+    ui.pill = pill;
+    ui.status = status;
+    ui.levelText = levelText;
+    ui.thresholdText = thresholdText;
+    ui.inputGainText = gainText;
+    ui.slider = slider;
+    ui.inputGainSlider = gainSlider;
+    ui.bar = bar;
+    ui.marker = marker;
+    ui.autoButton = autoButton;
+    ui.autoKnob = autoKnob;
+
+    slider.addEventListener("input", () => {
+      setThreshold(slider.value, true);
+    });
+
+    gainSlider.addEventListener("input", () => {
+      setInputGain(gainSlider.value);
+    });
+
+    autoButton.addEventListener("click", () => {
+      setAuto(!state.auto);
+    });
+
+    closeButton.addEventListener("click", () => {
+      css(panel, { "display": "none" });
+      css(pill, { "display": "flex" });
+    });
+
+    pill.addEventListener("click", () => {
+      css(panel, { "display": "block" });
+      css(pill, { "display": "none" });
+    });
+
+    let dragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let panelStartLeft = 0;
+    let panelStartTop = 0;
+
+    header.addEventListener("pointerdown", (event) => {
+      if (event.target.closest("button,input")) return;
+
+      const rect = panel.getBoundingClientRect();
+
+      dragging = true;
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+      panelStartLeft = rect.left;
+      panelStartTop = rect.top;
+
+      css(header, { "cursor": "grabbing" });
+
+      try {
+        header.setPointerCapture(event.pointerId);
+      } catch {}
+
+      event.preventDefault();
+    });
+
+    header.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+
+      const dx = event.clientX - dragStartX;
+      const dy = event.clientY - dragStartY;
+
+      css(panel, {
+        "left": `${Math.max(8, panelStartLeft + dx)}px`,
+        "top": `${Math.max(8, panelStartTop + dy)}px`,
+        "right": "auto",
+        "bottom": "auto"
+      });
+    });
+
+    header.addEventListener("pointerup", () => {
+      dragging = false;
+      css(header, { "cursor": "grab" });
+    });
+
+    header.addEventListener("pointercancel", () => {
+      dragging = false;
+      css(header, { "cursor": "grab" });
+    });
+
+    updatePanel();
+  }
+
+  window.KalyMicSensitivity = {
+    setThreshold(value) {
+      setThreshold(value, true);
+    },
+
+    setInputGain(value) {
+      setInputGain(value);
+    },
+
+    setMicGain(value) {
+      setInputGain(value);
+    },
+
+    disableNativeAgc() {
+      disableStoredNativeAgc();
+      return disableNativeAgcFromDom("manual");
+    },
+
+    setAuto(value) {
+      setAuto(value);
+    },
+
+    showPanel() {
+      if (!ui.mounted) {
+        mountPanel();
+      }
+
+      css(ui.panel, { "display": "block" });
+      css(ui.pill, { "display": "none" });
+    },
+
+    hidePanel() {
+      if (!ui.mounted) {
+        mountPanel();
+      }
+
+      css(ui.panel, { "display": "none" });
+      css(ui.pill, { "display": "flex" });
+    },
+
+    getState() {
+      return {
+        level: state.lastLevel,
+        threshold: state.threshold,
+        inputGain: state.inputGain,
+        nativeAutoGainControlDisabled: CONFIG.forceDisableNativeAgc,
+        speaking: state.speaking,
+        gateOpen: state.gateOpen,
+        auto: state.auto,
+        activeProcessors: state.processors.size
+      };
+    },
+
+    onLevel(callback) {
+      if (typeof callback !== "function") {
+        throw new TypeError("callback doit être une fonction");
+      }
+
+      state.callbacks.add(callback);
+
+      return () => {
+        state.callbacks.delete(callback);
+      };
+    },
+
+    restore() {
+      navigator.mediaDevices.getUserMedia = originalGetUserMedia;
+      console.info("[KalyMic] getUserMedia restauré. Recharge la page pour repartir propre.");
+    }
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mountPanel, { once: true });
+  } else {
+    mountPanel();
+  }
+
+  console.info("[KalyMic] Patch serveur injecté.");
+  console.info("[KalyMic] AGC natif Fluxer forcé sur OFF au chargement.");
+  console.info("[KalyMic] Pour l'appliquer au flux actuel : coupe/rallume le micro ou quitte/rejoins le vocal.");
+})();
