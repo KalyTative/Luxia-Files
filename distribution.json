@@ -1509,6 +1509,20 @@
             "value": false
           },
           "subModules": []
+        },
+        {
+          "id": "generated.forgemod:kapi-client:1.20.1-1.0.3@jar",
+          "name": "Kapi Client",
+          "type": "ForgeMod",
+          "required": {
+            "value": false
+          },
+          "artifact": {
+            "size": 17348,
+            "MD5": "1afabbc29db58a90f79f0c8c8e4463ac",
+            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/kapi-client-1.20.1-1.0.3.jar"
+          },
+          "subModules": []
         }
       ]
     }
