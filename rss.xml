@@ -8,16 +8,22 @@
     <atom:link href="https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/rss.xml" rel="self" type="application/rss+xml"/>
 
     <item>
-      <title>🔧 Mise à jour Kapi Client — v1.0.6</title>
+      <title>🔧 Mise à jour Kapi Client — v1.0.8</title>
       <description>
         <![CDATA[
-          <p>Le mod maison <strong>Kapi Client</strong> passe en version <strong>1.0.6</strong> ! 🎉</p>
-          <p>Cette mise à jour apporte des correctifs et des améliorations de stabilité pour une meilleure expérience sur le serveur <strong>Orion</strong>.</p>
+          <p>Le mod maison <strong>Kapi Client</strong> passe en version <strong>1.0.8</strong> ! 🎉</p>
+          <p>L'affichage des pseudos au-dessus des joueurs devient plus immersif. Désormais, un pseudo ne s'affiche que si :</p>
+          <ul>
+            <li>📏 le joueur est à <strong>moins de 10 blocs</strong> de vous ;</li>
+            <li>👀 vous le <strong>regardez directement</strong> ;</li>
+            <li>🧱 <strong>aucun bloc</strong> ne se trouve dans la ligne de vue — sauf le <strong>verre</strong>, à travers lequel les pseudos restent visibles.</li>
+          </ul>
+          <p>👻 En <strong>mode spectateur</strong>, tous les pseudos restent visibles <strong>sans aucune limite</strong> (ni distance, ni regard, ni occlusion).</p>
           <p>La mise à jour est automatique : relancez simplement le launcher pour récupérer la dernière version avant de vous connecter.</p>
         ]]>
       </description>
       <pubDate>Wed, 24 Jun 2026 12:00:00 +0000</pubDate>
-      <guid>https://github.com/KalyTative/Luxia-Files/news/kapi-client-1.0.6</guid>
+      <guid>https://github.com/KalyTative/Luxia-Files/news/kapi-client-1.0.8</guid>
     </item>
 
     <item>
