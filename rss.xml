@@ -8,6 +8,19 @@
     <atom:link href="https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/rss.xml" rel="self" type="application/rss+xml"/>
 
     <item>
+      <title>🔧 Mise à jour Kapi Client — v1.0.6</title>
+      <description>
+        <![CDATA[
+          <p>Le mod maison <strong>Kapi Client</strong> passe en version <strong>1.0.6</strong> ! 🎉</p>
+          <p>Cette mise à jour apporte des correctifs et des améliorations de stabilité pour une meilleure expérience sur le serveur <strong>Orion</strong>.</p>
+          <p>La mise à jour est automatique : relancez simplement le launcher pour récupérer la dernière version avant de vous connecter.</p>
+        ]]>
+      </description>
+      <pubDate>Wed, 24 Jun 2026 12:00:00 +0000</pubDate>
+      <guid>https://github.com/KalyTative/Luxia-Files/news/kapi-client-1.0.6</guid>
+    </item>
+
+    <item>
       <title>Nouveaux Mods sur le serveur Orion !</title>
       <description>
         <![CDATA[
