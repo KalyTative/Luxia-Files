@@ -909,20 +909,6 @@
           "subModules": []
         },
         {
-          "id": "de.maxhenkel:gravestone:1.20.1-1.0.35@jar",
-          "name": "Gravestone Mod",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 317181,
-            "MD5": "c9a1a01c302368ed43270ceebb2c2251",
-            "url": "https://raw.githubusercontent.com/KalyTative/Luxia-Files/main/mods/gravestone-forge-1.20.1-1.0.35.jar"
-          },
-          "required": {
-            "value": false
-          },
-          "subModules": []
-        },
-        {
           "id": "tallestegg.guardvillagers:guardvillagers:1.20.1-1.6.17@jar",
           "name": "Guard Villagers",
           "type": "ForgeMod",
